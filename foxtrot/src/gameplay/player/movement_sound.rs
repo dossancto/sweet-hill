@@ -1,8 +1,8 @@
 use std::time::Duration;
 
 use super::{Player, assets::PlayerAssets};
+use crate::PostPhysicsAppSystems;
 use crate::audio::SpatialPool;
-use crate::{PostPhysicsAppSystems, screens::Screen};
 use avian3d::prelude::LinearVelocity;
 use bevy::prelude::*;
 use bevy_ahoy::prelude::*;
@@ -12,7 +12,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         (play_jump_grunt, play_step_sound, play_land_sound)
-            .run_if(in_state(Screen::Gameplay))
+            .run_if(in_state(states::screens::Screen::Gameplay))
             .in_set(PostPhysicsAppSystems::PlaySounds),
     );
 }

@@ -15,7 +15,6 @@ mod post_process;
 mod screens;
 mod shader_compilation;
 mod theme;
-mod third_party;
 mod ui_camera;
 
 use asset_processing::default_image_sampler_descriptor;
@@ -29,6 +28,7 @@ use bevy::pbr::DefaultOpaqueRendererMethod;
 use bevy::{camera::visibility::RenderLayers, ecs::error::error};
 use bevy_seedling::SeedlingPlugin;
 use bitflags::bitflags;
+use third_party;
 
 use bevy::{asset::AssetMetaCheck, prelude::*};
 

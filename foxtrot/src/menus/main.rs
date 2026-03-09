@@ -6,7 +6,6 @@ use bevy::{
 
 use crate::{
     menus::Menu,
-    screens::Screen,
     theme::{palette::SCREEN_BACKGROUND, widget},
 };
 
@@ -39,10 +38,10 @@ fn spawn_main_menu(mut commands: Commands, mut cursor_options: Single<&mut Curso
 
 fn enter_loading_screen(
     _on: On<Pointer<Click>>,
-    mut next_screen: ResMut<NextState<Screen>>,
+    mut next_screen: ResMut<NextState<states::screens::Screen>>,
     mut cursor_options: Single<&mut CursorOptions>,
 ) {
-    next_screen.set(Screen::Loading);
+    next_screen.set(states::screens::Screen::Loading);
     cursor_options.grab_mode = CursorGrabMode::Locked;
 }
 

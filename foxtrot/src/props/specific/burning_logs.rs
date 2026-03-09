@@ -26,7 +26,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         flicker_light
-            .run_if(in_state(Screen::Gameplay))
+            .run_if(in_state(states::screens::Screen::Gameplay))
             .in_set(PostPhysicsAppSystems::Update),
     );
     app.load_asset::<Gltf>(BurningLogs::model_path());

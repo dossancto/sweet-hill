@@ -32,7 +32,7 @@ use crate::{
         level::LevelAssets,
     },
     post_process::{self, PostProcessSettings},
-    screens::{Screen, loading::LoadingScreen},
+    screens::loading::LoadingScreen,
     third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel as _},
 };
 
@@ -91,7 +91,7 @@ fn spawn_view_model(
             CharacterControllerCameraOf::new(add.entity),
             Name::new("Player Camera Parent"),
             PlayerCamera,
-            DespawnOnExit(Screen::Gameplay),
+            DespawnOnExit(states::screens::Screen::Gameplay),
             DespawnOnExit(LoadingScreen::Shaders),
             AvianPickupActor {
                 prop_filter: SpatialQueryFilter::from_mask(CollisionLayer::Prop),

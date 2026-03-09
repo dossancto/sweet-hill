@@ -5,7 +5,6 @@ use std::any::Any as _;
 use crate::{
     gameplay::{crosshair::CrosshairState, player::input::BlocksInput},
     menus::Menu,
-    screens::Screen,
     theme::widget,
 };
 use bevy::{input::common_conditions::input_just_pressed, prelude::*};
@@ -63,12 +62,12 @@ fn close_menu(
 
 fn quit_to_title(
     _on: On<Pointer<Click>>,
-    mut next_screen: ResMut<NextState<Screen>>,
+    mut next_screen: ResMut<NextState<states::screens::Screen>>,
     mut crosshair: Single<&mut CrosshairState>,
     mut time: ResMut<Time<Virtual>>,
     mut blocks_input: ResMut<BlocksInput>,
 ) {
-    next_screen.set(Screen::Title);
+    next_screen.set(states::screens::Screen::Title);
     crosshair
         .wants_free_cursor
         .remove(&spawn_pause_menu.type_id());

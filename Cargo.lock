@@ -497,9 +497,9 @@ checksum = "1795ebc740ea791ffbe6685e0688ab1effec16c2864e0476db40bfdf0c02cb3d"
 
 [[package]]
 name = "bevy"
-version = "0.18.0"
+version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec689b5a79452b6f777b889bbff22d3216b82a8d2ab7814d4a0eb571e9938d97"
+checksum = "1fd310426290cec560221f9750c2f4484be4a8eeea7de3483c423329b465c40e"
 dependencies = [
  "bevy_dylib",
  "bevy_internal",
@@ -3806,6 +3806,8 @@ dependencies = [
  "landmass_rerecast",
  "rand",
  "regex",
+ "states",
+ "third_party",
  "tracing",
  "wasm-bindgen",
 ]
@@ -6767,6 +6769,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "states"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "static_assertions"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7006,6 +7015,40 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "06794f8f6c5c898b3275aebefa6b8a1cb24cd2c6c79397ab15774837a0bc5755"
 dependencies = [
  "winapi-util",
+]
+
+[[package]]
+name = "third_party"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "avian3d",
+ "avian_pickup",
+ "avian_rerecast",
+ "bevy",
+ "bevy-inspector-egui",
+ "bevy_ahoy",
+ "bevy_enhanced_input",
+ "bevy_fix_cursor_unlock_web",
+ "bevy_framepace",
+ "bevy_hanabi",
+ "bevy_landmass",
+ "bevy_rerecast",
+ "bevy_seedling",
+ "bevy_shuffle_bag",
+ "bevy_trenchbroom",
+ "bevy_trenchbroom_avian",
+ "bevy_yarnspinner",
+ "bevy_yarnspinner_example_dialogue_view",
+ "bincode",
+ "bitflags 2.10.0",
+ "getrandom",
+ "landmass_rerecast",
+ "rand",
+ "regex",
+ "states",
+ "tracing",
+ "wasm-bindgen",
 ]
 
 [[package]]

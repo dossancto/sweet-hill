@@ -5,7 +5,7 @@ use bevy::{ecs::world::DeferredWorld, prelude::*};
 use bevy_trenchbroom::prelude::*;
 use bevy_trenchbroom_avian::AvianPhysicsBackend;
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_plugins((
         TrenchBroomPlugins(
             TrenchBroomConfig::new("foxtrot")
@@ -32,7 +32,7 @@ fn to_string_vec(slice: &[&str]) -> Vec<String> {
     slice.iter().map(|s| s.to_string()).collect()
 }
 
-pub(crate) trait GetTrenchbroomModelPath: QuakeClass {
+pub trait GetTrenchbroomModelPath: QuakeClass {
     fn model_path() -> String {
         Self::CLASS_INFO.model_path().unwrap().to_string()
     }
@@ -49,7 +49,7 @@ pub(crate) trait GetTrenchbroomModelPath: QuakeClass {
 
 impl<T: QuakeClass> GetTrenchbroomModelPath for T {}
 
-pub(crate) trait LoadTrenchbroomModel {
+pub trait LoadTrenchbroomModel {
     fn load_trenchbroom_model<T: QuakeClass>(&self) -> Handle<Scene>;
 }
 

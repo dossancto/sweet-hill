@@ -7,7 +7,10 @@ use crate::{PostPhysicsAppSystems, screens::Screen, theme::prelude::*};
 pub(super) fn plugin(app: &mut App) {
     // Spawn splash screen.
     app.insert_resource(ClearColor(SPLASH_BACKGROUND_COLOR));
-    app.add_systems(OnEnter(Screen::Splash), spawn_splash_screen);
+    app.add_systems(
+        OnEnter(states::screens::Screen::Splash),
+        spawn_splash_screen,
+    );
     embedded_asset!(app, "files/splash.png");
 
     // Animate splash screen.
@@ -17,25 +20,29 @@ pub(super) fn plugin(app: &mut App) {
             tick_fade_in_out.in_set(PostPhysicsAppSystems::TickTimers),
             apply_fade_in_out.in_set(PostPhysicsAppSystems::Update),
         )
-            .run_if(in_state(Screen::Splash)),
+            .run_if(in_state(states::screens::Screen::Splash)),
     );
 
     // Add splash timer.
-    app.add_systems(OnEnter(Screen::Splash), insert_splash_timer);
+    app.add_systems(
+        OnEnter(states::screens::Screen::Splash),
+        insert_splash_timer,
+    );
     app.add_systems(
         Update,
         (
             tick_splash_timer.in_set(PostPhysicsAppSystems::TickTimers),
             check_splash_timer.in_set(PostPhysicsAppSystems::Update),
         )
-            .run_if(in_state(Screen::Splash)),
+            .run_if(in_state(states::screens::Screen::Splash)),
     );
 
     // Exit the splash screen early if the player hits escape.
     app.add_systems(
         Update,
-        enter_title_screen
-            .run_if(input_just_pressed(KeyCode::Escape).and(in_state(Screen::Splash))),
+        enter_title_screen.run_if(
+            input_just_pressed(KeyCode::Escape).and(in_state(states::screens::Screen::Splash)),
+        ),
     );
 }
 
@@ -47,7 +54,7 @@ fn spawn_splash_screen(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands
         .spawn((
             widget::ui_root("Splash Screen"),
-            DespawnOnExit(Screen::Splash),
+            DespawnOnExit(states::screens::Screen::Splash),
             children![(
                 Name::new("Splash image"),
                 Node {
@@ -112,7 +119,10 @@ impl Default for SplashTimer {
 }
 
 fn insert_splash_timer(mut commands: Commands) {
-    commands.spawn((SplashTimer::default(), DespawnOnExit(Screen::Splash)));
+    commands.spawn((
+        SplashTimer::default(),
+        DespawnOnExit(states::screens::Screen::Splash),
+    ));
 }
 
 fn tick_splash_timer(time: Res<Time>, mut timer: Single<&mut SplashTimer>) {
@@ -121,10 +131,10 @@ fn tick_splash_timer(time: Res<Time>, mut timer: Single<&mut SplashTimer>) {
 
 fn check_splash_timer(timer: Single<&SplashTimer>, mut next_screen: ResMut<NextState<Screen>>) {
     if timer.0.just_finished() {
-        next_screen.set(Screen::Title);
+        next_screen.set(states::screens::Screen::Title);
     }
 }
 
 fn enter_title_screen(mut next_screen: ResMut<NextState<Screen>>) {
-    next_screen.set(Screen::Title);
+    next_screen.set(states::screens::Screen::Title);
 }

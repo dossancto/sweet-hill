@@ -12,7 +12,6 @@ use crate::{
     audio::{DEFAULT_MAIN_VOLUME, perceptual::PerceptualVolumeConverter},
     gameplay::player::camera::{CameraSensitivity, WorldModelFov},
     menus::Menu,
-    screens::Screen,
     theme::{palette::SCREEN_BACKGROUND, prelude::*},
 };
 
@@ -362,18 +361,18 @@ fn update_fps_limiter_target_label(
 
 fn go_back_on_click(
     _on: On<Pointer<Click>>,
-    screen: Res<State<Screen>>,
+    screen: Res<State<states::screens::Screen>>,
     mut next_menu: ResMut<NextState<Menu>>,
 ) {
-    next_menu.set(if screen.get() == &Screen::Title {
+    next_menu.set(if screen.get() == &states::screens::Screen::Title {
         Menu::Main
     } else {
         Menu::Pause
     });
 }
 
-fn go_back(screen: Res<State<Screen>>, mut next_menu: ResMut<NextState<Menu>>) {
-    next_menu.set(if screen.get() == &Screen::Title {
+fn go_back(screen: Res<State<states::screens::Screen>>, mut next_menu: ResMut<NextState<Menu>>) {
+    next_menu.set(if screen.get() == &states::screens::Screen::Title {
         Menu::Main
     } else {
         Menu::Pause

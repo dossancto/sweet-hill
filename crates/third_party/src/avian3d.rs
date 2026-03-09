@@ -3,13 +3,13 @@
 use avian3d::prelude::*;
 use bevy::{ecs::entity_disabling::Disabled, prelude::*};
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_plugins(PhysicsPlugins::default())
         .add_observer(enable_interpolation);
 }
 
 #[derive(Debug, PhysicsLayer, Default)]
-pub(crate) enum CollisionLayer {
+pub enum CollisionLayer {
     #[default]
     Default,
     Prop,

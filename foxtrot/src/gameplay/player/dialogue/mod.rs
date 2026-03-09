@@ -7,11 +7,11 @@ use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
 
 use bevy_yarnspinner::{events::DialogueCompleted, prelude::*};
+ 
 
 use crate::{
     PostPhysicsAppSystems,
     gameplay::crosshair::CrosshairState,
-    screens::Screen,
     third_party::{
         avian3d::CollisionLayer,
         bevy_yarnspinner::{YarnNode, is_dialogue_running},
@@ -24,7 +24,7 @@ use super::{
     Player,
     camera::PlayerCamera,
     input::{BlocksInput, Interact},
-    pickup::state::is_holding_prop
+    pickup::state::is_holding_prop,
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -43,10 +43,9 @@ pub(super) fn plugin(app: &mut App) {
         check_for_dialogue_opportunity
             .in_set(DialogueSystems::UpdateOpportunity)
             .run_if(
-                in_state(Screen::Gameplay)
+                in_state(states::screens::Screen::Gameplay)
                     .and(not(is_dialogue_running))
-                    .and(not(is_holding_prop))
-                    ,
+                    .and(not(is_holding_prop)),
             ),
     );
     app.add_observer(restore_input_context);

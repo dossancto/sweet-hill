@@ -11,10 +11,7 @@ use bevy_landmass::{
     },
 };
 
-use crate::{
-    gameplay::{npc::NPC_SPEED, player::navmesh_position::LastValidPlayerNavmeshPosition},
-    screens::Screen,
-};
+use crate::gameplay::{npc::NPC_SPEED, player::navmesh_position::LastValidPlayerNavmeshPosition};
 
 use super::{NPC_FLOAT_HEIGHT, NPC_RADIUS, Npc};
 
@@ -28,7 +25,7 @@ pub(super) fn plugin(app: &mut App) {
             update_agent_target,
         )
             .chain()
-            .run_if(in_state(Screen::Gameplay)),
+            .run_if(in_state(states::screens::Screen::Gameplay)),
     );
     app.add_observer(setup_npc_agent);
     app.add_input_context::<NpcInputContext>();

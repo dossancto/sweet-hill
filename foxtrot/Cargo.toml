@@ -104,6 +104,8 @@ bevy_hanabi = { version = "0.18", default-features = false, features = [
     "3d",
     "gpu_tests",
 ] }
+states = { version = "0.1.0", path = "../crates/states" }
+third_party = { version = "0.1.0", path = "../crates/third_party" }
 
 [features]
 default = [

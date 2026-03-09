@@ -4,17 +4,15 @@ use crate::gameplay::player::Player;
 use avian_pickup::output::PropThrown;
 use bevy::prelude::*;
 use bevy_seedling::prelude::*;
+ 
 
-use crate::{
-    PostPhysicsAppSystems, audio::SpatialPool, gameplay::player::assets::PlayerAssets,
-    screens::Screen,
-};
+use crate::{PostPhysicsAppSystems, audio::SpatialPool, gameplay::player::assets::PlayerAssets};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         play_throw_sound
-            .run_if(in_state(Screen::Gameplay).and(on_message::<PropThrown>))
+            .run_if(in_state(states::screens::Screen::Gameplay).and(on_message::<PropThrown>))
             .in_set(PostPhysicsAppSystems::PlaySounds),
     );
 }

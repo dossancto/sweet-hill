@@ -3,22 +3,23 @@
 //! When a dialogue is able to be started, we signal this to other systems by inserting a `InteractionPrompt`.
 
 use super::{DialogueSystems, InteractionPrompt};
-use crate::{gameplay::crosshair::CrosshairState, screens::Screen};
+use crate::gameplay::crosshair::CrosshairState;
 use bevy::{
     prelude::*,
     window::{CursorGrabMode, CursorOptions},
 };
 
 use bevy_yarnspinner::events::{DialogueCompleted, DialogueStarted};
+ 
 use std::any::Any;
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_systems(OnEnter(Screen::Gameplay), setup_interaction_prompt);
+    app.add_systems(OnEnter(states::screens::Screen::Gameplay), setup_interaction_prompt);
     app.add_systems(
         Update,
         update_interaction_prompt_ui
             .in_set(DialogueSystems::UpdateUi)
-            .run_if(in_state(Screen::Gameplay)),
+            .run_if(in_state(states::screens::Screen::Gameplay)),
     );
     app.add_observer(hide_crosshair_on_dialogue_start)
         .add_observer(show_crosshair_on_dialogue_end);
@@ -35,7 +36,7 @@ pub(crate) fn setup_interaction_prompt(mut commands: Commands) {
                 align_items: AlignItems::Center,
                 ..default()
             },
-            DespawnOnExit(Screen::Gameplay),
+            DespawnOnExit(states::screens::Screen::Gameplay),
             Pickable::IGNORE,
         ))
         .with_children(|parent| {

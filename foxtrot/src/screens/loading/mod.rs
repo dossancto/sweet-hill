@@ -7,8 +7,6 @@ mod preload_assets;
 mod shader_compilation;
 mod spawn_level;
 
-use crate::screens::Screen;
-
 pub(super) fn plugin(app: &mut App) {
     app.add_sub_state::<LoadingScreen>();
     app.add_plugins((
@@ -20,7 +18,7 @@ pub(super) fn plugin(app: &mut App) {
 
 /// The game's main screen states.
 #[derive(SubStates, Debug, Hash, PartialEq, Eq, Clone, Default)]
-#[source(Screen = Screen::Loading)]
+#[source(states::screens::Screen = states::screens::Screen::Loading)]
 #[states(scoped_entities)]
 pub(crate) enum LoadingScreen {
     #[default]

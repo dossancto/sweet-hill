@@ -6,6 +6,7 @@ use std::any::Any as _;
 use avian_pickup::{actor::AvianPickupActor, prop::HeldProp};
 use avian3d::prelude::*;
 use bevy::{prelude::*, sprite::Text2dShadow};
+ 
 
 use crate::{
     PostPhysicsAppSystems,
@@ -16,7 +17,6 @@ use crate::{
             pickup::state::{CanBePickedUp, PickupPrompt, PlayerPickupState},
         },
     },
-    screens::Screen,
     third_party::avian3d::CollisionLayer,
 };
 
@@ -24,7 +24,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         check_for_pickup_opportunity
-            .run_if(in_state(Screen::Gameplay))
+            .run_if(in_state(states::screens::Screen::Gameplay))
             .in_set(PostPhysicsAppSystems::ChangeUi),
     );
     app.add_observer(hide_crosshair_when_picking_up);

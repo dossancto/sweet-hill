@@ -3,7 +3,7 @@
 use bevy::{input::common_conditions::input_just_pressed, prelude::*, ui::Val::*};
 use bevy_fix_cursor_unlock_web::ForceUnlockCursor;
 
-use crate::{Pause, menus::Menu, screens::Screen};
+use crate::{Pause, menus::Menu};
 
 pub(super) fn plugin(app: &mut App) {
     // Toggle pause on key press.
@@ -11,21 +11,24 @@ pub(super) fn plugin(app: &mut App) {
         Update,
         (
             (pause, spawn_pause_overlay, open_pause_menu).run_if(
-                in_state(Screen::Gameplay)
+                in_state(states::screens::Screen::Gameplay)
                     .and(in_state(Menu::None))
                     .and(input_just_pressed(KeyCode::KeyP).or(input_just_pressed(KeyCode::Escape))),
             ),
             close_menu.run_if(
-                in_state(Screen::Gameplay)
+                in_state(states::screens::Screen::Gameplay)
                     .and(not(in_state(Menu::None)))
                     .and(input_just_pressed(KeyCode::KeyP)),
             ),
         ),
     );
-    app.add_systems(OnExit(Screen::Gameplay), (close_menu, unpause));
+    app.add_systems(
+        OnExit(states::screens::Screen::Gameplay),
+        (close_menu, unpause),
+    );
     app.add_systems(
         OnEnter(Menu::None),
-        unpause.run_if(in_state(Screen::Gameplay)),
+        unpause.run_if(in_state(states::screens::Screen::Gameplay)),
     );
     app.add_observer(open_pause_menu_on_cursor_force_unlock);
 }

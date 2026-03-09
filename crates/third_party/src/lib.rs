@@ -6,18 +6,18 @@
 
 use bevy::prelude::*;
 
-pub(crate) mod avian3d;
+pub mod avian3d;
 mod bevy_ahoy;
 mod bevy_enhanced_input;
 mod bevy_framepace;
 mod bevy_hanabi;
-pub(crate) mod bevy_landmass;
-pub(crate) mod bevy_trenchbroom;
-pub(crate) mod bevy_yarnspinner;
+pub mod bevy_landmass;
+pub mod bevy_trenchbroom;
+pub mod bevy_yarnspinner;
 mod fixes;
 mod rerecast;
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_plugins((
         fixes::plugin,
         bevy_trenchbroom::plugin,

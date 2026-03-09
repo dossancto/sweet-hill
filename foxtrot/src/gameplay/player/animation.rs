@@ -3,12 +3,12 @@
 use std::time::Duration;
 
 use bevy::prelude::*;
+ 
 
 use crate::{
     PostPhysicsAppSystems,
     animation::{AnimationState, AnimationStateTransition},
     gameplay::{animation::AnimationPlayers, crosshair::CrosshairState},
-    screens::Screen,
 };
 
 use super::assets::PlayerAssets;
@@ -17,7 +17,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         play_animations
-            .run_if(in_state(Screen::Gameplay))
+            .run_if(in_state(states::screens::Screen::Gameplay))
             .in_set(PostPhysicsAppSystems::PlayAnimations),
     );
 }

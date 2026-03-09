@@ -5,10 +5,9 @@ use bevy::prelude::*;
 use bevy_trenchbroom::prelude::*;
 use bevy_yarnspinner::{events::DialogueCompleted, prelude::*};
 use bevy_yarnspinner_example_dialogue_view::prelude::*;
+use states::screens::Screen;
 
-use crate::screens::Screen;
-
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_plugins((
         // In Wasm, we need to load the dialogue file manually. If we're not targeting Wasm, we can just use `YarnSpinnerPlugin::default()` instead.
         YarnSpinnerPlugin::with_yarn_sources(vec![YarnFileSource::file("dialogue/npc.yarn")]),
@@ -25,7 +24,7 @@ fn setup_dialogue_runner(mut commands: Commands, yarn_project: Res<YarnProject>)
     let dialogue_runner = yarn_project.create_dialogue_runner(&mut commands);
     commands.spawn((
         DespawnOnExit(Screen::Gameplay),
-        Name::new("Dialogue Runner"),
+        Name::new("Dialogue Runner Entity"),
         dialogue_runner,
     ));
 }
@@ -41,20 +40,20 @@ fn abort_all_dialogues_when_leaving_gameplay(
     }
 }
 
-pub(crate) fn is_dialogue_running(dialogue_runner: Option<Single<&DialogueRunner>>) -> bool {
+pub fn is_dialogue_running(dialogue_runner: Option<Single<&DialogueRunner>>) -> bool {
     dialogue_runner.is_some_and(|dialogue_runner| dialogue_runner.is_running())
 }
 
 #[base_class]
 #[derive(Eq, PartialEq, Clone)]
-pub(crate) struct YarnNode {
+pub struct YarnNode {
     #[class(must_set)]
-    pub(crate) yarn_node: String,
-    pub(crate) prompt: String,
+    pub yarn_node: String,
+    pub prompt: String,
 }
 
 impl YarnNode {
-    pub(crate) fn new(yarn_node: impl Into<String>) -> Self {
+    pub fn new(yarn_node: impl Into<String>) -> Self {
         Self {
             yarn_node: yarn_node.into(),
             ..default()

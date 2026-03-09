@@ -5,7 +5,6 @@ use bevy_landmass::{NavMesh, coords::ThreeD};
 
 use crate::{
     gameplay::level::spawn_level,
-    screens::Screen,
     theme::{palette::SCREEN_BACKGROUND, prelude::*},
 };
 
@@ -32,7 +31,7 @@ fn spawn_level_loading_screen(mut commands: Commands) {
 }
 
 fn advance_to_gameplay_screen(
-    mut next_screen: ResMut<NextState<Screen>>,
+    mut next_screen: ResMut<NextState<states::screens::Screen>>,
     scene_spawner: Res<SceneSpawner>,
     scene_instances: Query<&SceneInstance>,
     just_added_scenes: Query<(), (With<SceneRoot>, Without<SceneInstance>)>,
@@ -49,5 +48,5 @@ fn advance_to_gameplay_screen(
             return;
         }
     }
-    next_screen.set(Screen::Gameplay);
+    next_screen.set(states::screens::Screen::Gameplay);
 }

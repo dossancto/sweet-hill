@@ -1,8 +1,6 @@
 //! Spawn the main level.
 
-use crate::{
-    asset_tracking::LoadResource, audio::MusicPool, gameplay::npc::NPC_RADIUS, screens::Screen,
-};
+use crate::{asset_tracking::LoadResource, audio::MusicPool, gameplay::npc::NPC_RADIUS};
 use bevy::prelude::*;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::prelude::*;
@@ -20,7 +18,7 @@ pub(crate) fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>
     commands.spawn((
         Name::new("Level"),
         SceneRoot(level_assets.level.clone()),
-        DespawnOnExit(Screen::Gameplay),
+        DespawnOnExit(states::screens::Screen::Gameplay),
         Level,
         children![(
             Name::new("Level Music"),
@@ -32,14 +30,14 @@ pub(crate) fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>
     let archipelago = commands
         .spawn((
             Name::new("Main Level Archipelago"),
-            DespawnOnExit(Screen::Gameplay),
+            DespawnOnExit(states::screens::Screen::Gameplay),
             Archipelago3d::new(ArchipelagoOptions::from_agent_radius(NPC_RADIUS)),
         ))
         .id();
 
     commands.spawn((
         Name::new("Main Level Island"),
-        DespawnOnExit(Screen::Gameplay),
+        DespawnOnExit(states::screens::Screen::Gameplay),
         Island3dBundle {
             island: Island,
             archipelago_ref: ArchipelagoRef3d::new(archipelago),
