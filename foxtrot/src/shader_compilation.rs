@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use bevy::render::render_resource::{CachedPipelineState, PipelineCache};
 use bevy::render::{MainWorld, RenderApp};
 
-use crate::asset_tracking::LoadResource as _;
+use utils::asset_tracking::LoadResource as _;
 use crate::screens::loading::LoadingScreen;
 
 pub(super) fn plugin(app: &mut App) {

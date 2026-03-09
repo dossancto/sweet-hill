@@ -12,10 +12,10 @@ use bevy_landmass::{Character, prelude::*};
 use bevy_trenchbroom::prelude::*;
 use input::PlayerInputContext;
 use navmesh_position::LastValidPlayerNavmeshPosition;
+use utils::asset_tracking::LoadResource;
 
 use crate::{
     animation::AnimationState,
-    asset_tracking::LoadResource,
     gameplay::player::pickup::state::PlayerPickupState,
     third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath as _},
 };

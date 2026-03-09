@@ -14,7 +14,7 @@ use bevy_seedling::sample::AudioSample;
 use bevy_trenchbroom::prelude::*;
 
 use crate::RenderLayer;
-use crate::asset_tracking::LoadResource as _;
+use utils::asset_tracking::LoadResource as _;
 use crate::props::setup::quake_bundle;
 use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
 use crate::{PostPhysicsAppSystems, audio::SpatialPool, screens::Screen};

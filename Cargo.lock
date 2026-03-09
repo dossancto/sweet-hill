@@ -3809,6 +3809,7 @@ dependencies = [
  "states",
  "third_party",
  "tracing",
+ "utils",
  "wasm-bindgen",
 ]
 
@@ -7512,6 +7513,13 @@ name = "unty"
 version = "0.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6d49784317cd0d1ee7ec5c716dd598ec5b4483ea832a2dced265471cc0f690ae"
+
+[[package]]
+name = "utils"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+]
 
 [[package]]
 name = "uuid"

@@ -3,10 +3,9 @@
 use bevy::{asset::RenderAssetUsages, gltf::GltfLoaderSettings, prelude::*};
 use bevy_seedling::sample::AudioSample;
 use bevy_shuffle_bag::ShuffleBag;
+use utils::asset_tracking::LoadResource;
 
-use crate::{
-    asset_tracking::LoadResource, third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _,
-};
+use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
 
 use super::Npc;
 

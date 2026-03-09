@@ -3,7 +3,6 @@
 
 mod animation;
 mod asset_processing;
-mod asset_tracking;
 mod audio;
 #[cfg(feature = "dev")]
 mod dev_tools;
@@ -150,7 +149,7 @@ fn main() -> AppExit {
     // Add other plugins.
     app.add_plugins((
         asset_processing::plugin,
-        asset_tracking::plugin,
+        utils::asset_tracking::plugin,
         #[cfg(feature = "dev")]
         dev_tools::plugin,
         screens::plugin,

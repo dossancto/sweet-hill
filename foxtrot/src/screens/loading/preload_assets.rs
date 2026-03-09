@@ -2,11 +2,9 @@
 //! This reduces stuttering, especially for audio on Wasm.
 
 use bevy::prelude::*;
+use utils::asset_tracking::ResourceHandles;
 
-use crate::{
-    asset_tracking::ResourceHandles,
-    theme::{palette::SCREEN_BACKGROUND, prelude::*},
-};
+use crate::theme::{palette::SCREEN_BACKGROUND, prelude::*};
 
 use super::LoadingScreen;
 

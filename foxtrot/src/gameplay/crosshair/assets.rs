@@ -2,7 +2,7 @@
 
 use bevy::prelude::*;
 
-use crate::asset_tracking::LoadResource;
+use utils::asset_tracking::LoadResource;
 
 pub(crate) const CROSSHAIR_DOT_PATH: &str = "ui/crosshair_dot.png";
 

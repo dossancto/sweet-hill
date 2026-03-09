@@ -3,7 +3,6 @@
 use crate::audio::MusicPool;
 use crate::{
     Pause,
-    asset_tracking::LoadResource,
     menus::Menu,
     theme::{palette::SCREEN_BACKGROUND, prelude::*},
 };
@@ -12,6 +11,7 @@ use bevy::{
 };
 use bevy_seedling::sample::AudioSample;
 use bevy_seedling::sample::SamplePlayer;
+use utils::asset_tracking::LoadResource;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(OnEnter(Menu::Credits), spawn_credits_menu);

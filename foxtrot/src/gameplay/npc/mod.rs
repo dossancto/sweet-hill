@@ -6,10 +6,10 @@ use bevy::prelude::*;
 
 use bevy_ahoy::CharacterController;
 use bevy_trenchbroom::prelude::*;
+use utils::asset_tracking::LoadResource;
 
 use crate::{
     animation::AnimationState,
-    asset_tracking::LoadResource,
     third_party::{
         avian3d::CollisionLayer,
         bevy_trenchbroom::{GetTrenchbroomModelPath, LoadTrenchbroomModel as _},

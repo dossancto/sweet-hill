@@ -1,7 +1,8 @@
 use bevy::{picking::hover::Hovered, prelude::*, ui::Pressed};
 use bevy_seedling::sample::{AudioSample, SamplePlayer};
+use utils::asset_tracking::LoadResource;
 
-use crate::{PostPhysicsAppSystems, asset_tracking::LoadResource, audio::SfxPool};
+use crate::{PostPhysicsAppSystems, audio::SfxPool};
 
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<InteractionAssets>();

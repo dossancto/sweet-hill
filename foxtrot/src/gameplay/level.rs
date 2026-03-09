@@ -1,6 +1,6 @@
 //! Spawn the main level.
 
-use crate::{asset_tracking::LoadResource, audio::MusicPool, gameplay::npc::NPC_RADIUS};
+use crate::{audio::MusicPool, gameplay::npc::NPC_RADIUS};
 use bevy::prelude::*;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::prelude::*;
@@ -8,6 +8,7 @@ use bevy_seedling::prelude::*;
 use bevy_seedling::sample::AudioSample;
 
 use landmass_rerecast::{Island3dBundle, NavMeshHandle3d};
+use utils::asset_tracking::LoadResource;
 
 pub(super) fn plugin(app: &mut App) {
     app.load_resource::<LevelAssets>();

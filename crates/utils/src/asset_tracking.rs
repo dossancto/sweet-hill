@@ -4,12 +4,12 @@ use std::collections::VecDeque;
 
 use bevy::prelude::*;
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.init_resource::<ResourceHandles>();
     app.add_systems(PreUpdate, load_resource_assets);
 }
 
-pub(crate) trait LoadResource {
+pub trait LoadResource {
     /// This will load the [`Resource`] as an [`Asset`]. When all of its asset dependencies
     /// have been loaded, it will be inserted as a resource. This ensures that the resource only
     /// exists when the assets are ready.
@@ -50,7 +50,7 @@ impl LoadResource for App {
 type InsertLoadedResource = fn(&mut World, &UntypedHandle);
 
 #[derive(Resource, Default)]
-pub(crate) struct ResourceHandles {
+pub struct ResourceHandles {
     // Use a queue for waiting assets so they can be cycled through and moved to
     // `finished` one at a time.
     waiting: VecDeque<(UntypedHandle, InsertLoadedResource)>,
@@ -59,15 +59,15 @@ pub(crate) struct ResourceHandles {
 
 impl ResourceHandles {
     /// Returns true if all requested [`Asset`]s have finished loading and are available as [`Resource`]s.
-    pub(crate) fn is_all_done(&self) -> bool {
+    pub fn is_all_done(&self) -> bool {
         self.waiting.is_empty()
     }
 
-    pub(crate) fn total_count(&self) -> usize {
+    pub fn total_count(&self) -> usize {
         self.waiting.len() + self.finished.len()
     }
 
-    pub(crate) fn finished_count(&self) -> usize {
+    pub fn finished_count(&self) -> usize {
         self.finished.len()
     }
 }
