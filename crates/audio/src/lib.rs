@@ -1,26 +1,26 @@
 use bevy::prelude::*;
 use bevy_seedling::prelude::*;
 
-pub(crate) mod perceptual;
+pub mod perceptual;
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_systems(Startup, initialize_audio);
 }
 
 #[derive(PoolLabel, Reflect, PartialEq, Eq, Debug, Hash, Clone)]
 #[reflect(Component)]
-pub(crate) struct SpatialPool;
+pub struct SpatialPool;
 
 #[derive(PoolLabel, Reflect, PartialEq, Eq, Debug, Hash, Clone)]
 #[reflect(Component)]
-pub(crate) struct SfxPool;
+pub struct SfxPool;
 
 #[derive(PoolLabel, Reflect, PartialEq, Eq, Debug, Hash, Clone)]
 #[reflect(Component)]
-pub(crate) struct MusicPool;
+pub struct MusicPool;
 
 /// Set somewhere below 0 dB so that the user can turn the volume up if they want to.
-pub(crate) const DEFAULT_MAIN_VOLUME: Volume = Volume::Linear(0.5);
+pub const DEFAULT_MAIN_VOLUME: Volume = Volume::Linear(0.5);
 
 fn initialize_audio(mut master: Single<&mut VolumeNode, With<MainBus>>, mut commands: Commands) {
     master.volume = DEFAULT_MAIN_VOLUME;

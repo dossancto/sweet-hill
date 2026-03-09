@@ -107,6 +107,7 @@ bevy_hanabi = { version = "0.18", default-features = false, features = [
 states = { version = "0.1.0", path = "../crates/states" }
 third_party = { version = "0.1.0", path = "../crates/third_party" }
 utils = { version = "0.1.0", path = "../crates/utils" }
+audio = { version = "0.1.0", path = "../crates/audio" }
 
 [features]
 default = [

@@ -402,6 +402,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "audio"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_seedling",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3782,6 +3790,7 @@ name = "foxtrot"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "audio",
  "avian3d",
  "avian_pickup",
  "avian_rerecast",

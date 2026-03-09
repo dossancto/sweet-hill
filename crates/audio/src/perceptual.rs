@@ -3,7 +3,7 @@ use bevy_seedling::prelude::*;
 
 /// Constructor for taking a user-presented control value and converting it to a volume.
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct PerceptualVolumeConverter {
+pub struct PerceptualVolumeConverter {
     /// When the perceptual control value is below this value, the mapping will be linear between:
     /// - 0 perceptual = 0 volume
     /// - [`Self::pivot_pos`] perceptual = [`Self::pivot_volume`] volume
@@ -11,9 +11,9 @@ pub(crate) struct PerceptualVolumeConverter {
     /// When above this value, the mapping will be exponential between:
     /// - [`Self::pivot_pos`] perceptual = [`Self::pivot_volume`] volume
     /// - 1.0 perceptual = 0 dB
-    pub(crate) pivot_pos: f32,
+    pub pivot_pos: f32,
     /// The volume to use at [`Self::pivot_pos`]
-    pub(crate) pivot_volume: Volume,
+    pub pivot_volume: Volume,
 }
 impl Default for PerceptualVolumeConverter {
     fn default() -> Self {
@@ -26,7 +26,7 @@ impl Default for PerceptualVolumeConverter {
 
 impl PerceptualVolumeConverter {
     /// Converts a user-presented control value in \[0.0, 1.0\] to a [`Volume`].
-    pub(crate) fn to_volume(self, perceptual: f32) -> Volume {
+    pub fn to_volume(self, perceptual: f32) -> Volume {
         if perceptual < self.pivot_pos {
             let min = 0.0_f32;
             let max = self.pivot_volume.linear();
@@ -41,7 +41,7 @@ impl PerceptualVolumeConverter {
     }
 
     /// Converts a [`Volume`] into a user-presented control value in [0.0, 1.0].
-    pub(crate) fn to_perceptual(self, volume: Volume) -> f32 {
+    pub fn to_perceptual(self, volume: Volume) -> f32 {
         if volume.linear() <= self.pivot_volume.linear() {
             let vol = volume.linear();
             let pivot = self.pivot_volume.linear();

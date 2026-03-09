@@ -4,9 +4,8 @@ use crate::gameplay::player::Player;
 use avian_pickup::output::PropThrown;
 use bevy::prelude::*;
 use bevy_seedling::prelude::*;
- 
 
-use crate::{PostPhysicsAppSystems, audio::SpatialPool, gameplay::player::assets::PlayerAssets};
+use crate::{PostPhysicsAppSystems, gameplay::player::assets::PlayerAssets};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(

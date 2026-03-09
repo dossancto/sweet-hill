@@ -1,12 +1,11 @@
 //! NPC sound handling. The only sound is a step sound that plays when the NPC is walking.
 
 use super::{Npc, assets::NpcAssets};
-use crate::{PostPhysicsAppSystems, audio::SpatialPool};
+use crate::PostPhysicsAppSystems;
 use avian3d::prelude::LinearVelocity;
 use bevy::prelude::*;
 use bevy_ahoy::CharacterControllerState;
 use bevy_seedling::prelude::*;
- 
 
 use std::time::Duration;
 

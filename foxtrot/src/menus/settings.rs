@@ -7,9 +7,10 @@ use bevy::{input::common_conditions::input_just_pressed, prelude::*, ui::Val::*}
 use bevy_framepace::{FramepaceSettings, Limiter};
 use bevy_seedling::prelude::*;
 
+use audio::{DEFAULT_MAIN_VOLUME, perceptual::PerceptualVolumeConverter};
+
 use crate::{
     Pause,
-    audio::{DEFAULT_MAIN_VOLUME, perceptual::PerceptualVolumeConverter},
     gameplay::player::camera::{CameraSensitivity, WorldModelFov},
     menus::Menu,
     theme::{palette::SCREEN_BACKGROUND, prelude::*},

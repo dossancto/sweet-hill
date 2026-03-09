@@ -1,6 +1,6 @@
 //! Spawn the main level.
 
-use crate::{audio::MusicPool, gameplay::npc::NPC_RADIUS};
+use crate::gameplay::npc::NPC_RADIUS;
 use bevy::prelude::*;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::prelude::*;

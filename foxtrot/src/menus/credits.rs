@@ -1,11 +1,11 @@
 //! A credits menu.
 
-use crate::audio::MusicPool;
 use crate::{
     Pause,
     menus::Menu,
     theme::{palette::SCREEN_BACKGROUND, prelude::*},
 };
+use audio::MusicPool;
 use bevy::{
     ecs::spawn::SpawnIter, input::common_conditions::input_just_pressed, prelude::*, ui::Val::*,
 };

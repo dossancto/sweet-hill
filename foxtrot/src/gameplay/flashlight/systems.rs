@@ -1,11 +1,9 @@
+use audio::SpatialPool;
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
 use bevy_seedling::sample::SamplePlayer;
 
-use crate::{
-    audio::SpatialPool,
-    gameplay::player::{assets::PlayerAssets, camera::PlayerCamera},
-};
+use crate::gameplay::player::{assets::PlayerAssets, camera::PlayerCamera};
 
 use super::states::{FlashlightLight, PlayerFlashlightState, ToggleFlashlight};
 

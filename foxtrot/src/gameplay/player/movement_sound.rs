@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use super::{Player, assets::PlayerAssets};
 use crate::PostPhysicsAppSystems;
-use crate::audio::SpatialPool;
+use audio::SpatialPool;
 use avian3d::prelude::LinearVelocity;
 use bevy::prelude::*;
 use bevy_ahoy::prelude::*;
