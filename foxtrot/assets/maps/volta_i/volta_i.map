@@ -1,0 +1,105 @@
+// Game: foxtrot
+// Format: Valve
+// entity 0
+{
+"mapversion" "220"
+"wad" ""
+"classname" "worldspawn"
+// brush 0
+{
+( -208 176 0 ) ( -208 16 0 ) ( -208 16 -16 ) darkmod/nature/dirt/dirt_002_dark [ 0 -1 0 0 ] [ 0 0 -1 0 ] 180 0.1 0.1
+( 0 -800 0 ) ( 320 -800 0 ) ( 320 -800 -16 ) darkmod/nature/dirt/dirt_002_dark [ 1 0 0 0 ] [ 0 0 -1 0 ] 90 0.1 0.1
+( 320 16 -16 ) ( 320 176 -16 ) ( 0 176 -16 ) darkmod/nature/dirt/dirt_002_dark [ -1 0 0 0 ] [ 0 -1 0 0 ] 270 0.1 0.1
+( 0 176 0 ) ( 320 176 0 ) ( 320 16 0 ) darkmod/nature/dirt/dirt_002_dark [ 1 0 0 0 ] [ 0 -1 0 0 ] 270 0.1 0.1
+( 320 336 -16 ) ( 320 336 0 ) ( 0 336 0 ) darkmod/nature/dirt/dirt_002_dark [ -1 0 0 0 ] [ 0 0 -1 0 ] 180 0.1 0.1
+( 736 16 0 ) ( 736 176 0 ) ( 736 176 -16 ) darkmod/nature/dirt/dirt_002_dark [ 0 1 0 0 ] [ 0 0 -1 0 ] 180 0.1 0.1
+}
+// brush 1
+{
+( 720 -464 96 ) ( 720 -463 96 ) ( 720 -464 97 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 0 -1 0 0 ] [ 0 0 -1 -16 ] 270 0.1 0.1
+( 656 -800 96 ) ( 656 -800 97 ) ( 657 -800 96 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -256 ] [ 0 0 -1 -16 ] 180 0.1 0.1
+( 656 -464 0 ) ( 657 -464 0 ) ( 656 -463 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 0 0 256 ] [ 0 -1 0 0 ] 270 0.1 0.1
+( 736 -176 256 ) ( 736 -175 256 ) ( 737 -176 256 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -256 ] [ 0 -1 0 0 ] 270 0.1 0.1
+( 736 336 112 ) ( 737 336 112 ) ( 736 336 113 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 0 0 256 ] [ 0 0 -1 -16 ] 90 0.1 0.1
+( 736 -176 112 ) ( 736 -176 113 ) ( 736 -175 112 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 0 1 0 0 ] [ 0 0 -1 -16 ] 0 0.1 0.1
+}
+// brush 2
+{
+( 720 320 48 ) ( 720 321 48 ) ( 720 320 49 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 720 320 48 ) ( 720 320 49 ) ( 721 320 48 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 720 320 48 ) ( 721 320 48 ) ( 720 321 48 ) darkmod/metal/detailed/panel_rivets_dirty02 [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 736 336 64 ) ( 736 337 64 ) ( 737 336 64 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 736 336 64 ) ( 737 336 64 ) ( 736 336 65 ) darkmod/metal/detailed/panel_rivets_dirty02 [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 736 336 64 ) ( 736 336 65 ) ( 736 337 64 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+}
+// brush 3
+{
+( -208 336 112 ) ( -208 337 112 ) ( -208 336 113 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -5.053215498074303e-16 -1 0 -144 ] [ 0 0 -1 -16 ] 90 0.1 0.1
+( 832 320 96 ) ( 831 320 96 ) ( 832 320 97 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 -5.053215498074303e-16 0 144 ] [ 0 0 -1 -16 ] 180 0.1 0.1
+( 832 256 0 ) ( 832 257 0 ) ( 831 256 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -5.053215498074303e-16 -1 0 -144 ] [ 1 -5.053215498074303e-16 0 144 ] 270 0.1 0.1
+( 544 336 256 ) ( 543 336 256 ) ( 544 337 256 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 5.053215498074303e-16 1 0 144 ] [ 1 -5.053215498074303e-16 0 144 ] 90 0.1 0.1
+( 544 336 112 ) ( 544 336 113 ) ( 543 336 112 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 5.053215498074303e-16 0 -144 ] [ 0 0 -1 -16 ] 270 0.1 0.1
+( 720 256 96 ) ( 720 256 97 ) ( 720 257 96 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 5.053215498074303e-16 1 0 144 ] [ 0 0 -1 -16 ] 180 0.1 0.1
+}
+// brush 4
+{
+( 416 16 0 ) ( 416 17 0 ) ( 416 16 1 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 416 16 0 ) ( 416 16 1 ) ( 417 16 0 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 416 16 0 ) ( 417 16 0 ) ( 416 17 0 ) darkmod/metal/detailed/panel_rivets_dirty02 [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 432 32 16 ) ( 432 33 16 ) ( 433 32 16 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 432 32 16 ) ( 433 32 16 ) ( 432 32 17 ) darkmod/metal/detailed/panel_rivets_dirty02 [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 432 32 16 ) ( 432 32 17 ) ( 432 33 16 ) darkmod/metal/detailed/panel_rivets_dirty02 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+}
+// brush 5
+{
+( -208 -720 96 ) ( -208 -719 96 ) ( -208 -720 97 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -6.890185696795333e-16 -1 0 240 ] [ 0 0 -1 -16 ] 180 0.1 0.1
+( -272 -800 96 ) ( -272 -800 97 ) ( -271 -800 96 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 -6.890185696795333e-16 0 -208 ] [ 0 0 -1 -16 ] 90 0.1 0.1
+( -272 -720 0 ) ( -271 -720 0 ) ( -272 -719 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 6.890185696795333e-16 0 208 ] [ -6.890185696795333e-16 -1 0 240 ] 180 0.1 0.1
+( -192 -432 112 ) ( -192 -431 112 ) ( -191 -432 112 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 -6.890185696795333e-16 0 -208 ] [ -6.890185696795333e-16 -1 0 240 ] 270 0.1 0.1
+( -192 320 112 ) ( -191 320 112 ) ( -192 320 113 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 6.890185696795333e-16 0 208 ] [ 0 0 -1 -16 ] 90 0.1 0.1
+( -192 -432 112 ) ( -192 -432 113 ) ( -192 -431 112 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 6.890185696795333e-16 1 0 -240 ] [ 0 0 -1 -16 ] 270 0.1 0.1
+}
+// brush 6
+{
+( -191 -801 0 ) ( -191 -800 0 ) ( -191 -801 1 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 0 -1 0 -140 ] [ 0 0 -1 0 ] 180 0.1 0.1
+( -191 -801 0 ) ( -191 -801 1 ) ( -190 -801 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -10 ] [ 0 0 -1 0 ] 180 0.1 0.1
+( -191 -801 0 ) ( -190 -801 0 ) ( -191 -800 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 0 0 10 ] [ 0 -1 0 -140 ] 180 0.1 0.1
+( -88 -654 100 ) ( -88 -653 100 ) ( -87 -654 100 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -10 ] [ 0 -1 0 -140 ] 90 0.1 0.1
+( -88 -654 1 ) ( -87 -654 1 ) ( -88 -654 2 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 0 0 10 ] [ 0 0 -1 0 ] 180 0.1 0.1
+( -88 -654 1 ) ( -88 -654 2 ) ( -88 -653 1 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 0 1 0 140 ] [ 0 0 -1 0 ] 180 0.1 0.1
+}
+}
+// entity 1
+{
+"classname" "npc"
+"origin" "248 88 8"
+}
+// entity 2
+{
+"classname" "generator2"
+"origin" "88 136 -4"
+"angles" "0 -90 -10"
+}
+// entity 3
+{
+"classname" "barrel_large_closed"
+"origin" "306 64 8"
+}
+// entity 4
+{
+"classname" "player"
+"origin" "136 88 56"
+"angles" "0 0 0"
+"visibility" "Inherited"
+}
+// entity 5
+{
+"classname" "chair"
+"origin" "568 40 8"
+"angles" "0 -165 0"
+}
+// entity 6
+{
+"classname" "burning_logs"
+"origin" "312 248 8"
+}
