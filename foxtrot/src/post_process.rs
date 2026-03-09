@@ -26,20 +26,6 @@ use bevy::{
 /// This example uses a shader source file from the assets subdirectory
 const SHADER_ASSET_PATH: &str = "shaders/post_processing.wgsl";
 
-pub(super) fn plugin(app: &mut App) {
-    app.add_plugins((PostProcessPlugin))
-        .add_systems(Startup, setup)
-        .add_systems(Update, (rotate, update_settings));
-}
-
-// fn main() {
-//     App::new()
-//         .add_plugins((DefaultPlugins, PostProcessPlugin))
-//         .add_systems(Startup, setup)
-//         .add_systems(Update, (rotate, update_settings))
-//         .run();
-// }
-//
 /// It is generally encouraged to set up post processing effects as a plugin
 pub struct PostProcessPlugin;
 
