@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = { version = "0.18", default-features = false, features = [
+bevy = { workspace = true, features = [
     "gltf_animation",
     "bevy_asset",
     "bevy_anti_alias",
@@ -43,4 +43,4 @@ bevy = { version = "0.18", default-features = false, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
-bevy_seedling = "0.7.0"
+bevy_seedling = {workspace = true}

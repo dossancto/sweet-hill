@@ -269,8 +269,8 @@ fn init_post_process_pipeline(
 
 // This is the component that will get passed to the shader
 #[derive(Component, Default, Clone, Copy, ExtractComponent, ShaderType)]
-pub(crate) struct PostProcessSettings {
-    pub(crate) intensity: f32,
+pub struct PostProcessSettings {
+    pub intensity: f32,
     // WebGL2 structs must be 16 byte aligned.
     #[cfg(feature = "webgl2")]
     pub _webgl2_padding: Vec3,

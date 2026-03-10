@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = { version = "0.18", default-features = false, features = [
+bevy = { workspace = true, features = [
     "gltf_animation",
     "bevy_asset",
     "bevy_anti_alias",
@@ -43,3 +43,37 @@ bevy = { version = "0.18", default-features = false, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
+states = { version = "0.1.0", path = "../states" }
+
+[features]
+default = [
+    "dev_native",
+]
+native = []
+dev = [
+]
+dev_native = [
+]
+web = []
+release = []
+
+[package.metadata.bevy_cli]
+default-features = false
+
+[package.metadata.bevy_cli.native]
+features = ["native"]
+
+[package.metadata.bevy_cli.native.dev]
+features = ["dev_native"]
+
+[package.metadata.bevy_cli.native.release]
+features = ["release"]
+
+[package.metadata.bevy_cli.web]
+features = ["web"]
+
+[package.metadata.bevy_cli.web.dev]
+features = ["dev"]
+
+[package.metadata.bevy_cli.web.release]
+features = ["release"]

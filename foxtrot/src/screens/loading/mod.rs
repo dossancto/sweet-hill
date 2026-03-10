@@ -2,6 +2,7 @@
 //! This reduces stuttering, especially for audio on Wasm.
 
 use bevy::prelude::*;
+use states::screens::LoadingScreen;
 
 mod preload_assets;
 mod shader_compilation;
@@ -14,15 +15,4 @@ pub(super) fn plugin(app: &mut App) {
         preload_assets::plugin,
         spawn_level::plugin,
     ));
-}
-
-/// The game's main screen states.
-#[derive(SubStates, Debug, Hash, PartialEq, Eq, Clone, Default)]
-#[source(states::screens::Screen = states::screens::Screen::Loading)]
-#[states(scoped_entities)]
-pub(crate) enum LoadingScreen {
-    #[default]
-    Assets,
-    Shaders,
-    Level,
 }

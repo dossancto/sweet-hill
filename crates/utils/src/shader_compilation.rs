@@ -3,10 +3,10 @@ use bevy::prelude::*;
 use bevy::render::render_resource::{CachedPipelineState, PipelineCache};
 use bevy::render::{MainWorld, RenderApp};
 
-use utils::asset_tracking::LoadResource as _;
-use crate::screens::loading::LoadingScreen;
+use crate::asset_tracking::LoadResource as _;
+use states::screens::LoadingScreen;
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.load_resource::<CompileShadersAssets>();
 
     app.init_resource::<LoadedPipelineCount>();
@@ -15,7 +15,7 @@ pub(super) fn plugin(app: &mut App) {
         .add_systems(ExtractSchedule, update_loaded_pipeline_count);
 }
 
-pub(crate) fn spawn_shader_compilation_map(
+pub fn spawn_shader_compilation_map(
     mut commands: Commands,
     compile_shaders_assets: Res<CompileShadersAssets>,
 ) {
@@ -29,7 +29,7 @@ pub(crate) fn spawn_shader_compilation_map(
 /// A [`Resource`] that contains all the assets needed to spawn the level.
 /// We use this to preload assets before the level is spawned.
 #[derive(Resource, Asset, Clone, TypePath)]
-pub(crate) struct CompileShadersAssets {
+pub struct CompileShadersAssets {
     #[dependency]
     level: Handle<Scene>,
 }
@@ -48,16 +48,16 @@ impl FromWorld for CompileShadersAssets {
 /// A `Resource` in the main world that stores the number of pipelines that are ready.
 #[derive(Resource, Default, Debug, Deref, DerefMut, Reflect)]
 #[reflect(Resource)]
-pub(crate) struct LoadedPipelineCount(pub(crate) usize);
+pub struct LoadedPipelineCount(pub usize);
 
 impl LoadedPipelineCount {
-    pub(crate) fn is_done(&self) -> bool {
+    pub fn is_done(&self) -> bool {
         self.0 >= Self::TOTAL_PIPELINES
     }
 
     /// These numbers have to be tuned by hand, unfortunately.
     /// Find them out with `bevy run` and `bevy run web`.
-    pub(crate) const TOTAL_PIPELINES: usize = {
+    pub const TOTAL_PIPELINES: usize = {
         let count = {
             #[cfg(feature = "native")]
             {
@@ -67,6 +67,7 @@ impl LoadedPipelineCount {
             {
                 55
             }
+            55
         };
         #[cfg(feature = "dev")]
         {
@@ -76,6 +77,7 @@ impl LoadedPipelineCount {
         {
             count - 1
         }
+        count
     };
 }
 
@@ -94,6 +96,6 @@ fn update_loaded_pipeline_count(mut main_world: ResMut<MainWorld>, cache: Res<Pi
     }
 }
 
-pub(crate) fn all_pipelines_loaded(loaded_pipeline_count: Res<LoadedPipelineCount>) -> bool {
+pub fn all_pipelines_loaded(loaded_pipeline_count: Res<LoadedPipelineCount>) -> bool {
     loaded_pipeline_count.is_done()
 }

@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-bevy = { version = "0.18", default-features = false, features = [
+bevy = { workspace = true, features = [
     "gltf_animation",
     "bevy_asset",
     "bevy_anti_alias",
@@ -43,7 +43,7 @@ bevy = { version = "0.18", default-features = false, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
-bevy_enhanced_input = "0.23"
+bevy_enhanced_input = { workspace = true }
 
 # physics
 avian3d = "0.6.0-rc.1"

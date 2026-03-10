@@ -1,19 +1,13 @@
 // Disable console on Windows for non-dev builds.
 #![cfg_attr(feature = "release", windows_subsystem = "windows")]
 
-mod animation;
-mod asset_processing;
 #[cfg(feature = "dev")]
 mod dev_tools;
 mod gameplay;
-mod hdr;
 mod menus;
 // mod props;
-mod post_process;
 mod screens;
-mod shader_compilation;
 mod theme;
-mod ui_camera;
 
 use asset_processing::default_image_sampler_descriptor;
 use bevy::app::HierarchyPropagatePlugin;
@@ -27,6 +21,12 @@ use bevy::{camera::visibility::RenderLayers, ecs::error::error};
 use bevy_seedling::SeedlingPlugin;
 use bitflags::bitflags;
 use third_party;
+use utils::animation;
+use utils::asset_processing;
+use utils::hdr;
+use utils::post_process;
+use utils::shader_compilation;
+use utils::ui_camera;
 
 use bevy::{asset::AssetMetaCheck, prelude::*};
 
@@ -186,17 +186,6 @@ enum PostPhysicsAppSystems {
 /// This enum is converted to an `isize` to be used as a camera's order.
 /// Since we have three camera, we use three enum variants.
 /// This ordering here mean UI > ViewModel > World.
-enum CameraOrder {
-    World,
-    ViewModel,
-    Ui,
-}
-
-impl From<CameraOrder> for isize {
-    fn from(order: CameraOrder) -> Self {
-        order as isize
-    }
-}
 
 bitflags! {
     struct RenderLayer: u32 {

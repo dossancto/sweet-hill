@@ -2,6 +2,101 @@
 resolver = "3"
 members = ["crates/audio","crates/states","crates/third_party", "crates/utils","foxtrot"]
 
+[workspace.dependencies]
+bevy = { version = "0.18", default-features = false, features = [
+    "gltf_animation",
+    "bevy_asset",
+    "bevy_anti_alias",
+    "bevy_color",
+    "bevy_core_pipeline",
+    "bevy_gilrs",
+    "bevy_gizmos",
+    "bevy_gltf",
+    "mesh_picking",
+    "bevy_pbr",
+    "bevy_picking",
+    "bevy_post_process",
+    "bevy_render",
+    "bevy_gizmos_render",
+    "bevy_scene",
+    "bevy_sprite",
+    "sprite_picking",
+    "bevy_state",
+    "bevy_text",
+    "bevy_ui_render",
+    "ui_picking",
+    "bevy_window",
+    "bevy_winit",
+    "custom_cursor",
+    "default_font",
+    "hdr",
+    "multi_threaded",
+    "smaa_luts",
+    "sysinfo_plugin",
+    "tonemapping_luts",
+    "jpeg",
+    "tga",
+    "ktx2",
+    "png",
+    "wayland",
+    "zstd_rust",
+    "reflect_auto_register"
+] }
+bevy_enhanced_input = "0.23"
+
+# physics
+avian3d = "0.6.0-rc.1"
+avian_pickup = "0.5.0-rc.1"
+
+# character controller
+bevy_ahoy = "0.1.0-rc.1"
+
+# navigation
+bevy_landmass = "0.11.0"
+landmass_rerecast = "0.2.0"
+bevy_rerecast = { version = "0.4.0", default-features = false }
+avian_rerecast = "0.5.0-rc.1"
+
+# Level editor
+bevy_trenchbroom = "0.12"
+bevy_trenchbroom_avian = "0.13.0-rc.1"
+
+# dialogue
+bevy_yarnspinner = "0.7"
+bevy_yarnspinner_example_dialogue_view = "0.7"
+
+bevy_shuffle_bag = "0.4.0"
+bevy_fix_cursor_unlock_web = "0.3.0"
+bevy_framepace = "0.21"
+bevy_seedling = "0.7.0"
+
+# Keep this in sync with Bevy
+rand = "0.9"
+
+# Compile low-severity logs out of web builds for performance.
+tracing = { version = "0.1", features = [
+    "max_level_debug",
+    "release_max_level_warn",
+] }
+getrandom = { version = "0.3", default-features = false, features = [
+    "wasm_js",
+] }
+
+bitflags = "2"
+anyhow = "1"
+regex = "1"
+bincode = "2"
+# Latest version that works with bevy_seedling
+bevy_hanabi = { version = "0.18", default-features = false, features = [
+    "3d",
+    "gpu_tests",
+] }
+states = { version = "0.1.0", path = "../crates/states" }
+third_party = { version = "0.1.0", path = "../crates/third_party" }
+utils = { version = "0.1.0", path = "../crates/utils" }
+audio = { version = "0.1.0", path = "../crates/audio" }
+
+
 # Enable a small amount of optimization in the dev profile.
 [profile.dev]
 opt-level = 1

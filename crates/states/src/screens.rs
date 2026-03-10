@@ -10,3 +10,14 @@ pub enum Screen {
     Loading,
     Gameplay,
 }
+
+/// The game's main screen states.
+#[derive(SubStates, Debug, Hash, PartialEq, Eq, Clone, Default)]
+#[source(Screen = Screen::Loading)]
+#[states(scoped_entities)]
+pub enum LoadingScreen {
+    #[default]
+    Assets,
+    Shaders,
+    Level,
+}

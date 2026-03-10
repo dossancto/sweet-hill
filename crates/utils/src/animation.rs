@@ -3,7 +3,7 @@ use std::mem::discriminant;
 use bevy::prelude::*;
 
 #[derive(Component)]
-pub(crate) struct AnimationState<T> {
+pub struct AnimationState<T> {
     state: Option<T>,
 }
 
@@ -13,7 +13,7 @@ impl<T> Default for AnimationState<T> {
     }
 }
 
-pub(crate) enum AnimationStateTransition<'a, T> {
+pub enum AnimationStateTransition<'a, T> {
     Maintain {
         state: &'a T,
     },
@@ -26,7 +26,7 @@ pub(crate) enum AnimationStateTransition<'a, T> {
 }
 
 impl<T> AnimationState<T> {
-    pub(crate) fn update_by(
+    pub fn update_by(
         &'_ mut self,
         new_state: T,
         comparison: impl FnOnce(&T, &T) -> bool,
@@ -52,22 +52,19 @@ impl<T> AnimationState<T> {
     }
 
     #[allow(dead_code)]
-    pub(crate) fn update_by_value(&'_ mut self, new_state: T) -> AnimationStateTransition<'_, T>
+    pub fn update_by_value(&'_ mut self, new_state: T) -> AnimationStateTransition<'_, T>
     where
         T: PartialEq,
     {
         self.update_by(new_state, |a, b| a == b)
     }
 
-    pub(crate) fn update_by_discriminant(
-        &'_ mut self,
-        new_state: T,
-    ) -> AnimationStateTransition<'_, T> {
+    pub fn update_by_discriminant(&'_ mut self, new_state: T) -> AnimationStateTransition<'_, T> {
         self.update_by(new_state, |a, b| discriminant(a) == discriminant(b))
     }
 
     #[allow(dead_code)]
-    pub(crate) fn get(&self) -> Option<&T> {
+    pub fn get(&self) -> Option<&T> {
         self.state.as_ref()
     }
 }

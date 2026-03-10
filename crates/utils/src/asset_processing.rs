@@ -4,11 +4,11 @@ use bevy::{
     prelude::*,
 };
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_systems(Update, move_textures_to_render_world);
 }
 
-pub(crate) fn default_image_sampler_descriptor() -> ImageSamplerDescriptor {
+pub fn default_image_sampler_descriptor() -> ImageSamplerDescriptor {
     ImageSamplerDescriptor {
         address_mode_u: ImageAddressMode::Repeat,
         address_mode_v: ImageAddressMode::Repeat,

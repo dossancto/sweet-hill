@@ -5,10 +5,9 @@ use bevy::camera::CameraOutputMode;
 use bevy::prelude::*;
 
 use bevy::{core_pipeline::tonemapping::Tonemapping, render::render_resource::BlendState};
+use states::utils::CameraOrder;
 
-use crate::CameraOrder;
-
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_observer(make_hdr_compatible);
 }
 
@@ -33,3 +32,4 @@ fn make_hdr_compatible(
         clear_color: ClearColorConfig::None,
     };
 }
+

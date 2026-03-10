@@ -3,16 +3,15 @@
 //! don't exist during non-gameplay screens such as the main menu.
 
 use bevy::prelude::*;
+use states::utils::CameraOrder;
 
-use crate::CameraOrder;
-
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_systems(Startup, spawn_ui_camera);
 }
 
 #[derive(Component, Reflect)]
 #[reflect(Component)]
-pub(crate) struct UiCamera;
+pub struct UiCamera;
 
 fn spawn_ui_camera(mut commands: Commands) {
     commands.spawn((

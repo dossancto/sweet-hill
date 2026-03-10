@@ -5,10 +5,10 @@ use std::time::Duration;
 use avian3d::prelude::LinearVelocity;
 use bevy::prelude::*;
 use bevy_ahoy::CharacterControllerState;
+use utils::animation::{AnimationState, AnimationStateTransition};
 
 use crate::{
     PostPhysicsAppSystems,
-    animation::{AnimationState, AnimationStateTransition},
     gameplay::animation::AnimationPlayers,
 };
 
@@ -118,34 +118,36 @@ fn play_animations(
                     // animations.
                     old_state: _,
                     state,
-                } => match state {
-                    NpcAnimationState::Airborne => {
-                        transitions
-                            .play(&mut anim_player, animations.run, Duration::from_millis(200))
-                            .repeat();
-                    }
-                    NpcAnimationState::Standing => {
-                        transitions
-                            .play(
-                                &mut anim_player,
-                                animations.idle,
-                                Duration::from_millis(500),
-                            )
-                            .repeat();
-                    }
-                    NpcAnimationState::Walking(_speed) => {
-                        transitions
-                            .play(
-                                &mut anim_player,
-                                animations.walk,
-                                Duration::from_millis(300),
-                            )
-                            .repeat();
-                    }
-                    NpcAnimationState::Running(_speed) => {
-                        transitions
-                            .play(&mut anim_player, animations.run, Duration::from_millis(400))
-                            .repeat();
+                } => {
+                    match state {
+                        NpcAnimationState::Airborne => {
+                            transitions
+                                .play(&mut anim_player, animations.run, Duration::from_millis(200))
+                                .repeat();
+                        }
+                        NpcAnimationState::Standing => {
+                            transitions
+                                .play(
+                                    &mut anim_player,
+                                    animations.idle,
+                                    Duration::from_millis(500),
+                                )
+                                .repeat();
+                        }
+                        NpcAnimationState::Walking(_speed) => {
+                            transitions
+                                .play(
+                                    &mut anim_player,
+                                    animations.walk,
+                                    Duration::from_millis(300),
+                                )
+                                .repeat();
+                        }
+                        NpcAnimationState::Running(_speed) => {
+                            transitions
+                                .play(&mut anim_player, animations.run, Duration::from_millis(400))
+                                .repeat();
+                        }
                     }
                 },
             }

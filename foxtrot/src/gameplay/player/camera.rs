@@ -24,15 +24,15 @@ use bevy::{
     scene::SceneInstanceReady,
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
+use states::{screens::LoadingScreen, utils::CameraOrder};
 
 use crate::{
-    CameraOrder, PostPhysicsAppSystems, RenderLayer,
+    PostPhysicsAppSystems, RenderLayer,
     gameplay::{
         animation::{AnimationPlayerAncestor, AnimationPlayerOf, AnimationPlayers},
         level::LevelAssets,
     },
     post_process::{self, PostProcessSettings},
-    screens::loading::LoadingScreen,
     third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel as _},
 };
 
