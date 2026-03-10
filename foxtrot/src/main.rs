@@ -11,15 +11,17 @@ mod theme;
 
 use asset_processing::default_image_sampler_descriptor;
 use bevy::app::HierarchyPropagatePlugin;
+use bevy::ecs::error::error;
 use bevy::gltf::GltfPlugin;
 use bevy::gltf::convert_coordinates::GltfConvertCoordinates;
 use bevy::light::NotShadowCaster;
 use bevy::log::LogPlugin;
 use bevy::log::tracing_subscriber::field::MakeExt;
 use bevy::pbr::DefaultOpaqueRendererMethod;
-use bevy::{camera::visibility::RenderLayers, ecs::error::error};
 use bevy_seedling::SeedlingPlugin;
-use bitflags::bitflags;
+use states::world::PausableSystems;
+use states::world::Pause;
+use states::world::PostPhysicsAppSystems;
 use third_party;
 use utils::animation;
 use utils::asset_processing;
@@ -165,59 +167,3 @@ fn main() -> AppExit {
     app.add_plugins((gameplay::plugin, shader_compilation::plugin));
     app.run()
 }
-
-/// High-level groupings of systems for the app in the [`Update`] schedule.
-/// When adding a new variant, make sure to order it in the `configure_sets`
-/// call above.
-#[derive(SystemSet, Debug, Clone, Copy, Eq, PartialEq, Hash, PartialOrd, Ord)]
-enum PostPhysicsAppSystems {
-    /// Tick timers.
-    TickTimers,
-    /// Change UI.
-    ChangeUi,
-    /// Play sounds.
-    PlaySounds,
-    /// Play animations.
-    PlayAnimations,
-    /// Do everything else (consider splitting this into further variants).
-    Update,
-}
-
-/// This enum is converted to an `isize` to be used as a camera's order.
-/// Since we have three camera, we use three enum variants.
-/// This ordering here mean UI > ViewModel > World.
-
-bitflags! {
-    struct RenderLayer: u32 {
-        /// Used implicitly by all entities without a `RenderLayers` component.
-        /// Our world model camera and all objects other than the player are on this layer.
-        /// The light source belongs to both layers.
-        const DEFAULT = 0b00000001;
-        /// Used by the view model camera and the player's arm.
-        /// The light source belongs to both layers.
-        const VIEW_MODEL = 0b00000010;
-        /// Since we use multiple cameras, we need to be explicit about
-        /// which one is allowed to render particles.
-        const PARTICLES = 0b00000100;
-        /// 3D gizmos. These need to be rendered only by a 3D camera, otherwise the UI camera will render them in a buggy way.
-        /// Specifically, the UI camera is a 2D camera, which by default is placed at a far away Z position,
-        /// so it will effectively render a very zoomed out view of the scene in the center of the screen.
-        const GIZMO3 = 0b0001000;
-    }
-}
-
-impl From<RenderLayer> for RenderLayers {
-    fn from(layer: RenderLayer) -> Self {
-        // Render layers are just vectors of ints, so we convert each active bit to an int.
-        RenderLayers::from_iter(layer.iter().map(|l| (l.bits() >> 1) as usize))
-    }
-}
-
-/// Whether or not the game is paused.
-#[derive(States, Copy, Clone, Eq, PartialEq, Hash, Debug, Default)]
-#[states(scoped_entities)]
-struct Pause(pub(crate) bool);
-
-/// A system set for systems that shouldn't run while the game is paused.
-#[derive(SystemSet, Copy, Clone, Eq, PartialEq, Hash, Debug)]
-struct PausableSystems;

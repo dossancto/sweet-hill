@@ -3,7 +3,6 @@
 use std::any::Any as _;
 
 use super::input::{ForceFreeCursor, ToggleDebugUi};
-use crate::RenderLayer;
 use crate::gameplay::crosshair::CrosshairState;
 use crate::gameplay::level::LevelAssets;
 use crate::{PostPhysicsAppSystems, theme::widget};
@@ -19,6 +18,7 @@ use bevy_enhanced_input::prelude::*;
 use bevy_inspector_egui::{bevy_egui::EguiPlugin, quick::WorldInspectorPlugin};
 use bevy_landmass::debug::{EnableLandmassDebug, Landmass3dDebugPlugin, LandmassGizmos};
 use bevy_rerecast::debug::{DetailNavmeshGizmo, NavmeshGizmoConfig};
+use utils::world::RenderLayer;
 
 pub(super) fn plugin(app: &mut App) {
     app.init_resource::<DebugState>();
