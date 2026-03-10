@@ -6,13 +6,13 @@
 use bevy::prelude::*;
 
 mod animation;
-pub(crate) mod crosshair;
-pub(crate) mod level;
-pub(crate) mod npc;
-pub(crate) mod player;
-pub(crate) mod flashlight;
+pub mod crosshair;
+pub mod flashlight;
+pub mod level;
+pub mod npc;
+pub mod player;
 
-pub(super) fn plugin(app: &mut App) {
+pub fn plugin(app: &mut App) {
     app.add_plugins((
         animation::plugin,
         crosshair::plugin,

@@ -5,18 +5,14 @@ use std::any::Any;
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
-
-use bevy_yarnspinner::{events::DialogueCompleted, prelude::*};
- 
-
-use crate::{
-    PostPhysicsAppSystems,
-    gameplay::crosshair::CrosshairState,
-    third_party::{
-        avian3d::CollisionLayer,
-        bevy_yarnspinner::{YarnNode, is_dialogue_running},
-    },
+use bevy_yarnspinner::{events::DialogueCompleted, prelude::DialogueRunner};
+use states::{screens::Screen, world::PostPhysicsAppSystems};
+use third_party::{
+    avian3d::CollisionLayer,
+    bevy_yarnspinner::{YarnNode, is_dialogue_running},
 };
+
+use crate::crosshair::CrosshairState;
 
 mod ui;
 
@@ -43,7 +39,7 @@ pub(super) fn plugin(app: &mut App) {
         check_for_dialogue_opportunity
             .in_set(DialogueSystems::UpdateOpportunity)
             .run_if(
-                in_state(states::screens::Screen::Gameplay)
+                in_state(Screen::Gameplay)
                     .and(not(is_dialogue_running))
                     .and(not(is_holding_prop)),
             ),

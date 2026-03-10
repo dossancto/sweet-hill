@@ -2708,6 +2708,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "core_gameplay"
+version = "0.1.0"
+dependencies = [
+ "audio",
+ "avian3d",
+ "avian_pickup",
+ "bevy",
+ "bevy_ahoy",
+ "bevy_enhanced_input",
+ "bevy_landmass",
+ "bevy_rerecast",
+ "bevy_seedling",
+ "bevy_shuffle_bag",
+ "bevy_trenchbroom",
+ "bevy_trenchbroom_avian",
+ "bevy_yarnspinner",
+ "bevy_yarnspinner_example_dialogue_view",
+ "landmass_rerecast",
+ "rand",
+ "states",
+ "third_party",
+ "utils",
+]
+
+[[package]]
 name = "core_maths"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3811,6 +3836,7 @@ dependencies = [
  "bevy_yarnspinner_example_dialogue_view",
  "bincode",
  "bitflags 2.10.0",
+ "core_gameplay",
  "getrandom",
  "landmass_rerecast",
  "rand",

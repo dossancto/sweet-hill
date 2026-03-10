@@ -6,16 +6,12 @@ use bevy::prelude::*;
 
 use bevy_ahoy::CharacterController;
 use bevy_trenchbroom::prelude::*;
-use utils::asset_tracking::LoadResource;
-
-use crate::{
-    animation::AnimationState,
-    third_party::{
-        avian3d::CollisionLayer,
-        bevy_trenchbroom::{GetTrenchbroomModelPath, LoadTrenchbroomModel as _},
-        bevy_yarnspinner::YarnNode,
-    },
+use third_party::{
+    avian3d::CollisionLayer,
+    bevy_trenchbroom::{GetTrenchbroomModelPath, LoadTrenchbroomModel},
+    bevy_yarnspinner::YarnNode,
 };
+use utils::{animation::AnimationState, asset_tracking::LoadResource};
 
 use super::animation::AnimationPlayerAncestor;
 pub(crate) mod ai;

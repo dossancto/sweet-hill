@@ -9,9 +9,10 @@ use bevy_seedling::prelude::*;
 
 use audio::{DEFAULT_MAIN_VOLUME, perceptual::PerceptualVolumeConverter};
 
+use core_gameplay::player::camera::{CameraSensitivity, WorldModelFov};
+
 use crate::{
     Pause,
-    gameplay::player::camera::{CameraSensitivity, WorldModelFov},
     menus::Menu,
     theme::{palette::SCREEN_BACKGROUND, prelude::*},
 };

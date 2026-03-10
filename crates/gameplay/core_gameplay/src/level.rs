@@ -1,6 +1,6 @@
 //! Spawn the main level.
 
-use crate::gameplay::npc::NPC_RADIUS;
+use crate::npc::NPC_RADIUS;
 use bevy::prelude::*;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::prelude::*;
@@ -8,6 +8,7 @@ use bevy_seedling::prelude::*;
 use bevy_seedling::sample::AudioSample;
 
 use landmass_rerecast::{Island3dBundle, NavMeshHandle3d};
+use states::screens::Screen;
 use utils::asset_tracking::LoadResource;
 
 pub(super) fn plugin(app: &mut App) {
@@ -15,11 +16,11 @@ pub(super) fn plugin(app: &mut App) {
 }
 
 /// A system that spawns the main level.
-pub(crate) fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>) {
+pub fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>) {
     commands.spawn((
         Name::new("Level"),
         SceneRoot(level_assets.level.clone()),
-        DespawnOnExit(states::screens::Screen::Gameplay),
+        DespawnOnExit(Screen::Gameplay),
         Level,
         children![(
             Name::new("Level Music"),
@@ -31,14 +32,14 @@ pub(crate) fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>
     let archipelago = commands
         .spawn((
             Name::new("Main Level Archipelago"),
-            DespawnOnExit(states::screens::Screen::Gameplay),
+            DespawnOnExit(Screen::Gameplay),
             Archipelago3d::new(ArchipelagoOptions::from_agent_radius(NPC_RADIUS)),
         ))
         .id();
 
     commands.spawn((
         Name::new("Main Level Island"),
-        DespawnOnExit(states::screens::Screen::Gameplay),
+        DespawnOnExit(Screen::Gameplay),
         Island3dBundle {
             island: Island,
             archipelago_ref: ArchipelagoRef3d::new(archipelago),
@@ -49,22 +50,22 @@ pub(crate) fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>
 
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
-pub(crate) struct Level;
+pub struct Level;
 
 /// A [`Resource`] that contains all the assets needed to spawn the level.
 /// We use this to preload assets before the level is spawned.
 #[derive(Resource, Asset, Clone, TypePath)]
-pub(crate) struct LevelAssets {
+pub struct LevelAssets {
     #[dependency]
-    pub(crate) level: Handle<Scene>,
+    pub level: Handle<Scene>,
     #[dependency]
-    pub(crate) navmesh: Handle<Navmesh>,
+    pub navmesh: Handle<Navmesh>,
     #[dependency]
-    pub(crate) music: Handle<AudioSample>,
+    pub music: Handle<AudioSample>,
     #[dependency]
-    pub(crate) env_map_specular: Handle<Image>,
+    pub env_map_specular: Handle<Image>,
     #[dependency]
-    pub(crate) env_map_diffuse: Handle<Image>,
+    pub env_map_diffuse: Handle<Image>,
 }
 
 impl FromWorld for LevelAssets {

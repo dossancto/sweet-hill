@@ -10,7 +10,7 @@ use bevy::{
 use bevy_ahoy::prelude::*;
 use bevy_enhanced_input::prelude::{Press, *};
 
-use crate::gameplay::flashlight::states::ToggleFlashlight;
+use crate::flashlight::states::ToggleFlashlight;
 
 use super::Player;
 
@@ -34,7 +34,7 @@ pub(crate) struct PlayerInputContext;
 
 #[derive(Resource, Default, Reflect, Deref, DerefMut)]
 #[reflect(Resource)]
-pub(crate) struct BlocksInput(HashSet<TypeId>);
+pub struct BlocksInput(HashSet<TypeId>);
 
 impl PlayerInputContext {
     fn on_add(mut world: DeferredWorld, ctx: HookContext) {

@@ -2,11 +2,9 @@
 
 use bevy::{prelude::*, scene::SceneInstance};
 use bevy_landmass::{NavMesh, coords::ThreeD};
+use core_gameplay::level::spawn_level;
 
-use crate::{
-    gameplay::level::spawn_level,
-    theme::{palette::SCREEN_BACKGROUND, prelude::*},
-};
+use crate::theme::{palette::SCREEN_BACKGROUND, prelude::*};
 
 use super::LoadingScreen;
 

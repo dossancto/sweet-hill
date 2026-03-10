@@ -11,7 +11,7 @@ use bevy_landmass::{
     },
 };
 
-use crate::gameplay::{npc::NPC_SPEED, player::navmesh_position::LastValidPlayerNavmeshPosition};
+use crate::{npc::NPC_SPEED, player::navmesh_position::LastValidPlayerNavmeshPosition};
 
 use super::{NPC_FLOAT_HEIGHT, NPC_RADIUS, Npc};
 

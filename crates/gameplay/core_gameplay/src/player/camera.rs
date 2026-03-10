@@ -24,17 +24,13 @@ use bevy::{
     scene::SceneInstanceReady,
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
-use states::{screens::LoadingScreen, utils::CameraOrder};
-use utils::world::RenderLayer;
+use states::{screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
+use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
+use utils::{post_process::PostProcessSettings, world::RenderLayer};
 
 use crate::{
-    PostPhysicsAppSystems,
-    gameplay::{
-        animation::{AnimationPlayerAncestor, AnimationPlayerOf, AnimationPlayers},
-        level::LevelAssets,
-    },
-    post_process::PostProcessSettings,
-    third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel as _},
+    animation::{AnimationPlayerAncestor, AnimationPlayerOf, AnimationPlayers},
+    level::LevelAssets,
 };
 
 use super::Player;
@@ -252,7 +248,7 @@ fn add_render_layers_to_directional_light(add: On<Add, DirectionalLight>, mut co
 
 #[derive(Resource, Reflect, Debug, Deref, DerefMut)]
 #[reflect(Resource)]
-pub(crate) struct WorldModelFov(pub(crate) f32);
+pub struct WorldModelFov(pub f32);
 
 impl Default for WorldModelFov {
     fn default() -> Self {
@@ -272,7 +268,7 @@ fn update_world_model_fov(
 
 #[derive(Resource, Reflect, Debug, Deref, DerefMut)]
 #[reflect(Resource)]
-pub(crate) struct CameraSensitivity(pub(crate) Vec2);
+pub struct CameraSensitivity(pub Vec2);
 
 impl Default for CameraSensitivity {
     fn default() -> Self {

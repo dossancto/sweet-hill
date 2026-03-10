@@ -2,11 +2,9 @@
 
 use std::any::Any as _;
 
-use crate::{
-    gameplay::{crosshair::CrosshairState, player::input::BlocksInput},
-    menus::Menu,
-    theme::widget,
-};
+use core_gameplay::{crosshair::CrosshairState, player::input::BlocksInput};
+
+use crate::{menus::Menu, theme::widget};
 use bevy::{input::common_conditions::input_just_pressed, prelude::*};
 
 pub(super) fn plugin(app: &mut App) {

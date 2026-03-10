@@ -2,7 +2,7 @@ use bevy::{app::App, state::app::AppExtStates};
 
 use states::PlayerFlashlightState;
 
-use crate::gameplay::flashlight::systems::on_toggle_flashlight;
+use crate::flashlight::systems::on_toggle_flashlight;
 
 pub(crate) mod feature;
 pub(crate) mod states;

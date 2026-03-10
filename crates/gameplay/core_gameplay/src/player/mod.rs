@@ -12,22 +12,19 @@ use bevy_landmass::{Character, prelude::*};
 use bevy_trenchbroom::prelude::*;
 use input::PlayerInputContext;
 use navmesh_position::LastValidPlayerNavmeshPosition;
-use utils::asset_tracking::LoadResource;
+use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath};
+use utils::{animation::AnimationState, asset_tracking::LoadResource};
 
-use crate::{
-    animation::AnimationState,
-    gameplay::player::pickup::state::PlayerPickupState,
-    third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath as _},
-};
+use crate::player::pickup::state::PlayerPickupState;
 
 mod animation;
-pub(crate) mod assets;
-pub(crate) mod camera;
-pub(crate) mod dialogue;
-pub(crate) mod input;
-pub(crate) mod movement_sound;
-pub(crate) mod navmesh_position;
-pub(crate) mod pickup;
+pub mod assets;
+pub mod camera;
+pub mod dialogue;
+pub mod input;
+pub mod movement_sound;
+pub mod navmesh_position;
+pub mod pickup;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -49,10 +46,10 @@ pub(super) fn plugin(app: &mut App) {
     base(Transform, Visibility),
     model("models/view_model/view_model.gltf")
 )]
-pub(crate) struct Player;
+pub struct Player;
 
 /// The radius of the player character's capsule.
-pub(crate) const PLAYER_RADIUS: f32 = 0.5;
+pub const PLAYER_RADIUS: f32 = 0.5;
 const PLAYER_HEIGHT: f32 = 1.8;
 
 /// The half height of the player character's capsule is the distance between the character's center and the lowest point of its collider.

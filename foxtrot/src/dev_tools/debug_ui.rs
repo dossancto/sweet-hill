@@ -3,8 +3,8 @@
 use std::any::Any as _;
 
 use super::input::{ForceFreeCursor, ToggleDebugUi};
-use crate::gameplay::crosshair::CrosshairState;
-use crate::gameplay::level::LevelAssets;
+use core_gameplay::crosshair::CrosshairState;
+use core_gameplay::level::LevelAssets;
 use crate::{PostPhysicsAppSystems, theme::widget};
 use avian3d::prelude::*;
 use bevy::camera::visibility::RenderLayers;

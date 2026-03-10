@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/audio","crates/states","crates/third_party", "crates/utils","foxtrot"]
+members = ["crates/audio", "crates/gameplay/core_gameplay","crates/states","crates/third_party", "crates/utils","foxtrot"]
 
 [workspace.dependencies]
 bevy = { version = "0.18", default-features = false, features = [

@@ -9,18 +9,18 @@ pub(super) fn plugin(app: &mut App) {
 
 /// Entities with this component will receive an [`AnimationPlayers`] relationship so that they can easily find the animation player of their model.
 #[derive(Component)]
-pub(crate) struct AnimationPlayerAncestor;
+pub struct AnimationPlayerAncestor;
 
 /// Simple link to the animation player of a model that is buried deep in the hierarchy.
 #[derive(Component, Reflect, Clone, Deref)]
 #[reflect(Component)]
 #[relationship_target(relationship = AnimationPlayerOf)]
-pub(crate) struct AnimationPlayers(Vec<Entity>);
+pub struct AnimationPlayers(Vec<Entity>);
 
 #[derive(Component, Reflect, Deref)]
 #[reflect(Component)]
 #[relationship(relationship_target = AnimationPlayers)]
-pub(crate) struct AnimationPlayerOf(pub(crate) Entity);
+pub struct AnimationPlayerOf(pub(crate) Entity);
 
 /// Bevy likes to hide the [`AnimationPlayer`] component deep in the hierarchy of a model.
 /// This system ensures that we can find the animation player easily by inserting an [`AnimationPlayers`] relationship

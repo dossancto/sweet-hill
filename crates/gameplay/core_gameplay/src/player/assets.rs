@@ -5,7 +5,7 @@ use bevy_seedling::sample::AudioSample;
 use bevy_shuffle_bag::ShuffleBag;
 use utils::asset_tracking::LoadResource;
 
-use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
+use third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
 
 use super::Player;
 

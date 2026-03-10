@@ -10,7 +10,7 @@ use std::iter;
 use avian_pickup::prop::HeldProp;
 use avian3d::prelude::*;
 
-use crate::third_party::avian3d::CollisionLayer;
+use third_party::avian3d::CollisionLayer;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_observer(disable_collision_with_held_prop);

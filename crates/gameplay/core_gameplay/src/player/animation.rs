@@ -3,13 +3,10 @@
 use std::time::Duration;
 
 use bevy::prelude::*;
- 
+use states::world::PostPhysicsAppSystems;
+use utils::animation::{AnimationState, AnimationStateTransition};
 
-use crate::{
-    PostPhysicsAppSystems,
-    animation::{AnimationState, AnimationStateTransition},
-    gameplay::{animation::AnimationPlayers, crosshair::CrosshairState},
-};
+use crate::{animation::AnimationPlayers, crosshair::CrosshairState};
 
 use super::assets::PlayerAssets;
 
