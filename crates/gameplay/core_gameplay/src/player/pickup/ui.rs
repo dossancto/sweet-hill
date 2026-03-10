@@ -30,7 +30,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_observer(hide_point_at_pickup_opportunity);
 }
 
-fn how_point_at_pickup_opportunity(on: On<Add, CanBePickedUp>, mut commands: Commands) {
+fn how_point_at_pickup_opportunity(_on: On<Add, CanBePickedUp>, mut commands: Commands) {
     let text_justification = Justify::Center;
 
     // commands.entity(on.entity).insert();
