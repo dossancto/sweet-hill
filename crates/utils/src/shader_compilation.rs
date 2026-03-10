@@ -67,7 +67,10 @@ impl LoadedPipelineCount {
             {
                 55
             }
-            55
+            #[cfg(not(any(feature = "native", feature = "web")))]
+            {
+                55 // default value
+            }
         };
         #[cfg(feature = "dev")]
         {
