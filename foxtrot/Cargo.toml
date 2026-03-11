@@ -13,7 +13,7 @@ categories = ["game-development"]
 homepage = "https://janhohenheim.itch.io/foxtrot"
 
 [dependencies]
-bevy = { version = "0.18", default-features = false, features = [
+bevy = { workspace = true, features = [
     "gltf_animation",
     "bevy_asset",
     "bevy_anti_alias",
@@ -52,55 +52,55 @@ bevy = { version = "0.18", default-features = false, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
-bevy_enhanced_input = "0.23"
+bevy_enhanced_input = { workspace = true }
 
 # physics
-avian3d = "0.6.0-rc.1"
-avian_pickup = "0.5.0-rc.1"
+avian3d ={ workspace = true }
+avian_pickup ={ workspace = true }
 
 # character controller
-bevy_ahoy = "0.1.0-rc.1"
+bevy_ahoy ={ workspace = true }
 
 # navigation
-bevy_landmass = "0.11.0"
-landmass_rerecast = "0.2.0"
-bevy_rerecast = { version = "0.4.0", default-features = false }
-avian_rerecast = "0.5.0-rc.1"
+bevy_landmass ={ workspace = true }
+landmass_rerecast ={ workspace = true }
+bevy_rerecast = { workspace = true, default-features = false }
+avian_rerecast ={ workspace = true }
 
 # Level editor
-bevy_trenchbroom = "0.12"
-bevy_trenchbroom_avian = "0.13.0-rc.1"
+bevy_trenchbroom ={ workspace = true }
+bevy_trenchbroom_avian ={ workspace = true }
 
 # dialogue
-bevy_yarnspinner = "0.7"
-bevy_yarnspinner_example_dialogue_view = "0.7"
+bevy_yarnspinner ={ workspace = true }
+bevy_yarnspinner_example_dialogue_view ={ workspace = true }
 
-bevy_shuffle_bag = "0.4.0"
-bevy-inspector-egui = { version = "0.36", optional = true }
-bevy_fix_cursor_unlock_web = "0.3.0"
-bevy_framepace = "0.21"
-bevy_seedling = "0.7.0"
+bevy_shuffle_bag ={ workspace = true }
+bevy-inspector-egui = { workspace = true, optional = true }
+bevy_fix_cursor_unlock_web ={ workspace = true }
+bevy_framepace ={ workspace = true }
+bevy_seedling ={ workspace = true }
 
 # Keep this in sync with Bevy
-rand = "0.9"
+rand ={ workspace = true }
 
 # Compile low-severity logs out of web builds for performance.
-tracing = { version = "0.1", features = [
+tracing = { workspace = true, features = [
     "max_level_debug",
     "release_max_level_warn",
 ] }
-getrandom = { version = "0.3", default-features = false, features = [
+getrandom = { workspace = true, default-features = false, features = [
     "wasm_js",
 ] }
 
-bitflags = "2"
-anyhow = "1"
-regex = "1"
-bincode = "2"
+bitflags ={ workspace = true }
+anyhow ={ workspace = true }
+regex ={ workspace = true }
+bincode ={ workspace = true }
 # Latest version that works with bevy_seedling
-wasm-bindgen = { version = "=0.2.108", optional = true }
+wasm-bindgen = { workspace = true, optional = true }
 
-bevy_hanabi = { version = "0.18", default-features = false, features = [
+bevy_hanabi = { workspace = true, default-features = false, features = [
     "3d",
     "gpu_tests",
 ] }
