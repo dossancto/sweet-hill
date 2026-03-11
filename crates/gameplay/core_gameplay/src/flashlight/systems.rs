@@ -111,6 +111,55 @@ mod tests {
         assert_eq!(updated_flash_light_state, &PlayerFlashlightState::On);
     }
 
+    #[test]
+    fn cant_toggle_on_when_flashlight_disabled() {
+        const KEY: KeyCode = KeyCode::KeyF;
+
+        let mut app = App::new();
+        app.add_plugins((
+            MinimalPlugins,
+            InputPlugin,
+            EnhancedInputPlugin,
+            StatesPlugin,
+        ))
+        .insert_state(PlayerFlashlightState::Disabled)
+        .add_observer(on_toggle_flashlight)
+        .add_input_context::<TestContext>()
+        .finish();
+
+        app.world_mut().spawn((
+            TestContext,
+            PlayerCamera,
+            actions!(
+                TestContext[
+                (
+                    Action::<ToggleFlashlight>::new(),
+                    ActionSettings {
+                        consume_input: true,
+                        ..Default::default()
+                    },
+                    bindings![KEY],
+                ),
+                ]
+            ),
+        ));
+
+        app.update();
+
+        let flash_light_state = app.world().resource::<State<PlayerFlashlightState>>().get();
+        assert_eq!(flash_light_state, &PlayerFlashlightState::Disabled);
+
+        app.world_mut()
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KEY);
+
+        app.update();
+
+        let updated_flash_light_state =
+            app.world().resource::<State<PlayerFlashlightState>>().get();
+        assert_eq!(updated_flash_light_state, &PlayerFlashlightState::Disabled);
+    }
+
     #[derive(Component, Clone, Copy)]
     struct TestContext;
 }
