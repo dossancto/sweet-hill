@@ -61,3 +61,40 @@ states = { version = "0.1.0", path = "../../states" }
 utils = { version = "0.1.0", path = "../../utils" }
 third_party = { version = "0.1.0", path = "../../third_party" }
 audio = { version = "0.1.0", path = "../../audio" }
+
+[features]
+default = [
+    # Default to a native dev build.
+    "dev_native",
+]
+native = []
+dev = [
+]
+dev_native = [
+]
+web = []
+release = []
+
+[package.metadata.bevy_cli]
+default-features = false
+
+[package.metadata.bevy_cli.native]
+features = ["native"]
+
+[package.metadata.bevy_cli.native.dev]
+features = ["dev_native"]
+
+[package.metadata.bevy_cli.native.release]
+features = ["release"]
+
+[package.metadata.bevy_cli.web]
+features = ["web"]
+
+[package.metadata.bevy_cli.web.dev]
+features = ["dev"]
+
+[package.metadata.bevy_cli.web.release]
+features = ["release"]
+
+[package.metadata.bevy_cli.unstable]
+web-multi-threading = true
