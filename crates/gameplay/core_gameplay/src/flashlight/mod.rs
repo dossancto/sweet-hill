@@ -14,12 +14,6 @@ pub(crate) mod systems;
 ///
 /// * `app` - A mutable reference to the Bevy [`App`] to which this plugin will add its functionality.
 ///
-/// # Example
-///
-/// ```rust
-/// let mut app = App::new();
-/// plugin(&mut app);
-/// ```
 pub(super) fn plugin(app: &mut App) {
     app.insert_state(PlayerFlashlightState::Off);
 

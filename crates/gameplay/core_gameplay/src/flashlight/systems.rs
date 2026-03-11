@@ -1,9 +1,7 @@
-use audio::SpatialPool;
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
-use bevy_seedling::sample::SamplePlayer;
 
-use crate::player::{assets::PlayerAssets, camera::PlayerCamera};
+use crate::player::camera::PlayerCamera;
 
 use super::states::{FlashlightLight, PlayerFlashlightState, ToggleFlashlight};
 
@@ -13,7 +11,6 @@ pub(crate) fn on_toggle_flashlight(
     player_camera: Single<Entity, With<PlayerCamera>>,
     mut commands: Commands,
     mut next_state: ResMut<NextState<PlayerFlashlightState>>,
-    mut player_assets: ResMut<PlayerAssets>,
     flashlight: Query<(Entity, &ChildOf), With<FlashlightLight>>,
 ) {
     let current_state = state.get();
@@ -32,7 +29,6 @@ pub(crate) fn on_toggle_flashlight(
     next_state.set(new_state.clone());
 
     let player = player_camera.into_inner();
-    let rng = &mut rand::rng();
 
     let flashlight_children_to_remove = flashlight.into_iter();
 
@@ -41,12 +37,7 @@ pub(crate) fn on_toggle_flashlight(
     }
 
     if new_state == PlayerFlashlightState::On {
-        let sound = player_assets.land_sounds.pick(rng).clone();
-        commands.entity(player).with_child((
-            SamplePlayer::new(sound),
-            SpatialPool,
-            Transform::default(),
-        ));
+        // TODO: Send event to play flashlight toggle sound
         commands.entity(player).with_children(|parent| {
             parent
                 .spawn(SpotLight {
@@ -60,11 +51,66 @@ pub(crate) fn on_toggle_flashlight(
                 .insert(FlashlightLight);
         });
     } else {
-        let sound = player_assets.land_sounds.pick(rng).clone();
-        commands.entity(player).with_child((
-            SamplePlayer::new(sound),
-            SpatialPool,
-            Transform::default(),
-        ));
+        // TODO: Send event to play flashlight toggle sound
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use bevy::{input::InputPlugin, state::app::StatesPlugin};
+
+    use crate::flashlight;
+
+    use super::*;
+
+    #[test]
+    fn did_toggle_flashlight_from_of_to_on() {
+        const KEY: KeyCode = KeyCode::KeyF;
+
+        let mut app = App::new();
+        app.add_plugins((
+            MinimalPlugins,
+            InputPlugin,
+            EnhancedInputPlugin,
+            StatesPlugin,
+        ))
+        .add_plugins(flashlight::plugin)
+        .add_input_context::<TestContext>()
+        .finish();
+
+        app.world_mut().spawn((
+            TestContext,
+            PlayerCamera,
+            actions!(
+                TestContext[
+                (
+                    Action::<ToggleFlashlight>::new(),
+                    ActionSettings {
+                        consume_input: true,
+                        ..Default::default()
+                    },
+                    bindings![KEY],
+                ),
+                ]
+            ),
+        ));
+
+        app.update();
+
+        let flash_light_state = app.world().resource::<State<PlayerFlashlightState>>().get();
+        assert_eq!(flash_light_state, &PlayerFlashlightState::Off);
+
+        app.world_mut()
+            .resource_mut::<ButtonInput<KeyCode>>()
+            .press(KEY);
+
+        app.update();
+
+        let updated_flash_light_state =
+            app.world().resource::<State<PlayerFlashlightState>>().get();
+        assert_eq!(updated_flash_light_state, &PlayerFlashlightState::On);
+    }
+
+    #[derive(Component, Clone, Copy)]
+    struct TestContext;
 }
