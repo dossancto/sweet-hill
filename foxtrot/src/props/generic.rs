@@ -1,9 +1,10 @@
-use crate::{asset_tracking::LoadResource, third_party::bevy_trenchbroom::GetTrenchbroomModelPath};
+use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath;
 
 use super::setup::*;
 use avian3d::prelude::{ColliderConstructor, RigidBody};
 use bevy::prelude::*;
 use bevy_trenchbroom::prelude::*;
+use utils::asset_tracking::LoadResource;
 
 pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(PackageMedium::model_path())

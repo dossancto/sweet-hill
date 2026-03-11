@@ -12,13 +12,13 @@ use bevy_seedling::prelude::*;
 use bevy_seedling::sample::AudioSample;
 
 use bevy_trenchbroom::prelude::*;
+use utils::world::RenderLayer;
 
-use crate::RenderLayer;
-use utils::asset_tracking::LoadResource as _;
+use crate::PostPhysicsAppSystems;
 use crate::props::setup::quake_bundle;
 use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
-use crate::{PostPhysicsAppSystems, audio::SpatialPool, screens::Screen};
 use bevy::prelude::*;
+use utils::asset_tracking::LoadResource as _;
 
 pub(super) fn plugin(app: &mut App) {
     // This causes https://github.com/bevyengine/bevy/issues/18980
@@ -196,7 +196,7 @@ fn setup_particles(effects: &mut Assets<EffectAsset>) -> Handle<EffectAsset> {
     gradient.add_key(0.6, Vec4::new(0.6, 0.0, 0.0, 0.8)); // dark red
     gradient.add_key(1.0, Vec4::new(0.0, 0.0, 0.0, 0.0)); // transparent
     let color_over_lifetime = ColorOverLifetimeModifier {
-        gradient,
+        // gradient,
         ..default()
     };
 

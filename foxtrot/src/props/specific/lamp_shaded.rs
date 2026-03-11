@@ -10,10 +10,10 @@ use bevy::{
 };
 
 use bevy_trenchbroom::prelude::*;
+use utils::asset_tracking::LoadResource;
 
 use crate::{
-    asset_tracking::LoadResource as _, props::setup::quake_bundle,
-    third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _,
+    props::setup::quake_bundle, third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _,
 };
 
 pub(super) fn plugin(app: &mut App) {

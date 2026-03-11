@@ -4,7 +4,7 @@
 #[cfg(feature = "dev")]
 mod dev_tools;
 mod menus;
-// mod props;
+mod props;
 mod screens;
 mod theme;
 
@@ -153,7 +153,7 @@ fn main() -> AppExit {
         dev_tools::plugin,
         screens::plugin,
         menus::plugin,
-        // props::plugin,
+        props::plugin,
         theme::plugin,
         ui_camera::plugin,
         hdr::plugin,

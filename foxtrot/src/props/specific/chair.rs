@@ -7,13 +7,11 @@ use bevy::{
 use bevy_landmass::{Character, prelude::*};
 
 use bevy_trenchbroom::prelude::*;
+use utils::asset_tracking::LoadResource;
 
-use crate::{
-    asset_tracking::LoadResource as _,
-    third_party::{
-        avian3d::CollisionLayer,
-        bevy_trenchbroom::{GetTrenchbroomModelPath as _, LoadTrenchbroomModel as _},
-    },
+use crate::third_party::{
+    avian3d::CollisionLayer,
+    bevy_trenchbroom::{GetTrenchbroomModelPath as _, LoadTrenchbroomModel as _},
 };
 
 pub(super) fn plugin(app: &mut App) {

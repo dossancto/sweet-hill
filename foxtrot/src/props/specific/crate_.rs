@@ -4,9 +4,9 @@ use bevy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
 use bevy_trenchbroom::prelude::*;
+use utils::asset_tracking::LoadResource;
 
 use crate::{
-    asset_tracking::LoadResource as _,
     props::setup::setup_prop,
     third_party::{
         avian3d::CollisionLayer,
