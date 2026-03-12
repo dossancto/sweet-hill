@@ -1,9 +1,12 @@
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
+use utils::light_utils::Flicker;
 
 use crate::player::camera::PlayerCamera;
 
 use super::states::{FlashlightLight, PlayerFlashlightState, ToggleFlashlight};
+
+const FLASHLIGHT_INTENSITY: f32 = 10_000.0 * 20.;
 
 pub(crate) fn on_toggle_flashlight(
     _on: On<Start<ToggleFlashlight>>,
@@ -39,16 +42,17 @@ pub(crate) fn on_toggle_flashlight(
     if new_state == PlayerFlashlightState::On {
         // TODO: Send event to play flashlight toggle sound
         commands.entity(player).with_children(|parent| {
-            parent
-                .spawn(SpotLight {
-                    intensity: 10_000.0 * 20.,
+            parent.spawn((
+                SpotLight {
+                    intensity: FLASHLIGHT_INTENSITY,
                     range: 40.0,
                     inner_angle: 30f32.to_radians(),
                     outer_angle: 35f32.to_radians(),
                     color: Color::srgb(1.0, 0.95, 0.8),
                     ..default()
-                })
-                .insert(FlashlightLight);
+                },
+                FlashlightLight,
+            ));
         });
     } else {
         // TODO: Send event to play flashlight toggle sound

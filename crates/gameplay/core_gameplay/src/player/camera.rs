@@ -178,12 +178,12 @@ fn spawn_view_model(
             ));
 
             // Spawn the player's view model
-            parent
-                .spawn((
-                    Name::new("View Model"),
-                    SceneRoot(assets.load_trenchbroom_model::<Player>()),
-                ))
-                .observe(configure_player_view_model);
+            // parent
+            //     .spawn((
+            //         Name::new("View Model"),
+            //         SceneRoot(assets.load_trenchbroom_model::<Player>()),
+            //     ))
+            //     .observe(configure_player_view_model);
         })
         .observe(move_anim_players_relationship_to_player);
 }

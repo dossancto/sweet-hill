@@ -64,9 +64,18 @@
 ( -191 -801 0 ) ( -191 -800 0 ) ( -191 -801 1 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 0 -1 0 -140 ] [ 0 0 -1 0 ] 180 0.1 0.1
 ( -191 -801 0 ) ( -191 -801 1 ) ( -190 -801 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -10 ] [ 0 0 -1 0 ] 180 0.1 0.1
 ( -191 -801 0 ) ( -190 -801 0 ) ( -191 -800 0 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 0 0 10 ] [ 0 -1 0 -140 ] 180 0.1 0.1
-( -88 -654 100 ) ( -88 -653 100 ) ( -87 -654 100 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -10 ] [ 0 -1 0 -140 ] 90 0.1 0.1
+( -88 -654 208 ) ( -88 -653 208 ) ( -87 -654 208 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 1 0 0 -10 ] [ 0 -1 0 -140 ] 270 0.1 0.1
 ( -88 -654 1 ) ( -87 -654 1 ) ( -88 -654 2 ) darkmod/stone/cobblestones/flagstones05_pinkish [ -1 0 0 10 ] [ 0 0 -1 0 ] 180 0.1 0.1
 ( -88 -654 1 ) ( -88 -654 2 ) ( -88 -653 1 ) darkmod/stone/cobblestones/flagstones05_pinkish [ 0 1 0 140 ] [ 0 0 -1 0 ] 180 0.1 0.1
+}
+// brush 7
+{
+( 432 -960 -48 ) ( 432 -959 -48 ) ( 432 -960 -47 ) darkmod/plaster/halftimber_2windows [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 432 -960 -48 ) ( 432 -960 -47 ) ( 433 -960 -48 ) darkmod/plaster/halftimber_2windows [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 432 -960 -48 ) ( 433 -960 -48 ) ( 432 -959 -48 ) darkmod/plaster/halftimber_2windows [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 512 -896 -32 ) ( 512 -895 -32 ) ( 513 -896 -32 ) darkmod/plaster/halftimber_2windows [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
+( 512 -896 -32 ) ( 513 -896 -32 ) ( 512 -896 -31 ) darkmod/plaster/halftimber_2windows [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
+( 512 -896 -32 ) ( 512 -896 -31 ) ( 512 -895 -32 ) darkmod/plaster/halftimber_2windows [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
 }
 // entity 1
@@ -82,8 +91,10 @@
 }
 // entity 3
 {
-"classname" "barrel_large_closed"
-"origin" "306 64 8"
+"classname" "bookshelf"
+"origin" "466 -224 8"
+"property 1" ""
+"angles" "0 180 0"
 }
 // entity 4
 {
@@ -94,9 +105,10 @@
 }
 // entity 5
 {
-"classname" "chair"
+"classname" "lamp_sitting"
 "origin" "568 40 8"
-"angles" "0 -165 0"
+"angles" "0 105 0"
+"property 1" ""
 }
 // entity 6
 {

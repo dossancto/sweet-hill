@@ -147,6 +147,7 @@ fn main() -> AppExit {
 
     // Add other plugins.
     app.add_plugins((
+        utils::light_utils::plugin,
         asset_processing::plugin,
         utils::asset_tracking::plugin,
         #[cfg(feature = "dev")]

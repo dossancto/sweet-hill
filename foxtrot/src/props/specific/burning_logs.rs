@@ -12,6 +12,7 @@ use bevy_seedling::prelude::*;
 use bevy_seedling::sample::AudioSample;
 
 use bevy_trenchbroom::prelude::*;
+use utils::light_utils::Flicker;
 use utils::world::RenderLayer;
 
 use crate::PostPhysicsAppSystems;
@@ -23,12 +24,6 @@ use utils::asset_tracking::LoadResource as _;
 pub(super) fn plugin(app: &mut App) {
     // This causes https://github.com/bevyengine/bevy/issues/18980
     app.load_resource::<BurningLogsAssets>();
-    app.add_systems(
-        Update,
-        flicker_light
-            .run_if(in_state(states::screens::Screen::Gameplay))
-            .in_set(PostPhysicsAppSystems::Update),
-    );
     app.load_asset::<Gltf>(BurningLogs::model_path());
     app.add_observer(add_particle_effects);
 }
@@ -105,22 +100,12 @@ fn setup_burning_logs(mut world: DeferredWorld, ctx: HookContext) {
                     ..default()
                 },
                 Transform::from_xyz(0.0, 0.2, 0.0),
-                Flicker,
+                Flicker {
+                    base_intensity: BASE_INTENSITY,
+                    ..default()
+                },
             ));
     });
-}
-
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-struct Flicker;
-
-fn flicker_light(time: Res<Time>, mut query: Query<&mut PointLight, With<Flicker>>) {
-    for mut light in &mut query {
-        let flickers_per_second = 20.0;
-        let flicker_percentage = 0.1;
-        let flicker = (time.elapsed_secs() * flickers_per_second).sin();
-        light.intensity = BASE_INTENSITY + flicker * BASE_INTENSITY * flicker_percentage;
-    }
 }
 
 pub(super) fn add_particle_effects(
