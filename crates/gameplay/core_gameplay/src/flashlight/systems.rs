@@ -52,6 +52,11 @@ pub(crate) fn on_toggle_flashlight(
                     ..default()
                 },
                 FlashlightLight,
+                Flicker {
+                    base_intensity: FLASHLIGHT_INTENSITY,
+                    frequency: 2.0,
+                    percentage: 0.4,
+                },
             ));
         });
     } else {

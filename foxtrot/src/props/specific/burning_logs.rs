@@ -102,6 +102,8 @@ fn setup_burning_logs(mut world: DeferredWorld, ctx: HookContext) {
                 Transform::from_xyz(0.0, 0.2, 0.0),
                 Flicker {
                     base_intensity: BASE_INTENSITY,
+                    percentage: 0.4,
+                    frequency: 10.0,
                     ..default()
                 },
             ));

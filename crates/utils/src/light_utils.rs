@@ -33,11 +33,7 @@ pub fn flicker_light_pointlight(
     mut query: Query<(&mut PointLight, &Flicker), With<Flicker>>,
 ) {
     for (mut light, flicker_config) in &mut query {
-        let flickers_per_second = flicker_config.frequency;
-        let flicker_percentage = flicker_config.percentage;
-        let flicker = (time.elapsed_secs() * flickers_per_second).sin();
-        let base_intensity = flicker_config.base_intensity;
-        light.intensity = base_intensity + flicker * base_intensity * flicker_percentage;
+        light.intensity = get_flicker_intensity(&time, flicker_config);
     }
 }
 
@@ -46,10 +42,18 @@ pub fn flicker_light_spotlight(
     mut query: Query<(&mut SpotLight, &Flicker), With<Flicker>>,
 ) {
     for (mut light, flicker_config) in &mut query {
-        let flickers_per_second = 20.0;
-        let flicker_percentage = 0.9;
-        let flicker = (time.elapsed_secs() * flickers_per_second).sin();
-        let base_intensity = flicker_config.base_intensity;
-        light.intensity = base_intensity + flicker * base_intensity * flicker_percentage;
+        light.intensity = get_flicker_intensity(&time, flicker_config);
     }
+}
+
+fn get_flicker_intensity(time: &Res<Time>, flicker: &Flicker) -> f32 {
+    let flickers_per_second = flicker.frequency;
+
+    let flicker_percentage = flicker.percentage;
+
+    let flicks = (time.elapsed_secs() * flickers_per_second).sin();
+
+    let base_intensity = flicker.base_intensity;
+
+    base_intensity + flicks * base_intensity * flicker_percentage
 }
