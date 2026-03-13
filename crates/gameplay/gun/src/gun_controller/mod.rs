@@ -20,10 +20,14 @@ pub(super) fn plugin(app: &mut App) {
     app.add_systems(
         Update,
         (
-            draw_ammo_on_screen.run_if(in_state(Screen::Gameplay)),
-            switch_to_next_gun
-                .run_if(on_timer(Duration::from_secs(5)))
-                .run_if(in_state(Screen::Gameplay)),
+            switch_to_next_gun.run_if(
+                in_state(Screen::Gameplay)
+                    .and(resource_exists::<GunsBag>)
+                    .and(on_timer(Duration::from_secs(5))),
+            ),
+            draw_ammo_on_screen
+                .run_if(in_state(Screen::Gameplay))
+                .after(switch_to_next_gun),
         ),
     );
 
