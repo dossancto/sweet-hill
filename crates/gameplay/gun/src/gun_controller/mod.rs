@@ -1,0 +1,31 @@
+use std::time::Duration;
+
+use bevy::{prelude::*, time::common_conditions::on_timer};
+use states::screens::Screen;
+
+use crate::gun_controller::{
+    domain::GunsBag,
+    systems::switch_to_next_gun,
+    ui::{draw_ammo_on_screen, init_ammo_text},
+};
+
+mod domain;
+mod manage_guns;
+mod systems;
+mod ui;
+
+pub(super) fn plugin(app: &mut App) {
+    app.add_systems(OnEnter(Screen::Gameplay), init_ammo_text);
+
+    app.add_systems(
+        Update,
+        (
+            draw_ammo_on_screen.run_if(in_state(Screen::Gameplay)),
+            switch_to_next_gun
+                .run_if(on_timer(Duration::from_secs(5)))
+                .run_if(in_state(Screen::Gameplay)),
+        ),
+    );
+
+    app.init_resource::<GunsBag>();
+}

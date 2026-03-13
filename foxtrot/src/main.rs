@@ -159,6 +159,7 @@ fn main() -> AppExit {
         ui_camera::plugin,
         hdr::plugin,
         audio::plugin,
+        gun::plugin,
     ));
 
     // Add plugins that proload levels. These have to come later than the other plugins

@@ -1,0 +1,46 @@
+[package]
+name = "gun"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = { workspace = true, features = [
+    "gltf_animation",
+    "bevy_asset",
+    "bevy_anti_alias",
+    "bevy_color",
+    "bevy_core_pipeline",
+    "bevy_gilrs",
+    "bevy_gizmos",
+    "bevy_gltf",
+    "mesh_picking",
+    "bevy_pbr",
+    "bevy_picking",
+    "bevy_post_process",
+    "bevy_render",
+    "bevy_gizmos_render",
+    "bevy_scene",
+    "bevy_sprite",
+    "sprite_picking",
+    "bevy_state",
+    "bevy_text",
+    "bevy_ui_render",
+    "ui_picking",
+    "bevy_window",
+    "bevy_winit",
+    "custom_cursor",
+    "default_font",
+    "hdr",
+    "multi_threaded",
+    "smaa_luts",
+    "sysinfo_plugin",
+    "tonemapping_luts",
+    "jpeg",
+    "tga",
+    "ktx2",
+    "png",
+    "wayland",
+    "zstd_rust",
+    "reflect_auto_register"
+] }
+states = { version = "0.1.0", path = "../../states" }
