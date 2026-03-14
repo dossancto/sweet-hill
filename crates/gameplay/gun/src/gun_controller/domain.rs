@@ -1,5 +1,4 @@
-use bevy::{ecs::system::SystemId, platform::collections::HashMap, prelude::*};
-use states::world;
+use bevy::prelude::*;
 
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
@@ -27,60 +26,46 @@ pub struct GunAmmo {
     pub current_stock_ammo: usize,
 }
 
-#[derive(Resource)]
-pub struct GunsBag {
-    pub guns: HashMap<String, Entity>,
-    pub max_guns: usize,
+#[derive(Component, Debug, Reflect)]
+#[reflect(Component)]
+pub struct GunFireAuto {
+    pub cadence: f32, // Rounds per second
+    pub enabled: bool,
 }
 
-impl FromWorld for GunsBag {
-    fn from_world(world: &mut World) -> Self {
-        let mut guns_bag = GunsBag {
-            guns: HashMap::new(),
-            max_guns: 2,
-        };
+impl Default for GunFireAuto {
+    fn default() -> Self {
+        Self {
+            cadence: 0.2,
+            enabled: false,
+        }
+    }
+}
 
-        guns_bag.guns.insert(
-            "pistol".into(),
-            world
-                .spawn((
-                    GunAmmo {
-                        magazine_size: 30,
-                        stock_size: 90,
-                        current_ammo: 30,
-                        current_stock_ammo: 90,
-                    },
-                    Gun {
-                        id: "pistol".to_string(),
-                        name: "Pistol".to_string(),
-                        damage: 10.0,
-                        range: 50.0,
-                    },
-                    ActiveGun,
-                ))
-                .id(),
-        );
+#[derive(Component, Debug, Reflect)]
+#[reflect(Component)]
+pub struct GunFireSemiAuto {
+    pub delay_after_shoot: f32, // Rounds per second
+    pub enabled: bool,
+}
 
-        guns_bag.guns.insert(
-            "canon".into(),
-            world
-                .spawn((
-                    GunAmmo {
-                        magazine_size: 1,
-                        stock_size: 10,
-                        current_ammo: 1,
-                        current_stock_ammo: 10,
-                    },
-                    Gun {
-                        id: "canon".to_string(),
-                        name: "Canon".to_string(),
-                        damage: 100.0,
-                        range: 50.0,
-                    },
-                ))
-                .id(),
-        );
+impl Default for GunFireSemiAuto {
+    fn default() -> Self {
+        Self {
+            delay_after_shoot: 0.5,
+            enabled: false,
+        }
+    }
+}
 
-        guns_bag
+#[derive(Bundle)]
+pub struct GunBundle {
+    pub gun: Gun,
+    pub ammo: GunAmmo,
+}
+
+impl GunBundle {
+    pub fn new(gun: Gun, ammo: GunAmmo) -> Self {
+        Self { gun, ammo }
     }
 }

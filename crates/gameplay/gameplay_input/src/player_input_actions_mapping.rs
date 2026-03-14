@@ -14,6 +14,7 @@ use core_gameplay::{
         states::{BlocksInput, Interact},
     },
 };
+use gun::firing::states::GunFireTrigger;
 
 #[derive(Debug, Component, Default)]
 #[component(on_add = PlayerInputContext::on_add)]
@@ -114,11 +115,18 @@ impl PlayerInputContext {
                 ),
                 (
                     Action::<Interact>::new(),
+                    Hold::new(1f32),
                     bindings![KeyCode::KeyE, GamepadButton::South]
                 ),
                 (
                     Action::<ToggleFlashlight>::new(),
+                    Press::new(1f32),
                     bindings![KeyCode::KeyF, GamepadButton::North]
+                ),
+                (
+                    Action::<GunFireTrigger>::new(),
+                    Press::new(1f32),
+                    bindings![MouseButton::Left, GamepadButton::North]
                 ),
             ]));
     }

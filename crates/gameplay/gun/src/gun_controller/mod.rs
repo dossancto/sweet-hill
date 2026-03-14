@@ -4,12 +4,15 @@ use bevy::{prelude::*, time::common_conditions::on_timer};
 use states::screens::Screen;
 
 use crate::gun_controller::{
-    domain::GunsBag,
+    configure::GunsBag,
+    handle_input::handle_tap_fire,
     systems::switch_to_next_gun,
     ui::{draw_ammo_on_screen, init_ammo_text},
 };
 
+mod configure;
 mod domain;
+mod handle_input;
 mod manage_guns;
 mod systems;
 mod ui;
@@ -32,4 +35,6 @@ pub(super) fn plugin(app: &mut App) {
     );
 
     app.init_resource::<GunsBag>();
+
+    app.add_observer(handle_tap_fire);
 }

@@ -3941,6 +3941,7 @@ dependencies = [
  "bevy_ahoy",
  "bevy_enhanced_input",
  "core_gameplay",
+ "gun",
 ]
 
 [[package]]
@@ -4216,6 +4217,7 @@ name = "gun"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy_enhanced_input",
  "states",
 ]
 

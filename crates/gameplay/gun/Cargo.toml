@@ -43,4 +43,5 @@ bevy = { workspace = true, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
+bevy_enhanced_input = { workspace = true }
 states = { version = "0.1.0", path = "../../states" }

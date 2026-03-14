@@ -1,6 +1,9 @@
 use bevy::{pbr, prelude::*};
 
-use crate::gun_controller::domain::{ActiveGun, Gun, GunsBag};
+use crate::gun_controller::{
+    configure::GunsBag,
+    domain::{ActiveGun, Gun},
+};
 
 pub(crate) fn switch_to_prev_gun(
     guns_bag: Res<GunsBag>,
@@ -26,6 +29,8 @@ pub(crate) fn switch_to_prev_gun(
     let Some(prev_gun_entity) = prev_gun_entity else {
         return;
     };
+
+    let (prev_gun_entity, _) = prev_gun_entity;
 
     commands.entity(active_gun_entity).remove::<ActiveGun>();
 
@@ -56,6 +61,8 @@ pub(crate) fn switch_to_next_gun(
     let Some(prev_gun_entity) = prev_gun_entity else {
         return;
     };
+
+    let (prev_gun_entity, _) = prev_gun_entity;
 
     commands.entity(active_gun_entity).remove::<ActiveGun>();
 
