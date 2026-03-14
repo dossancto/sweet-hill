@@ -2,7 +2,7 @@ use bevy::{prelude::*, sprite::Text2dShadow};
 
 use crate::gun_controller::domain::{ActiveGun, GunAmmo, GunAmmoText};
 
-pub(crate) fn draw_ammo_on_screen(
+pub(super) fn draw_ammo_on_screen(
     text: Single<&mut Text2d, With<GunAmmoText>>,
     gun: Single<&GunAmmo, With<ActiveGun>>,
 ) {
@@ -22,3 +22,4 @@ pub(super) fn init_ammo_text(mut commands: Commands) {
         GunAmmoText,
     ));
 }
+
