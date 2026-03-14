@@ -12,16 +12,14 @@ use third_party::{
     bevy_yarnspinner::{YarnNode, is_dialogue_running},
 };
 
-use crate::crosshair::CrosshairState;
+use crate::{
+    crosshair::CrosshairState,
+    player::states::{BlocksInput, Interact},
+};
 
 mod ui;
 
-use super::{
-    Player,
-    camera::PlayerCamera,
-    input::{BlocksInput, Interact},
-    pickup::state::is_holding_prop,
-};
+use super::{Player, camera::PlayerCamera, pickup::state::is_holding_prop};
 
 pub(super) fn plugin(app: &mut App) {
     app.configure_sets(

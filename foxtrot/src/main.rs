@@ -18,6 +18,7 @@ use bevy::log::LogPlugin;
 use bevy::log::tracing_subscriber::field::MakeExt;
 use bevy::pbr::DefaultOpaqueRendererMethod;
 use bevy_seedling::SeedlingPlugin;
+use gameplay_input;
 use states::world::PausableSystems;
 use states::world::Pause;
 use states::world::PostPhysicsAppSystems;
@@ -160,6 +161,7 @@ fn main() -> AppExit {
         hdr::plugin,
         audio::plugin,
         gun::plugin,
+        gameplay_input::plugin,
     ));
 
     // Add plugins that proload levels. These have to come later than the other plugins

@@ -2,7 +2,7 @@
 
 use std::any::Any as _;
 
-use core_gameplay::{crosshair::CrosshairState, player::input::BlocksInput};
+use core_gameplay::{crosshair::CrosshairState, player::states::BlocksInput};
 
 use crate::{menus::Menu, theme::widget};
 use bevy::{input::common_conditions::input_just_pressed, prelude::*};

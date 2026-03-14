@@ -10,7 +10,6 @@ use bevy_ahoy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
 use bevy_trenchbroom::prelude::*;
-use input::PlayerInputContext;
 use navmesh_position::LastValidPlayerNavmeshPosition;
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath};
 use utils::{animation::AnimationState, asset_tracking::LoadResource};
@@ -18,10 +17,10 @@ use utils::{animation::AnimationState, asset_tracking::LoadResource};
 use crate::player::pickup::state::PlayerPickupState;
 
 mod animation;
+pub mod states;
 pub mod assets;
 pub mod camera;
 pub mod dialogue;
-pub mod input;
 pub mod movement_sound;
 pub mod navmesh_position;
 pub mod pickup;
@@ -31,7 +30,6 @@ pub(super) fn plugin(app: &mut App) {
         // animation::plugin,
         assets::plugin,
         camera::plugin,
-        input::plugin,
         dialogue::plugin,
         movement_sound::plugin,
         pickup::plugin,
@@ -72,7 +70,6 @@ fn setup_player(
         .entity(add.entity)
         .insert((
             RigidBody::Kinematic,
-            PlayerInputContext,
             // The player character needs to be configured as a dynamic rigid body of the physics
             // engine.
             Collider::cylinder(PLAYER_RADIUS, PLAYER_HEIGHT),

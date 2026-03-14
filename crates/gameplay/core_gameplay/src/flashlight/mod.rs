@@ -5,7 +5,7 @@ use states::PlayerFlashlightState;
 use crate::flashlight::systems::on_toggle_flashlight;
 
 pub(crate) mod feature;
-pub(crate) mod states;
+pub mod states;
 pub(crate) mod systems;
 
 /// Registers this plugin's systems and resources with the given Bevy app.
