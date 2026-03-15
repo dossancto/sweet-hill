@@ -7,8 +7,8 @@ pub mod states;
 pub mod configuration;
 pub mod firing;
 pub mod gun_controller;
-pub mod switch_guns;
 pub mod reload;
+pub mod switch_guns;
 
 pub mod ui;
 
@@ -19,6 +19,7 @@ pub fn plugin(app: &mut App) {
         configuration::plugin,
         switch_guns::plugin,
         reload::plugin,
+        firing::plugin,
     ));
 
     app.init_state::<GunState>();

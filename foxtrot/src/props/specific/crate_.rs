@@ -4,6 +4,7 @@ use bevy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
 use bevy_trenchbroom::prelude::*;
+use states::hittable::Hittable;
 use utils::asset_tracking::LoadResource;
 
 use crate::{
@@ -46,8 +47,12 @@ fn setup_crate_small(
         archipelago_ref: ArchipelagoRef3d::new(*archipelago),
     });
     commands.entity(add.entity).insert((
+        Hittable { health: 50f32 },
         ColliderConstructorHierarchy::new(ColliderConstructor::ConvexHullFromMesh)
-            .with_default_layers(CollisionLayers::new(CollisionLayer::Prop, LayerMask::ALL))
+            .with_default_layers(CollisionLayers::new(
+                CollisionLayer::Hittable,
+                LayerMask::ALL,
+            ))
             .with_default_density(1_000.0),
         // Not inserting `TnuaNotPlatform`, otherwise the player will not be able to jump on it.
         SceneRoot(model),

@@ -6,15 +6,12 @@ use std::any::Any as _;
 use avian_pickup::{actor::AvianPickupActor, prop::HeldProp};
 use avian3d::prelude::*;
 use bevy::{prelude::*, sprite::Text2dShadow};
-use states::world::PostPhysicsAppSystems;
+use states::{player::PlayerCamera, world::PostPhysicsAppSystems};
 use third_party::avian3d::CollisionLayer;
 
 use crate::{
     crosshair::CrosshairState,
-    player::{
-        camera::PlayerCamera,
-        pickup::state::{CanBePickedUp, PickupPrompt, PlayerPickupState},
-    },
+    player::pickup::state::{CanBePickedUp, PickupPrompt, PlayerPickupState},
 };
 
 pub(super) fn plugin(app: &mut App) {

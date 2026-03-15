@@ -77,6 +77,15 @@
 ( 512 -896 -32 ) ( 513 -896 -32 ) ( 512 -896 -31 ) darkmod/plaster/halftimber_2windows [ -1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1
 ( 512 -896 -32 ) ( 512 -896 -31 ) ( 512 -895 -32 ) darkmod/plaster/halftimber_2windows [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1
 }
+// brush 8
+{
+( 16 -1088 176 ) ( 16 -1087 176 ) ( 16 -1088 177 ) __TB_empty [ 0 -1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( 16 -1088 176 ) ( 16 -1088 177 ) ( 17 -1088 176 ) __TB_empty [ 1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( 16 -1088 176 ) ( 17 -1088 176 ) ( 16 -1087 176 ) __TB_empty [ -1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( 160 -992 192 ) ( 160 -991 192 ) ( 161 -992 192 ) __TB_empty [ 1 0 0 0 ] [ 0 -1 0 0 ] 90 1 1
+( 160 -992 192 ) ( 161 -992 192 ) ( 160 -992 193 ) __TB_empty [ -1 0 0 0 ] [ 0 0 -1 0 ] 90 1 1
+( 160 -992 192 ) ( 160 -992 193 ) ( 160 -991 192 ) __TB_empty [ 0 1 0 0 ] [ 0 0 -1 0 ] 90 1 1
+}
 }
 // entity 1
 {
@@ -91,10 +100,10 @@
 }
 // entity 3
 {
-"classname" "bookshelf"
-"origin" "466 -224 8"
+"classname" "crate_small"
 "property 1" ""
 "angles" "0 180 0"
+"origin" "112 -208 0"
 }
 // entity 4
 {
@@ -114,4 +123,39 @@
 {
 "classname" "burning_logs"
 "origin" "312 248 8"
+}
+// entity 7
+{
+"classname" "crate_small"
+"origin" "354 -224 8"
+"property 1" ""
+"angles" "0 180 0"
+}
+// entity 8
+{
+"classname" "crate_small"
+"origin" "130 -544 184"
+"property 1" ""
+"angles" "0 180 0"
+}
+// entity 9
+{
+"classname" "crate_small"
+"origin" "274 -544 120"
+"property 1" ""
+"angles" "0 180 0"
+}
+// entity 10
+{
+"classname" "crate_small"
+"property 1" ""
+"angles" "0 180 0"
+"origin" "0 -336 144"
+}
+// entity 11
+{
+"classname" "crate_big"
+"origin" "354 -432 8"
+"property 1" ""
+"angles" "0 180 0"
 }

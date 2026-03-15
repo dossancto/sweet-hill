@@ -24,7 +24,7 @@ use bevy::{
     scene::SceneInstanceReady,
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
-use states::{screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
+use states::{player::PlayerCamera, screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
 use utils::{post_process::PostProcessSettings, world::RenderLayer};
 
@@ -50,12 +50,6 @@ pub(super) fn plugin(app: &mut App) {
             .in_set(PostPhysicsAppSystems::Update),
     );
 }
-
-/// The parent entity of the player's cameras.
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-#[require(Transform, Visibility)]
-pub(crate) struct PlayerCamera;
 
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
