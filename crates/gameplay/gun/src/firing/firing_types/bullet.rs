@@ -37,5 +37,3 @@ pub(crate) fn shoot_auto_bullets(
 
     auto.last_shot_time = elapsed_time;
 }
-
-pub(crate) fn shoot_explosion() {}

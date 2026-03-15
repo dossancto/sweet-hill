@@ -14,7 +14,7 @@ use core_gameplay::{
         states::{BlocksInput, Interact},
     },
 };
-use gun::firing::states::GunFireTrigger;
+use gun::{firing::states::GunFireTrigger, reload::domain::GunReloadTrigger};
 
 #[derive(Debug, Component, Default)]
 #[component(on_add = PlayerInputContext::on_add)]
@@ -128,6 +128,11 @@ impl PlayerInputContext {
                     Hold::new(5f32),
                     bindings![MouseButton::Left, GamepadButton::North]
                 ),
+                (
+                    Action::<GunReloadTrigger>::new(),
+                    bindings![KeyCode::KeyR, GamepadButton::West]
+                ),
+
             ]));
     }
 }

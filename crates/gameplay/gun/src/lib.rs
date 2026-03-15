@@ -18,6 +18,7 @@ pub fn plugin(app: &mut App) {
         ui::plugin,
         configuration::plugin,
         switch_guns::plugin,
+        reload::plugin,
     ));
 
     app.init_state::<GunState>();
