@@ -1,6 +1,9 @@
 use bevy::{ecs::system::SystemId, platform::collections::HashMap, prelude::*};
 
-use crate::{configuration::gun_components::*, firing::firing_types::bullet::shoot_bullets};
+use crate::{
+    configuration::gun_components::*,
+    firing::firing_types::bullet::{shoot_auto_bullets, shoot_semi_auto_bullets},
+};
 
 #[derive(Resource)]
 pub struct GunsBag {
@@ -15,7 +18,8 @@ impl FromWorld for GunsBag {
             max_guns: 2,
         };
 
-        let regular_shoot_system_id = world.register_system(shoot_bullets);
+        let semi_auto_bullet_system = world.register_system(shoot_semi_auto_bullets);
+        let auto_bullet_system = world.register_system(shoot_auto_bullets);
 
         guns_bag.guns.insert(
             "pistol".into(),
@@ -35,15 +39,12 @@ impl FromWorld for GunsBag {
                                 current_ammo: 30,
                                 current_stock_ammo: 90,
                             },
-                            GunFireAuto {
-                                cadence: 0.2,
-                                action: regular_shoot_system_id,
-                            },
+                            GunFireAuto::new(10f32, auto_bullet_system),
                         ),
                         ActiveGun,
                     ))
                     .id(),
-                regular_shoot_system_id,
+                auto_bullet_system,
             ),
         );
 
@@ -64,10 +65,10 @@ impl FromWorld for GunsBag {
                             current_ammo: 5,
                             current_stock_ammo: 25,
                         },
-                        GunFireSemiAuto::new(1.2f32, regular_shoot_system_id),
+                        GunFireSemiAuto::new(1.2f32, semi_auto_bullet_system),
                     ))
                     .id(),
-                regular_shoot_system_id,
+                semi_auto_bullet_system,
             ),
         );
 

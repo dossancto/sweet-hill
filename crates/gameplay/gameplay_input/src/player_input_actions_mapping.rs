@@ -125,7 +125,7 @@ impl PlayerInputContext {
                 ),
                 (
                     Action::<GunFireTrigger>::new(),
-                    Press::new(1f32),
+                    Hold::new(5f32),
                     bindings![MouseButton::Left, GamepadButton::North]
                 ),
             ]));
