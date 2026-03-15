@@ -4,3 +4,9 @@ use bevy::prelude::*;
 pub struct Hittable {
     pub health: f32,
 }
+
+#[derive(Event)]
+pub struct Hit {
+    pub damage: f32,
+    pub target: Entity,
+}

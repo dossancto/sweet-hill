@@ -32,6 +32,7 @@ impl FromWorld for GunsBag {
                                 name: "pistol".to_string(),
                                 damage: 50.0,
                                 range: 100.0,
+                                damage_falloff_per_hit: 5f32,
                             },
                             GunAmmo {
                                 magazine_size: 30,
@@ -56,8 +57,9 @@ impl FromWorld for GunsBag {
                         Gun {
                             id: "canon".to_string(),
                             name: "Canon".to_string(),
-                            damage: 50.0,
+                            damage: 100.0,
                             range: 100.0,
+                            damage_falloff_per_hit: 5f32,
                         },
                         GunAmmo {
                             magazine_size: 5,

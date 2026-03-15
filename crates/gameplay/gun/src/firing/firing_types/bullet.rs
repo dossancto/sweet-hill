@@ -9,7 +9,7 @@ use crate::{
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
-use states::player::PlayerCamera;
+use states::{hittable::Hit, player::PlayerCamera};
 use third_party::avian3d::CollisionLayer;
 
 pub(crate) fn shoot_semi_auto_bullets(
@@ -56,6 +56,7 @@ pub fn on_shoot_bullets(
     on: On<BulletGunFired>,
     player: Single<(&GlobalTransform, Entity), With<PlayerCamera>>,
     spatial_query: SpatialQuery,
+    mut commands: Commands,
 ) {
     let (player, _) = player.into_inner();
 
@@ -72,7 +73,14 @@ pub fn on_shoot_bullets(
         &SpatialQueryFilter::from_mask(CollisionLayer::Hittable),
     );
 
-    for hit in hits {
-        println!("Hit entity: {:?}", hit.entity);
+    let initial_damage = gun.damage;
+
+    for (i, hit) in hits.iter().enumerate() {
+        let damage = initial_damage * (gun.damage_falloff_per_hit.powi(i as i32));
+
+        commands.trigger(Hit {
+            damage: damage,
+            target: hit.entity,
+        });
     }
 }

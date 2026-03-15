@@ -14,6 +14,7 @@ pub struct Gun {
     pub id: String,
     pub name: String,
     pub damage: f32,
+    pub damage_falloff_per_hit: f32,
     pub range: f32,
 }
 
