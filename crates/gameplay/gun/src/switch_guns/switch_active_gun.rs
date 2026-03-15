@@ -2,12 +2,12 @@ use bevy::prelude::*;
 
 use crate::configuration::{
     gun_bag::GunsBag,
-    gun_components::{ActiveGun, Gun},
+    gun_components::{ActiveGun, Gun, GunReloading},
 };
 
 pub(crate) fn switch_to_prev_gun(
     guns_bag: Res<GunsBag>,
-    active_gun_query: Single<(Entity, &Gun), With<ActiveGun>>,
+    active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
     mut commands: Commands,
 ) {
     let (active_gun_entity, gun) = active_gun_query.into_inner();
@@ -39,7 +39,7 @@ pub(crate) fn switch_to_prev_gun(
 
 pub(crate) fn switch_to_next_gun(
     guns_bag: Res<GunsBag>,
-    active_gun_query: Single<(Entity, &Gun), With<ActiveGun>>,
+    active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
     mut commands: Commands,
 ) {
     let (active_gun_entity, gun) = active_gun_query.into_inner();
@@ -84,4 +84,3 @@ fn get_new_indice(guns_bag: &GunsBag, current_gun_id: &str, foward: bool) -> usi
 
     prev_gun_index as usize
 }
-

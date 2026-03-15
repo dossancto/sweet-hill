@@ -27,6 +27,14 @@ pub struct GunAmmo {
 }
 
 #[derive(Component, Debug)]
+pub struct GunReload {
+    pub reload_time: f32,
+}
+
+#[derive(Component, Debug)]
+pub struct GunReloading;
+
+#[derive(Component, Debug)]
 pub struct GunFireAuto {
     pub delay_after_shoot: f32, // Rounds per second
     pub last_shot_time: f32,    // Rounds per second
