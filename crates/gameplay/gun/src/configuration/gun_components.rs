@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{ecs::system::SystemId, prelude::*};
 
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
@@ -26,47 +26,58 @@ pub struct GunAmmo {
     pub current_stock_ammo: usize,
 }
 
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
+#[derive(Component, Debug)]
 pub struct GunFireAuto {
     pub cadence: f32, // Rounds per second
-    pub enabled: bool,
+    pub action: SystemId,
 }
 
-impl Default for GunFireAuto {
-    fn default() -> Self {
-        Self {
-            cadence: 0.2,
-            enabled: false,
-        }
-    }
-}
-
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
+#[derive(Component, Debug)]
 pub struct GunFireSemiAuto {
     pub delay_after_shoot: f32, // Rounds per second
-    pub enabled: bool,
+    pub last_shot_time: f32,    // Rounds per second
+    pub system_id: SystemId,
 }
-
-impl Default for GunFireSemiAuto {
-    fn default() -> Self {
+impl GunFireSemiAuto {
+    pub fn new(delay_after_shoot: f32, system_id: SystemId) -> Self {
         Self {
-            delay_after_shoot: 0.5,
-            enabled: false,
+            delay_after_shoot,
+            last_shot_time: 0.0,
+            system_id,
         }
     }
 }
 
 #[derive(Bundle)]
-pub struct GunBundle {
+pub struct GunSemiAutoBundle {
     pub gun: Gun,
     pub ammo: GunAmmo,
+    pub config: GunFireSemiAuto,
 }
 
-impl GunBundle {
-    pub fn new(gun: Gun, ammo: GunAmmo) -> Self {
-        Self { gun, ammo }
+impl GunSemiAutoBundle {
+    pub fn new(gun: Gun, ammo: GunAmmo, semi_auto_config: GunFireSemiAuto) -> Self {
+        Self {
+            gun,
+            ammo,
+            config: semi_auto_config,
+        }
     }
 }
 
+#[derive(Bundle)]
+pub struct GunAutoBundle {
+    pub gun: Gun,
+    pub ammo: GunAmmo,
+    pub config: GunFireAuto,
+}
+
+impl GunAutoBundle {
+    pub fn new(gun: Gun, ammo: GunAmmo, auto_config: GunFireAuto) -> Self {
+        Self {
+            gun,
+            ammo,
+            config: auto_config,
+        }
+    }
+}

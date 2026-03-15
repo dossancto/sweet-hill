@@ -22,7 +22,7 @@ impl FromWorld for GunsBag {
             (
                 world
                     .spawn((
-                        GunBundle::new(
+                        GunAutoBundle::new(
                             Gun {
                                 id: "pistol".to_string(),
                                 name: "pistol".to_string(),
@@ -34,6 +34,10 @@ impl FromWorld for GunsBag {
                                 stock_size: 90,
                                 current_ammo: 30,
                                 current_stock_ammo: 90,
+                            },
+                            GunFireAuto {
+                                cadence: 0.2,
+                                action: regular_shoot_system_id,
                             },
                         ),
                         ActiveGun,
@@ -47,7 +51,7 @@ impl FromWorld for GunsBag {
             "canon".into(),
             (
                 world
-                    .spawn(GunBundle::new(
+                    .spawn(GunSemiAutoBundle::new(
                         Gun {
                             id: "canon".to_string(),
                             name: "Canon".to_string(),
@@ -60,6 +64,7 @@ impl FromWorld for GunsBag {
                             current_ammo: 5,
                             current_stock_ammo: 25,
                         },
+                        GunFireSemiAuto::new(1.2f32, regular_shoot_system_id),
                     ))
                     .id(),
                 regular_shoot_system_id,
