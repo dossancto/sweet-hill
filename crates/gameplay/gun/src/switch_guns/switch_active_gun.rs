@@ -1,8 +1,8 @@
-use bevy::{pbr, prelude::*};
+use bevy::prelude::*;
 
-use crate::gun_controller::{
-    configure::GunsBag,
-    domain::{ActiveGun, Gun},
+use crate::configuration::{
+    gun_bag::GunsBag,
+    gun_components::{ActiveGun, Gun},
 };
 
 pub(crate) fn switch_to_prev_gun(
@@ -84,3 +84,4 @@ fn get_new_indice(guns_bag: &GunsBag, current_gun_id: &str, foward: bool) -> usi
 
     prev_gun_index as usize
 }
+

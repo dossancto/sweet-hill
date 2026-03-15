@@ -69,3 +69,4 @@ impl GunBundle {
         Self { gun, ammo }
     }
 }
+

@@ -4,13 +4,21 @@ use crate::states::GunState;
 
 pub mod states;
 
+pub mod configuration;
 pub mod firing;
-pub(crate) mod gun_controller;
+pub mod gun_controller;
+pub mod switch_guns;
+pub mod reload;
 
 pub mod ui;
 
 pub fn plugin(app: &mut App) {
-    app.add_plugins((gun_controller::plugin, ui::plugin));
+    app.add_plugins((
+        gun_controller::plugin,
+        ui::plugin,
+        configuration::plugin,
+        switch_guns::plugin,
+    ));
 
     app.init_state::<GunState>();
 }

@@ -1,6 +1,6 @@
 use bevy::{ecs::system::SystemId, platform::collections::HashMap, prelude::*};
 
-use crate::{firing::firing_types::bullet::shoot_bullets, gun_controller::domain::*};
+use crate::{configuration::gun_components::*, firing::firing_types::bullet::shoot_bullets};
 
 #[derive(Resource)]
 pub struct GunsBag {
