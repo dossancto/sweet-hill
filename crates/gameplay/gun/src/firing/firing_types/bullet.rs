@@ -9,7 +9,10 @@ use crate::{
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
-use states::{hittable::Hit, player::PlayerCamera};
+use states::{
+    hittable::{Hit, Hittable},
+    player::{Player, PlayerCamera},
+};
 use third_party::avian3d::CollisionLayer;
 
 pub(crate) fn shoot_semi_auto_bullets(
@@ -55,6 +58,8 @@ pub(crate) fn shoot_auto_bullets(
 pub fn on_shoot_bullets(
     on: On<BulletGunFired>,
     player: Single<(&GlobalTransform, Entity), With<PlayerCamera>>,
+    player_collider: Single<Entity, With<Player>>,
+    hittable_query: Query<&Hittable>,
     spatial_query: SpatialQuery,
     mut commands: Commands,
 ) {
@@ -70,7 +75,8 @@ pub fn on_shoot_bullets(
         gun.range,
         10,
         true,
-        &SpatialQueryFilter::from_mask(CollisionLayer::Hittable),
+        &SpatialQueryFilter::from_mask(CollisionLayer::Hittable)
+            .with_excluded_entities([*player_collider]),
     );
 
     let initial_damage = gun.damage;
@@ -78,9 +84,15 @@ pub fn on_shoot_bullets(
     for (i, hit) in hits.iter().enumerate() {
         let damage = initial_damage * (gun.damage_falloff_per_hit.powi(i as i32));
 
+        let node = hittable_query.get(hit.entity).ok();
+
+        if node.is_none() {
+            continue;
+        }
+
         commands.trigger(Hit {
-            damage: damage,
             target: hit.entity,
+            damage,
         });
     }
 }

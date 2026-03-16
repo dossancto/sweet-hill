@@ -1,9 +1,7 @@
 use bevy::prelude::*;
 
 #[derive(Component, Debug)]
-pub struct Hittable {
-    pub health: f32,
-}
+pub struct Hittable;
 
 #[derive(Event)]
 pub struct Hit {

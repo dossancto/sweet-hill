@@ -12,6 +12,8 @@ use bevy::prelude::*;
 
 use bevy_trenchbroom::class::QuakeClass;
 use bevy_trenchbroom::util::IsSceneWorld as _;
+use enemies::states::Enemy;
+use states::hittable::Hittable;
 
 pub(super) fn plugin(_app: &mut App) {}
 
@@ -29,6 +31,20 @@ pub(crate) fn setup_prop<T: QuakeClass>(
                 asset_server,
                 rigid_body,
                 collider,
+            ));
+            world.entity_mut(ctx.entity).insert((
+                Hittable,
+                ColliderConstructorHierarchy::new(ColliderConstructor::ConvexHullFromMesh)
+                    .with_default_layers(CollisionLayers::new(
+                        CollisionLayer::Hittable,
+                        LayerMask::ALL,
+                    ))
+                    .with_default_density(1_000.0),
+                Enemy {
+                    name: "Crate Small".to_string(),
+                    health: 10.0,
+                    damage: 0.0,
+                },
             ));
         });
     }

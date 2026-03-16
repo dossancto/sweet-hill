@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use core_gameplay::player::Player;
+use states::player::Player;
 
 use crate::player_input_actions_mapping::PlayerInputContext;
 

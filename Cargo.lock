@@ -3317,6 +3317,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "enemies"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "states",
+]
+
+[[package]]
 name = "enumflags2"
 version = "0.7.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3837,6 +3845,7 @@ dependencies = [
  "bincode",
  "bitflags 2.10.0",
  "core_gameplay",
+ "enemies",
  "gameplay_input",
  "getrandom",
  "gun",
@@ -3942,6 +3951,7 @@ dependencies = [
  "bevy_enhanced_input",
  "core_gameplay",
  "gun",
+ "states",
 ]
 
 [[package]]
@@ -6833,6 +6843,7 @@ name = "states"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy_trenchbroom",
 ]
 
 [[package]]

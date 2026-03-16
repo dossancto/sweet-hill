@@ -43,3 +43,4 @@ bevy = { workspace = true, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
+bevy_trenchbroom = { workspace = true }

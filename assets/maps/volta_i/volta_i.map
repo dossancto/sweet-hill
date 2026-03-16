@@ -100,59 +100,31 @@
 }
 // entity 3
 {
-"classname" "crate_small"
-"property 1" ""
-"angles" "0 180 0"
-"origin" "112 -208 0"
-}
-// entity 4
-{
 "classname" "player"
 "origin" "136 88 56"
 "angles" "0 0 0"
 "visibility" "Inherited"
 }
-// entity 5
+// entity 4
 {
 "classname" "lamp_sitting"
 "origin" "568 40 8"
 "angles" "0 105 0"
 "property 1" ""
 }
-// entity 6
+// entity 5
 {
 "classname" "burning_logs"
 "origin" "312 248 8"
 }
-// entity 7
+// entity 6
 {
 "classname" "crate_small"
 "origin" "354 -224 8"
 "property 1" ""
 "angles" "0 180 0"
 }
-// entity 8
-{
-"classname" "crate_small"
-"origin" "130 -544 184"
-"property 1" ""
-"angles" "0 180 0"
-}
-// entity 9
-{
-"classname" "crate_small"
-"origin" "274 -544 120"
-"property 1" ""
-"angles" "0 180 0"
-}
-// entity 10
-{
-"classname" "crate_small"
-"property 1" ""
-"angles" "0 180 0"
-"origin" "0 -336 144"
-}
-// entity 11
+// entity 7
 {
 "classname" "crate_big"
 "origin" "354 -432 8"

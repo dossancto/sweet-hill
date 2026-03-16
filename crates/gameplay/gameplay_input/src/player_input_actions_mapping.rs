@@ -9,12 +9,10 @@ use bevy_enhanced_input::prelude::{Press, *};
 
 use core_gameplay::{
     flashlight::states::ToggleFlashlight,
-    player::{
-        Player,
-        states::{BlocksInput, Interact},
-    },
+    player::states::{BlocksInput, Interact},
 };
 use gun::{firing::states::GunFireTrigger, reload::domain::GunReloadTrigger};
+use states::player::Player;
 
 #[derive(Debug, Component, Default)]
 #[component(on_add = PlayerInputContext::on_add)]

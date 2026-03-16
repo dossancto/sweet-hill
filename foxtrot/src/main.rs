@@ -28,6 +28,7 @@ use utils::hdr;
 use utils::post_process;
 use utils::shader_compilation;
 use utils::ui_camera;
+use enemies;
 
 use bevy::{asset::AssetMetaCheck, prelude::*};
 
@@ -162,6 +163,7 @@ fn main() -> AppExit {
         audio::plugin,
         gun::plugin,
         gameplay_input::plugin,
+        enemies::plugin,
     ));
 
     // Add plugins that proload levels. These have to come later than the other plugins

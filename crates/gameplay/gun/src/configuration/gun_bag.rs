@@ -59,7 +59,7 @@ impl FromWorld for GunsBag {
                             name: "Canon".to_string(),
                             damage: 100.0,
                             range: 100.0,
-                            damage_falloff_per_hit: 5f32,
+                            damage_falloff_per_hit: 10./100.,
                         },
                         GunAmmo {
                             magazine_size: 5,

@@ -9,6 +9,7 @@ use bevy::prelude::*;
 use bevy_ahoy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
+use ::states::player::Player;
 use bevy_trenchbroom::prelude::*;
 use navmesh_position::LastValidPlayerNavmeshPosition;
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath};
@@ -17,13 +18,13 @@ use utils::{animation::AnimationState, asset_tracking::LoadResource};
 use crate::player::pickup::state::PlayerPickupState;
 
 mod animation;
-pub mod states;
 pub mod assets;
 pub mod camera;
 pub mod dialogue;
 pub mod movement_sound;
 pub mod navmesh_position;
 pub mod pickup;
+pub mod states;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
@@ -39,12 +40,6 @@ pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(Player::model_path());
     app.add_systems(PreUpdate, assert_only_one_player);
 }
-
-#[point_class(
-    base(Transform, Visibility),
-    model("models/view_model/view_model.gltf")
-)]
-pub struct Player;
 
 /// The radius of the player character's capsule.
 pub const PLAYER_RADIUS: f32 = 0.5;

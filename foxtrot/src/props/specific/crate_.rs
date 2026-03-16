@@ -4,6 +4,7 @@ use bevy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
 use bevy_trenchbroom::prelude::*;
+use enemies::states::Enemy;
 use states::hittable::Hittable;
 use utils::asset_tracking::LoadResource;
 
@@ -41,19 +42,31 @@ fn setup_crate_small(
     archipelago: Single<Entity, With<Archipelago3d>>,
 ) {
     let model = asset_server.load_trenchbroom_model::<CrateSmall>();
+    commands.entity(add.entity).insert((
+        Hittable,
+        CollisionLayers::new(CollisionLayer::Hittable, LayerMask::ALL),
+        ColliderDensity(1_000.0),
+        Collider::cuboid(1f32, 1f32, 1f32),
+        // This makes the raycast colides with other things, resulting in the player not being able
+        // to pick up the crate.
+        // ColliderConstructorHierarchy::new(ColliderConstructor::ConvexHullFromMesh)
+        //     .with_default_layers(CollisionLayers::new(
+        //         CollisionLayer::Hittable,
+        //         LayerMask::ALL,
+        //     ))
+        //     .with_default_density(1_000.0),
+        Enemy {
+            name: "Crate Small".to_string(),
+            health: 5000.0,
+            damage: 0.0,
+        },
+    ));
     commands.entity(add.entity).insert(Character3dBundle {
         character: Character::default(),
         settings: CharacterSettings { radius: 0.5 },
         archipelago_ref: ArchipelagoRef3d::new(*archipelago),
     });
     commands.entity(add.entity).insert((
-        Hittable { health: 50f32 },
-        ColliderConstructorHierarchy::new(ColliderConstructor::ConvexHullFromMesh)
-            .with_default_layers(CollisionLayers::new(
-                CollisionLayer::Hittable,
-                LayerMask::ALL,
-            ))
-            .with_default_density(1_000.0),
         // Not inserting `TnuaNotPlatform`, otherwise the player will not be able to jump on it.
         SceneRoot(model),
         // The prop should be held upright.
