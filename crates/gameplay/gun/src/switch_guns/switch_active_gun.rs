@@ -8,38 +8,6 @@ use crate::configuration::{
 
 use crate::inputs::ToogleActiveGun;
 
-pub(crate) fn switch_to_prev_gun(
-    guns_bag: Res<GunsBag>,
-    active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
-    mut commands: Commands,
-) {
-    let (active_gun_entity, gun) = active_gun_query.into_inner();
-
-    let dont_have_enough_guns_to_toggle = guns_bag.guns.len() <= 1;
-
-    if dont_have_enough_guns_to_toggle {
-        return;
-    }
-
-    let prev_gun_index = get_new_indice(&guns_bag, &gun.id, false);
-
-    let prev_gun_entity = guns_bag
-        .guns
-        .iter()
-        .nth(prev_gun_index)
-        .map(|(_, &entity)| entity);
-
-    let Some(prev_gun_entity) = prev_gun_entity else {
-        return;
-    };
-
-    let (prev_gun_entity, _) = prev_gun_entity;
-
-    commands.entity(active_gun_entity).remove::<ActiveGun>();
-
-    commands.entity(prev_gun_entity).insert(ActiveGun);
-}
-
 pub(crate) fn switch_to_next_gun(
     on: On<Start<ToogleActiveGun>>,
     guns_bag: Res<GunsBag>,
