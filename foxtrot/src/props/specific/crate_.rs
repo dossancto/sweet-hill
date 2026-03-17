@@ -57,7 +57,7 @@ fn setup_crate_small(
         //     .with_default_density(1_000.0),
         Enemy {
             name: "Crate Small".to_string(),
-            health: 5000.0,
+            health: 500.0,
             damage: 0.0,
         },
     ));

@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use states::hittable::Hit;
 
-use crate::states::Enemy;
+use crate::{die_controller::domain::EnemyDead, states::Enemy};
 
 pub fn process_enemy_damage(on: On<Hit>, mut query: Query<&mut Enemy>, mut commands: Commands) {
     let enemy = query.get_mut(on.target);
@@ -21,9 +21,11 @@ pub fn process_enemy_damage(on: On<Hit>, mut query: Query<&mut Enemy>, mut comma
 
     if new_health <= 0. {
         enemy.health = 0.;
-        // TODO: Trigger event
-        info!("Enemy killed!");
+        commands.trigger(EnemyDead {
+            target: on.target.clone(),
+        });
     } else {
+        // TODO: Trigger EnemyHurt Event
         enemy.health = new_health;
         info!("Enemy hit! Remaining health: {}", new_health);
     }

@@ -147,29 +147,29 @@ fn spawn_view_model(
             ));
 
             // Spawn view model camera.
-            parent.spawn((
-                Name::new("View Model Camera"),
-                Camera3d::default(),
-                Camera {
-                    // Bump the order to render on top of the world model.
-                    order: CameraOrder::ViewModel.into(),
-                    ..default()
-                },
-                Hdr,
-                Projection::from(PerspectiveProjection {
-                    // We use whatever FOV we set in the animation software, e.g. Blender.
-                    // Tip: if you want to set a camera in Blender to the same defaults as Bevy,
-                    // see [this issue](https://github.com/kaosat-dev/Blenvy/issues/223)
-                    fov: 62.0_f32.to_radians(),
-                    ..default()
-                }),
-                // Only render objects belonging to the view model.
-                RenderLayers::from(RenderLayer::VIEW_MODEL),
-                exposure,
-                Tonemapping::TonyMcMapface,
-                (DepthPrepass, Msaa::Off, DeferredPrepass, Fxaa::default()),
-                env_map,
-            ));
+            // parent.spawn((
+            //     Name::new("View Model Camera"),
+            //     Camera3d::default(),
+            //     Camera {
+            //         // Bump the order to render on top of the world model.
+            //         order: CameraOrder::ViewModel.into(),
+            //         ..default()
+            //     },
+            //     Hdr,
+            //     Projection::from(PerspectiveProjection {
+            //         // We use whatever FOV we set in the animation software, e.g. Blender.
+            //         // Tip: if you want to set a camera in Blender to the same defaults as Bevy,
+            //         // see [this issue](https://github.com/kaosat-dev/Blenvy/issues/223)
+            //         fov: 62.0_f32.to_radians(),
+            //         ..default()
+            //     }),
+            //     // Only render objects belonging to the view model.
+            //     RenderLayers::from(RenderLayer::VIEW_MODEL),
+            //     exposure,
+            //     Tonemapping::TonyMcMapface,
+            //     (DepthPrepass, Msaa::Off, DeferredPrepass, Fxaa::default()),
+            //     env_map,
+            // ));
 
             // Spawn the player's view model
             // parent

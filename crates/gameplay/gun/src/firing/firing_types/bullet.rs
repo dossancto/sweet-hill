@@ -82,7 +82,9 @@ pub fn on_shoot_bullets(
     let initial_damage = gun.damage;
 
     for (i, hit) in hits.iter().enumerate() {
-        let damage = initial_damage * (gun.damage_falloff_per_hit.powi(i as i32));
+        let damage_falloff = gun.damage_falloff_per_hit.powi(i as i32);
+
+        let damage = initial_damage * damage_falloff;
 
         let node = hittable_query.get(hit.entity).ok();
 

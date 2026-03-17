@@ -1,0 +1,17 @@
+use bevy::prelude::*;
+
+#[derive(Event)]
+pub(crate) struct EnemyHit {
+    pub target: Entity,
+    pub damage: f32,
+}
+
+#[derive(Event)]
+pub(crate) struct EnemyDead {
+    pub target: Entity,
+}
+
+#[derive(Component)]
+pub(crate) struct DeadEnemy {
+    pub timer: Timer,
+}
