@@ -12,6 +12,4 @@ pub(crate) struct EnemyDead {
 }
 
 #[derive(Component)]
-pub(crate) struct DeadEnemy {
-    pub timer: Timer,
-}
+pub(crate) struct DeadEnemy;

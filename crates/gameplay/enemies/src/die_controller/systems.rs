@@ -28,7 +28,7 @@ const DISTANCE_THRESHOLD: f32 = 50.0;
 pub(super) fn despawn_offscreen_corpses(
     mut commands: Commands,
     camera_q: Single<&GlobalTransform, With<PlayerCamera>>,
-    mut enemy_q: Query<(Entity, &GlobalTransform), With<DeadEnemy>>,
+    enemy_q: Query<(Entity, &GlobalTransform), With<DeadEnemy>>,
 ) {
     let camera_transform = camera_q;
 
@@ -36,7 +36,7 @@ pub(super) fn despawn_offscreen_corpses(
     let camera_forward = camera_transform.forward();
     let camera_pos = camera_transform.translation();
 
-    for (entity, enemy_transform) in enemy_q.iter_mut() {
+    for (entity, enemy_transform) in enemy_q.iter() {
         let enemy_pos = enemy_transform.translation();
 
         let distance = camera_pos.distance(enemy_pos);
