@@ -9,6 +9,7 @@ pub mod firing;
 pub mod gun_controller;
 pub mod reload;
 pub mod switch_guns;
+pub mod inputs;
 
 pub mod ui;
 

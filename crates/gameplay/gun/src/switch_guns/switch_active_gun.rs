@@ -1,9 +1,12 @@
 use bevy::prelude::*;
+use bevy_enhanced_input::prelude::Start;
 
 use crate::configuration::{
     gun_bag::GunsBag,
     gun_components::{ActiveGun, Gun, GunReloading},
 };
+
+use crate::inputs::ToogleActiveGun;
 
 pub(crate) fn switch_to_prev_gun(
     guns_bag: Res<GunsBag>,
@@ -38,10 +41,12 @@ pub(crate) fn switch_to_prev_gun(
 }
 
 pub(crate) fn switch_to_next_gun(
+    on: On<Start<ToogleActiveGun>>,
     guns_bag: Res<GunsBag>,
     active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
     mut commands: Commands,
 ) {
+    let _ = on;
     let (active_gun_entity, gun) = active_gun_query.into_inner();
 
     let dont_have_enough_guns_to_toggle = guns_bag.guns.len() <= 1;

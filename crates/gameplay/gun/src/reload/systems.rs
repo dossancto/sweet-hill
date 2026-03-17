@@ -1,6 +1,6 @@
 use crate::{
-    configuration::gun_components::{ActiveGun, Gun, GunAmmo, GunReload, GunReloading},
-    reload::domain::GunReloadTrigger,
+    configuration::gun_components::{ActiveGun, Gun, GunAmmo, GunReloading},
+    inputs::GunReloadTrigger,
 };
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;

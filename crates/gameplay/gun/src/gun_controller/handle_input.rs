@@ -1,8 +1,6 @@
 use crate::{
-    configuration::gun_components::{
-        ActiveGun, Gun, GunFireAuto, GunFireSemiAuto, GunSemiAutoBundle,
-    },
-    firing::states::GunFireTrigger,
+    configuration::gun_components::{ActiveGun, Gun, GunFireAuto, GunFireSemiAuto},
+    inputs::GunFireTrigger,
     states::GunState,
 };
 use bevy::prelude::*;

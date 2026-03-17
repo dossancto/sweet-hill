@@ -8,12 +8,13 @@ use crate::{configuration::gun_bag::GunsBag, switch_guns::switch_active_gun::swi
 mod switch_active_gun;
 
 pub(super) fn plugin(app: &mut App) {
-    app.add_systems(
-        Update,
-        (switch_to_next_gun.run_if(
-            in_state(Screen::Gameplay)
-                .and(resource_exists::<GunsBag>)
-                .and(on_timer(Duration::from_secs(5))),
-        ),),
-    );
+    app.add_observer(switch_to_next_gun);
+    // app.add_systems(
+    //     Update,
+    //     (switch_to_next_gun.run_if(
+    //         in_state(Screen::Gameplay)
+    //             .and(resource_exists::<GunsBag>)
+    //             .and(on_timer(Duration::from_secs(5))),
+    //     ),),
+    // );
 }

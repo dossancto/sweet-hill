@@ -2,6 +2,7 @@
 
 use bevy::{
     ecs::{lifecycle::HookContext, world::DeferredWorld},
+    input::mouse::MouseWheel,
     prelude::*,
 };
 use bevy_ahoy::prelude::*;
@@ -11,7 +12,7 @@ use core_gameplay::{
     flashlight::states::ToggleFlashlight,
     player::states::{BlocksInput, Interact},
 };
-use gun::{firing::states::GunFireTrigger, reload::domain::GunReloadTrigger};
+use gun::inputs::{GunFireTrigger, GunReloadTrigger, ToogleActiveGun};
 use states::player::Player;
 
 #[derive(Debug, Component, Default)]
@@ -130,7 +131,10 @@ impl PlayerInputContext {
                     Action::<GunReloadTrigger>::new(),
                     bindings![KeyCode::KeyR, GamepadButton::West]
                 ),
-
+                (
+                    Action::<ToogleActiveGun>::new(),
+                    bindings![Binding::mouse_wheel(), GamepadButton::West]
+                ),
             ]));
     }
 }
