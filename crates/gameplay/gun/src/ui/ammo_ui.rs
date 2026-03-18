@@ -12,7 +12,7 @@ pub(super) fn draw_ammo_on_screen(
     let mut text = text.into_inner();
     let ammo = gun.into_inner();
 
-    text.0 = format!("{}/{}", ammo.current_ammo, ammo.current_stock_ammo);
+    text.0 = format!("{}/{}", ammo.current_on_clip, ammo.current_on_stock);
 }
 
 pub(super) fn init_ammo_text(mut commands: Commands) {
