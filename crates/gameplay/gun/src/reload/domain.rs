@@ -18,6 +18,10 @@ impl GunAmmo {
         self.current_on_clip > 0
     }
 
+    pub fn empty_stock(&self) -> bool {
+        self.current_on_stock == 0
+    }
+
     pub fn reload(&mut self) {
         let needed_ammo = self.max_clip_size - self.current_on_clip;
         let ammo_to_reload = needed_ammo.min(self.current_on_stock);
@@ -74,20 +78,6 @@ mod tests {
     }
 
     #[test]
-    fn test_reload() {
-        let mut ammo = GunAmmo {
-            max_clip_size: 10,
-            max_stock_size: 30,
-            current_on_clip: 2,
-            current_on_stock: 20,
-        };
-        ammo.reload();
-        assert_eq!(ammo.current_on_clip, 10);
-        // current_stock_ammo should remain unchanged
-        assert_eq!(ammo.current_on_stock, 20);
-    }
-
-    #[test]
     fn test_decrease_ammo() {
         let mut ammo = GunAmmo {
             max_clip_size: 10,
@@ -102,5 +92,61 @@ mod tests {
         // Should not go below zero
         ammo.decrease_ammo();
         assert_eq!(ammo.current_on_clip, 0);
+    }
+
+    #[test]
+    fn test_reload_partial() {
+        // Reload when there is enough stock to fully reload
+        let mut ammo = GunAmmo {
+            max_clip_size: 10,
+            max_stock_size: 30,
+            current_on_clip: 3,
+            current_on_stock: 20,
+        };
+        ammo.reload();
+        assert_eq!(ammo.current_on_clip, 10);
+        assert_eq!(ammo.current_on_stock, 13);
+    }
+
+    #[test]
+    fn test_reload_insufficient_stock() {
+        // Reload when there is not enough stock to fully reload
+        let mut ammo = GunAmmo {
+            max_clip_size: 10,
+            max_stock_size: 30,
+            current_on_clip: 5,
+            current_on_stock: 3,
+        };
+        ammo.reload();
+        assert_eq!(ammo.current_on_clip, 8);
+        assert_eq!(ammo.current_on_stock, 0);
+    }
+
+    #[test]
+    fn test_reload_full_clip() {
+        // Reload when the clip is already full
+        let mut ammo = GunAmmo {
+            max_clip_size: 10,
+            max_stock_size: 30,
+            current_on_clip: 10,
+            current_on_stock: 20,
+        };
+        ammo.reload();
+        assert_eq!(ammo.current_on_clip, 10);
+        assert_eq!(ammo.current_on_stock, 20);
+    }
+
+    #[test]
+    fn test_reload_empty_stock() {
+        // Reload when there is no stock left
+        let mut ammo = GunAmmo {
+            max_clip_size: 10,
+            max_stock_size: 30,
+            current_on_clip: 2,
+            current_on_stock: 0,
+        };
+        ammo.reload();
+        assert_eq!(ammo.current_on_clip, 2);
+        assert_eq!(ammo.current_on_stock, 0);
     }
 }
