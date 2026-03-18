@@ -1,27 +1,45 @@
 use bevy::prelude::*;
 
+/// Represents the ammunition state for a gun, including clip and stock counts.
+///
+/// This component can be attached to an entity to track its ammo usage, reloading, and depletion.
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
 pub struct GunAmmo {
+    /// The maximum number of bullets that can be loaded into the gun's clip at once.
     pub max_clip_size: u16,
+
+    /// The maximum number of bullets that can be held in reserve (stock).
     pub max_stock_size: u16,
+
+    /// The current number of bullets loaded in the gun's clip (ready to fire).
     pub current_on_clip: u16,
+
+    /// The current number of bullets available in reserve (stock), not yet loaded into the clip.
     pub current_on_stock: u16,
 }
 
 impl GunAmmo {
+    /// Returns `true` if the clip is fully loaded (i.e., `current_on_clip` equals `max_clip_size`).
     pub fn full_clip(&self) -> bool {
         self.current_on_clip == self.max_clip_size
     }
 
+    /// Returns `true` if there is at least one bullet in the clip (`current_on_clip` > 0).
+    ///
     pub fn has_ammo(&self) -> bool {
         self.current_on_clip > 0
     }
 
+    /// Returns `true` if there are no bullets left in the stock (`current_on_stock` == 0).
     pub fn empty_stock(&self) -> bool {
         self.current_on_stock == 0
     }
 
+    /// Reloads the clip from the stock, transferring as many bullets as needed (and available) to fill the clip.
+    ///
+    /// - If the clip is already full or the stock is empty, nothing happens.
+    /// - Otherwise, moves bullets from `current_on_stock` to `current_on_clip` up to `max_clip_size`.
     pub fn reload(&mut self) {
         let needed_ammo = self.max_clip_size - self.current_on_clip;
         let ammo_to_reload = needed_ammo.min(self.current_on_stock);
@@ -29,6 +47,10 @@ impl GunAmmo {
         self.current_on_stock -= ammo_to_reload;
     }
 
+    /// Decreases the number of bullets in the clip by one, if there is ammo available.
+    ///
+    /// - If the clip is empty, nothing happens.
+    /// - The value will not go below zero.
     pub fn decrease_ammo(&mut self) {
         if self.has_ammo() == false {
             return;
