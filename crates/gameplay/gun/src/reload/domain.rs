@@ -27,7 +27,7 @@ impl GunAmmo {
 
     /// Returns `true` if there is at least one bullet in the clip (`current_on_clip` > 0).
     ///
-    pub fn has_ammo(&self) -> bool {
+    pub fn has_ammo_on_clip(&self) -> bool {
         self.current_on_clip > 0
     }
 
@@ -52,7 +52,7 @@ impl GunAmmo {
     /// - If the clip is empty, nothing happens.
     /// - The value will not go below zero.
     pub fn decrease_ammo(&mut self) {
-        if self.has_ammo() == false {
+        if self.has_ammo_on_clip() == false {
             return;
         }
         self.current_on_clip -= 1;
@@ -89,14 +89,14 @@ mod tests {
             current_on_clip: 1,
             current_on_stock: 20,
         };
-        assert!(ammo.has_ammo());
+        assert!(ammo.has_ammo_on_clip());
         let ammo = GunAmmo {
             max_clip_size: 10,
             max_stock_size: 30,
             current_on_clip: 0,
             current_on_stock: 20,
         };
-        assert!(!ammo.has_ammo());
+        assert!(!ammo.has_ammo_on_clip());
     }
 
     #[test]

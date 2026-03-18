@@ -16,13 +16,13 @@ use third_party::avian3d::CollisionLayer;
 
 pub(crate) fn shoot_semi_auto_bullets(
     gun: Single<
-        (&Gun, &mut GunAmmo, &mut GunFireSemiAuto),
+        (Entity, &Gun, &mut GunAmmo, &mut GunFireSemiAuto),
         (With<ActiveGun>, Without<GunReloading>),
     >,
     time: Res<Time>,
     mut commands: Commands,
 ) {
-    let (gun, mut ammo, mut semi_auto) = gun.into_inner();
+    let (entity, gun, mut ammo, mut semi_auto) = gun.into_inner();
 
     let elapsed_time = time.elapsed_secs();
 
@@ -35,6 +35,11 @@ pub(crate) fn shoot_semi_auto_bullets(
     ammo.decrease_ammo();
 
     semi_auto.last_shot_time = elapsed_time;
+    if ammo.has_ammo_on_clip() == false {
+        commands.entity(entity).insert(GunReloading {
+            time_to_reload: Timer::from_seconds(1.5, TimerMode::Once),
+        });
+    }
 }
 
 pub(crate) fn shoot_auto_bullets(

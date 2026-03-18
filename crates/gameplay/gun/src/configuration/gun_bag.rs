@@ -41,6 +41,7 @@ impl FromWorld for GunsBag {
                                 current_on_clip: 30,
                                 current_on_stock: 90,
                             },
+                            GunReload { reload_time: 0.5 },
                             GunFireAuto::new(10f32, auto_bullet_system),
                         ),
                         ActiveGun,
@@ -68,6 +69,7 @@ impl FromWorld for GunsBag {
                             current_on_clip: 5,
                             current_on_stock: 25,
                         },
+                        GunReload { reload_time: 1. },
                         GunFireSemiAuto::new(1.2f32, semi_auto_bullet_system),
                     ))
                     .id(),

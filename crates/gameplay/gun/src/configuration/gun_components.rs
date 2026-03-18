@@ -66,14 +66,21 @@ impl GunFireSemiAuto {
 pub struct GunSemiAutoBundle {
     pub gun: Gun,
     pub ammo: GunAmmo,
+    pub reload: GunReload,
     pub config: GunFireSemiAuto,
 }
 
 impl GunSemiAutoBundle {
-    pub fn new(gun: Gun, ammo: GunAmmo, semi_auto_config: GunFireSemiAuto) -> Self {
+    pub fn new(
+        gun: Gun,
+        ammo: GunAmmo,
+        reload: GunReload,
+        semi_auto_config: GunFireSemiAuto,
+    ) -> Self {
         Self {
             gun,
             ammo,
+            reload,
             config: semi_auto_config,
         }
     }
@@ -83,14 +90,16 @@ impl GunSemiAutoBundle {
 pub struct GunAutoBundle {
     pub gun: Gun,
     pub ammo: GunAmmo,
+    pub reload: GunReload,
     pub config: GunFireAuto,
 }
 
 impl GunAutoBundle {
-    pub fn new(gun: Gun, ammo: GunAmmo, auto_config: GunFireAuto) -> Self {
+    pub fn new(gun: Gun, ammo: GunAmmo, reload: GunReload, auto_config: GunFireAuto) -> Self {
         Self {
             gun,
             ammo,
+            reload: reload,
             config: auto_config,
         }
     }

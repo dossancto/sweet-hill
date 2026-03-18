@@ -8,7 +8,7 @@ pub(crate) fn can_semi_auto_can_shoot(
     semi_auto: &GunFireSemiAuto,
     elapse_secs: f32,
 ) -> bool {
-    if ammo.has_ammo() == false {
+    if ammo.has_ammo_on_clip() == false {
         return false;
     }
 
@@ -26,7 +26,7 @@ pub(crate) fn can_auto_can_shoot(
     semi_auto: &GunFireAuto,
     elapse_secs: f32,
 ) -> bool {
-    if ammo.has_ammo() == false {
+    if ammo.has_ammo_on_clip() == false {
         return false;
     }
 
