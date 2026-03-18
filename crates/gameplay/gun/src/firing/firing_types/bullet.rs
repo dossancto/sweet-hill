@@ -1,11 +1,10 @@
 use crate::{
-    configuration::gun_components::{
-        ActiveGun, Gun, GunAmmo, GunFireAuto, GunFireSemiAuto, GunReloading,
-    },
+    configuration::gun_components::{ActiveGun, Gun, GunFireAuto, GunFireSemiAuto, GunReloading},
     firing::{
         events::BulletGunFired,
         gun_can_shoot::{can_auto_can_shoot, can_semi_auto_can_shoot},
     },
+    reload::domain::GunAmmo,
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
@@ -16,7 +15,10 @@ use states::{
 use third_party::avian3d::CollisionLayer;
 
 pub(crate) fn shoot_semi_auto_bullets(
-    gun: Single<(&Gun, &mut GunAmmo, &mut GunFireSemiAuto), With<ActiveGun>>,
+    gun: Single<
+        (&Gun, &mut GunAmmo, &mut GunFireSemiAuto),
+        (With<ActiveGun>, Without<GunReloading>),
+    >,
     time: Res<Time>,
     mut commands: Commands,
 ) {
@@ -30,13 +32,13 @@ pub(crate) fn shoot_semi_auto_bullets(
 
     commands.trigger(BulletGunFired { gun: gun.clone() });
 
-    ammo.current_ammo = ammo.current_ammo - 1;
+    ammo.decrease_ammo();
 
     semi_auto.last_shot_time = elapsed_time;
 }
 
 pub(crate) fn shoot_auto_bullets(
-    gun: Single<(&Gun, &mut GunAmmo, &mut GunFireAuto), With<ActiveGun>>,
+    gun: Single<(&Gun, &mut GunAmmo, &mut GunFireAuto), (With<ActiveGun>, Without<GunReloading>)>,
     time: Res<Time>,
     mut commands: Commands,
 ) {
@@ -50,7 +52,7 @@ pub(crate) fn shoot_auto_bullets(
 
     commands.trigger(BulletGunFired { gun: gun.clone() });
 
-    ammo.current_ammo = ammo.current_ammo - 1;
+    ammo.decrease_ammo();
 
     auto.last_shot_time = elapsed_time;
 }

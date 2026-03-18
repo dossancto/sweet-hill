@@ -1,5 +1,7 @@
 use bevy::{ecs::system::SystemId, prelude::*};
 
+use crate::reload::domain::GunAmmo;
+
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
 pub struct GunAmmoText;
@@ -18,22 +20,15 @@ pub struct Gun {
     pub range: f32,
 }
 
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-pub struct GunAmmo {
-    pub magazine_size: usize,
-    pub stock_size: usize,
-    pub current_ammo: usize,
-    pub current_stock_ammo: usize,
-}
-
 #[derive(Component, Debug)]
 pub struct GunReload {
     pub reload_time: f32,
 }
 
 #[derive(Component, Debug)]
-pub struct GunReloading;
+pub struct GunReloading {
+    pub time_to_reload: Timer,
+}
 
 #[derive(Component, Debug)]
 pub struct GunFireAuto {

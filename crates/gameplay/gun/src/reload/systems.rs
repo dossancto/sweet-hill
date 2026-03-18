@@ -1,23 +1,49 @@
 use crate::{
-    configuration::gun_components::{ActiveGun, Gun, GunAmmo, GunReloading},
+    configuration::gun_components::{ActiveGun, GunReloading},
     inputs::GunReloadTrigger,
+    reload::domain::GunAmmo,
 };
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
 
 pub(crate) fn handle_gun_reload(
     _on: On<Start<GunReloadTrigger>>,
-    gun: Single<(&Gun, Entity, &mut GunAmmo), (With<ActiveGun>, Without<GunReloading>)>,
+    gun_entity: Single<(Entity, &GunAmmo), (With<ActiveGun>, Without<GunReloading>)>,
     mut commands: Commands,
 ) {
-    let (_gun, entity, mut ammo) = gun.into_inner();
+    let (entity, gun_ammo) = gun_entity.into_inner();
 
-    commands.entity(entity).insert(GunReloading);
+    if gun_ammo.full_clip() {
+        return;
+    }
 
-    let left_ammo = ammo.magazine_size - ammo.current_ammo;
+    commands.entity(entity).insert(GunReloading {
+        time_to_reload: Timer::from_seconds(1.5, TimerMode::Once),
+    });
+}
 
-    ammo.current_ammo = ammo.magazine_size;
-    ammo.current_stock_ammo = ammo.current_stock_ammo - left_ammo;
+pub(crate) fn process_reloading_guns(
+    mut gun: Query<
+        (Entity, &mut GunReloading, &mut GunAmmo),
+        (With<ActiveGun>, With<GunReloading>),
+    >,
+    time: Res<Time>,
+    mut commands: Commands,
+) {
+    for (entity, mut reloading, mut ammo) in gun.iter_mut() {
+        reloading.time_to_reload.tick(time.delta());
 
-    commands.entity(entity).remove::<GunReloading>();
+        info!(
+            "reloading time, {}",
+            reloading.time_to_reload.remaining_secs()
+        );
+
+        if reloading.time_to_reload.is_finished() == false {
+            continue;
+        }
+
+        ammo.reload();
+
+        commands.entity(entity).remove::<GunReloading>();
+    }
 }

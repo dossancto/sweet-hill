@@ -3,6 +3,7 @@ use bevy::{ecs::system::SystemId, platform::collections::HashMap, prelude::*};
 use crate::{
     configuration::gun_components::*,
     firing::firing_types::bullet::{shoot_auto_bullets, shoot_semi_auto_bullets},
+    reload::domain::GunAmmo,
 };
 
 #[derive(Resource)]
@@ -59,7 +60,7 @@ impl FromWorld for GunsBag {
                             name: "Canon".to_string(),
                             damage: 100.0,
                             range: 100.0,
-                            damage_falloff_per_hit: 10./100.,
+                            damage_falloff_per_hit: 10. / 100.,
                         },
                         GunAmmo {
                             magazine_size: 5,

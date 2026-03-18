@@ -1,15 +1,14 @@
-use crate::configuration::gun_components::{GunAmmo, GunFireAuto, GunFireSemiAuto};
-
-pub(crate) fn has_enough_ammo(ammo: &GunAmmo) -> bool {
-    ammo.current_ammo > 0
-}
+use crate::{
+    configuration::gun_components::{GunFireAuto, GunFireSemiAuto},
+    reload::domain::GunAmmo,
+};
 
 pub(crate) fn can_semi_auto_can_shoot(
     ammo: &GunAmmo,
     semi_auto: &GunFireSemiAuto,
     elapse_secs: f32,
 ) -> bool {
-    if has_enough_ammo(ammo) == false {
+    if ammo.has_ammo() == false {
         return false;
     }
 
@@ -27,7 +26,7 @@ pub(crate) fn can_auto_can_shoot(
     semi_auto: &GunFireAuto,
     elapse_secs: f32,
 ) -> bool {
-    if has_enough_ammo(ammo) == false {
+    if ammo.has_ammo() == false {
         return false;
     }
 
