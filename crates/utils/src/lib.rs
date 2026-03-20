@@ -8,3 +8,4 @@ pub mod shader_compilation;
 pub mod ui_camera;
 pub mod world;
 pub mod light_utils;
+pub mod calculations;

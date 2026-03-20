@@ -4231,6 +4231,7 @@ dependencies = [
  "bevy_enhanced_input",
  "states",
  "third_party",
+ "utils",
 ]
 
 [[package]]
@@ -7590,6 +7591,7 @@ version = "0.1.0"
 dependencies = [
  "bevy",
  "bitflags 2.10.0",
+ "rand",
  "states",
 ]
 

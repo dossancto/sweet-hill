@@ -43,6 +43,7 @@ bevy = { workspace = true, features = [
     "zstd_rust",
     "reflect_auto_register"
 ] }
+rand = {workspace = true}
 bitflags = {workspace = true}
 states = { version = "0.1.0", path = "../states" }
 

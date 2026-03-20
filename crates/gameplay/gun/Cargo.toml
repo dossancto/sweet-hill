@@ -47,3 +47,4 @@ avian3d = { workspace = true }
 bevy_enhanced_input = { workspace = true }
 states = { version = "0.1.0", path = "../../states" }
 third_party = { version = "0.1.0", path = "../../third_party" }
+utils = { version = "0.1.0", path = "../../utils" }

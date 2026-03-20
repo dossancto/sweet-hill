@@ -13,6 +13,7 @@ use states::{
     player::{Player, PlayerCamera},
 };
 use third_party::avian3d::CollisionLayer;
+use utils::calculations::random_circle::get_non_uniform_random_point_on_circle;
 
 pub(crate) fn shoot_semi_auto_bullets(
     gun: Single<
@@ -76,9 +77,21 @@ pub fn on_shoot_bullets(
 
     let camera_transform = player.compute_transform();
 
+    let spread_factor = 0.3;
+
+    let (spread_x, spread_y) = get_non_uniform_random_point_on_circle(spread_factor);
+
+    let forward = camera_transform.forward();
+
+    let forward_with_spread = forward
+        .with_xy(Vec2::new(forward.x + spread_x, forward.y + spread_y))
+        .normalize();
+
+    let formated_spread = Dir3::new(forward_with_spread).unwrap();
+
     let hits = spatial_query.ray_hits(
         camera_transform.translation,
-        camera_transform.forward(),
+        formated_spread,
         gun.range,
         10,
         true,
