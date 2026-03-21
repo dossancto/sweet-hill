@@ -33,11 +33,6 @@ pub(crate) fn process_reloading_guns(
     for (entity, mut reloading, mut ammo) in gun.iter_mut() {
         reloading.time_to_reload.tick(time.delta());
 
-        info!(
-            "reloading time, {}",
-            reloading.time_to_reload.remaining_secs()
-        );
-
         if reloading.time_to_reload.is_finished() == false {
             continue;
         }
