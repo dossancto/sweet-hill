@@ -3952,6 +3952,7 @@ dependencies = [
  "core_gameplay",
  "gun",
  "states",
+ "utils",
 ]
 
 [[package]]
@@ -7592,6 +7593,7 @@ name = "utils"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy_enhanced_input",
  "bitflags 2.10.0",
  "rand",
  "states",

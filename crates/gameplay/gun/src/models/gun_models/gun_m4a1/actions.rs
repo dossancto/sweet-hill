@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use states::player::PlayerCamera;
 use third_party::bevy_trenchbroom::LoadTrenchbroomModel;
+use utils::effects::camera_sway::SwayItem;
 
 use crate::models::gun_models::gun_m4a1::definition::GunModelM4A1;
 
@@ -22,6 +23,11 @@ pub(super) fn on_add_m4a1(
             GunModelM4A1,
             SceneRoot(assets.load_trenchbroom_model::<GunModelM4A1>()),
             Name::new("Gun Model M4A1"),
+            SwayItem {
+                sensitivity: 0.002,
+                smoothness: 10.0,
+                max_sway: 0.1,
+            },
             // Position the gun at the player's hand, using forward direction
             Transform::from_translation(gun_offset)
                 .with_scale(Vec3::splat(1.5f32))

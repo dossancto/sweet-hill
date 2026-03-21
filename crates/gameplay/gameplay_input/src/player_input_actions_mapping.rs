@@ -2,7 +2,6 @@
 
 use bevy::{
     ecs::{lifecycle::HookContext, world::DeferredWorld},
-    input::mouse::MouseWheel,
     prelude::*,
 };
 use bevy_ahoy::prelude::*;
