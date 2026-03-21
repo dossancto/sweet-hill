@@ -10,6 +10,7 @@ pub mod gun_controller;
 pub mod reload;
 pub mod switch_guns;
 pub mod inputs;
+pub mod models;
 
 pub mod ui;
 
@@ -21,6 +22,7 @@ pub fn plugin(app: &mut App) {
         switch_guns::plugin,
         reload::plugin,
         firing::plugin,
+        models::plugin,
     ));
 
     app.init_state::<GunState>();

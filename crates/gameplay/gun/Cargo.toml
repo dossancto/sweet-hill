@@ -44,6 +44,8 @@ bevy = { workspace = true, features = [
     "reflect_auto_register"
 ] }
 avian3d = { workspace = true }
+bevy_trenchbroom ={workspace = true}
+bevy_trenchbroom_avian ={workspace = true}
 bevy_enhanced_input = { workspace = true }
 states = { version = "0.1.0", path = "../../states" }
 third_party = { version = "0.1.0", path = "../../third_party" }

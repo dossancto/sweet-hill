@@ -15,8 +15,7 @@ use states::{
 use third_party::avian3d::CollisionLayer;
 use utils::calculations::random_circle::get_non_uniform_random_point_on_circle;
 
-pub(crate) fn shoot_semi_auto_bullets(
-    gun: Single<
+pub(crate) fn shoot_semi_auto_bullets( gun: Single<
         (Entity, &Gun, &mut GunAmmo, &mut GunFireSemiAuto),
         (With<ActiveGun>, Without<GunReloading>),
     >,
