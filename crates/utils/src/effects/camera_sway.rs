@@ -8,7 +8,10 @@ pub struct SwayItem {
 }
 
 pub fn plugin(app: &mut App) {
-    app.add_systems(Update, item_sway_system);
+    app.add_systems(
+        Update,
+        item_sway_system.run_if(in_state(states::screens::Screen::Gameplay)),
+    );
 }
 
 fn item_sway_system(
