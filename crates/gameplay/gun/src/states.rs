@@ -8,3 +8,10 @@ pub enum GunState {
     Firing,
     Switching,
 }
+
+#[derive(States, Default, Debug, Clone, PartialEq, Eq, Hash)]
+pub enum GunAimState {
+    #[default]
+    Idle,
+    Aiming,
+}

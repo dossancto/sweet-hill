@@ -37,9 +37,9 @@ impl FromWorld for GunsBag {
                             },
                             GunAmmo {
                                 max_clip_size: 30,
-                                max_stock_size: 90,
+                                max_stock_size: 90 * 10,
                                 current_on_clip: 30,
-                                current_on_stock: 90,
+                                current_on_stock: 90 * 10,
                             },
                             GunReload { reload_time: 0.5 },
                             GunFireAuto::new(10f32, auto_bullet_system),

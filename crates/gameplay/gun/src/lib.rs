@@ -1,18 +1,20 @@
 use bevy::{app::App, state::app::AppExtStates};
 
-use crate::states::GunState;
+use crate::states::{GunAimState, GunState};
 
 pub mod states;
 
 pub mod configuration;
 pub mod firing;
 pub mod gun_controller;
-pub mod reload;
-pub mod switch_guns;
 pub mod inputs;
 pub mod models;
+pub mod reload;
+pub mod switch_guns;
 
-pub mod ui;
+pub(crate) mod sound;
+pub(crate) mod ui;
+pub(crate) mod aims;
 
 pub fn plugin(app: &mut App) {
     app.add_plugins((
@@ -23,7 +25,10 @@ pub fn plugin(app: &mut App) {
         reload::plugin,
         firing::plugin,
         models::plugin,
+        sound::plugin,
+        aims::plugin,
     ));
 
     app.init_state::<GunState>();
+    app.init_state::<GunAimState>();
 }

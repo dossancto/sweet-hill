@@ -18,6 +18,7 @@ use crate::{
 
 pub(super) fn plugin(app: &mut App) {
     app.add_observer(setup_crate_small);
+    app.add_observer(setup_crate_big);
     app.load_asset::<Gltf>(CrateBig::model_path())
         .load_asset::<Gltf>(CrateSmall::model_path());
 }
@@ -26,7 +27,7 @@ pub(super) fn plugin(app: &mut App) {
     base(Transform, Visibility),
     model("models/darkmod/containers/crate01_big.gltf")
 )]
-#[component(on_add = setup_prop::<CrateBig>(RigidBody::Static, ColliderConstructor::ConvexHullFromMesh))]
+// #[component(on_add = setup_prop::<CrateBig>(RigidBody::Static, ColliderConstructor::ConvexHullFromMesh))]
 pub(crate) struct CrateBig;
 
 #[point_class(
@@ -34,6 +35,40 @@ pub(crate) struct CrateBig;
     model("models/darkmod/containers/crate01_small.gltf")
 )]
 pub(crate) struct CrateSmall;
+
+fn setup_crate_big(
+    add: On<Add, CrateBig>,
+    asset_server: Res<AssetServer>,
+    mut commands: Commands,
+    archipelago: Single<Entity, With<Archipelago3d>>,
+) {
+    let model = asset_server.load_trenchbroom_model::<CrateBig>();
+    commands.entity(add.entity).insert((
+        Hittable,
+        CollisionLayers::new(CollisionLayer::Hittable, LayerMask::ALL),
+        ColliderDensity(1_000.0),
+        Collider::cuboid(1.5f32, 1.5f32, 1.5f32),
+        Enemy {
+            name: "Crate BIg".to_string(),
+            health: 500000.0,
+            damage: 0.0,
+        },
+    ));
+    commands.entity(add.entity).insert(Character3dBundle {
+        character: Character::default(),
+        settings: CharacterSettings { radius: 0.5 },
+        archipelago_ref: ArchipelagoRef3d::new(*archipelago),
+    });
+    commands.entity(add.entity).insert((
+        // Not inserting `TnuaNotPlatform`, otherwise the player will not be able to jump on it.
+        SceneRoot(model),
+        // The prop should be held upright.
+        PreferredPickupRotation(Quat::IDENTITY),
+        // Holding a big crate right in your face looks bad, so
+        // let's move the pickup distance a bit further away.
+        RigidBody::Dynamic,
+    ));
+}
 
 fn setup_crate_small(
     add: On<Add, CrateSmall>,

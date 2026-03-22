@@ -11,7 +11,7 @@ use core_gameplay::{
     flashlight::states::ToggleFlashlight,
     player::states::{BlocksInput, Interact},
 };
-use gun::inputs::{GunFireTrigger, GunReloadTrigger, ToogleActiveGun};
+use gun::inputs::{GunAimTrigger, GunFireTrigger, GunReloadTrigger, ToogleActiveGun};
 use states::player::Player;
 
 #[derive(Debug, Component, Default)]
@@ -123,8 +123,14 @@ impl PlayerInputContext {
                 ),
                 (
                     Action::<GunFireTrigger>::new(),
-                    Hold::new(5f32),
+                    Hold::new(10f32).one_shot(false),
                     bindings![MouseButton::Left, GamepadButton::North]
+                ),
+                (
+                    Action::<GunAimTrigger>::new(),
+                    ActionSettings { consume_input: true, ..default() },
+                    Hold::new(10f32).one_shot(false),
+                    bindings![MouseButton::Right],
                 ),
                 (
                     Action::<GunReloadTrigger>::new(),

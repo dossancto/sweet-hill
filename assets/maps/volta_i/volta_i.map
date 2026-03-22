@@ -162,7 +162,7 @@
 // entity 7
 {
 "classname" "crate_big"
-"origin" "530 -512 8"
+"origin" "530 -512 136"
 "property 1" ""
 "angles" "0 180 0"
 }

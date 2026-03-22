@@ -5,6 +5,7 @@ use crate::{
         gun_can_shoot::{can_auto_can_shoot, can_semi_auto_can_shoot},
     },
     reload::domain::GunAmmo,
+    states::GunAimState,
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
@@ -15,7 +16,8 @@ use states::{
 use third_party::avian3d::CollisionLayer;
 use utils::calculations::random_circle::get_non_uniform_random_point_on_circle;
 
-pub(crate) fn shoot_semi_auto_bullets( gun: Single<
+pub(crate) fn shoot_semi_auto_bullets(
+    gun: Single<
         (Entity, &Gun, &mut GunAmmo, &mut GunFireSemiAuto),
         (With<ActiveGun>, Without<GunReloading>),
     >,
@@ -68,6 +70,7 @@ pub fn on_shoot_bullets(
     player_collider: Single<Entity, With<Player>>,
     hittable_query: Query<&Hittable>,
     spatial_query: SpatialQuery,
+    aim_state: Res<State<GunAimState>>,
     mut commands: Commands,
 ) {
     let (player, _) = player.into_inner();
@@ -76,7 +79,7 @@ pub fn on_shoot_bullets(
 
     let camera_transform = player.compute_transform();
 
-    let spread_factor = 0.3;
+    let spread_factor = 0.1;
 
     let (spread_x, spread_y) = get_non_uniform_random_point_on_circle(spread_factor);
 
@@ -86,11 +89,15 @@ pub fn on_shoot_bullets(
         .with_xy(Vec2::new(forward.x + spread_x, forward.y + spread_y))
         .normalize();
 
-    let formated_spread = Dir3::new(forward_with_spread).unwrap();
+    let formatted_spread = if aim_state.get() == &GunAimState::Aiming {
+        forward
+    } else {
+        Dir3::new(forward_with_spread).unwrap()
+    };
 
     let hits = spatial_query.ray_hits(
         camera_transform.translation,
-        formated_spread,
+        formatted_spread,
         gun.range,
         10,
         true,

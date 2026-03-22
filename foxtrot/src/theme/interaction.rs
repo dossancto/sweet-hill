@@ -57,7 +57,7 @@ pub(crate) struct InteractionAssets {
 }
 
 impl InteractionAssets {
-    pub(crate) const PATH_BUTTON_HOVER: &'static str = "audio/sound_effects/button_hover.ogg";
+    pub(crate) const PATH_BUTTON_HOVER: &'static str = "audio/sound_effects/item-select-formated.wav";
     pub(crate) const PATH_BUTTON_PRESS: &'static str = "audio/sound_effects/button_press.ogg";
 }
 

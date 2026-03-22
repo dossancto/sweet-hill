@@ -4230,6 +4230,7 @@ dependencies = [
  "avian3d",
  "bevy",
  "bevy_enhanced_input",
+ "bevy_seedling",
  "bevy_trenchbroom",
  "bevy_trenchbroom_avian",
  "states",
