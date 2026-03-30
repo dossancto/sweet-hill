@@ -1,3 +1,5 @@
+use std::ops::Range;
+
 use bevy::prelude::*;
 use rand::Rng;
 
@@ -23,8 +25,8 @@ pub fn apply_gun_recoil(
 
     recoil.recovery_timer.reset();
 
-    let vertical_kick = rng.random_range(2.0..5.0);
-    let horizontal_kick = rng.random_range(-3f32..1.5);
+    let horizontal_kick = rng.random_range(recoil.horizontal_recoil_range.clone());
+    let vertical_kick = rng.random_range(recoil.vertical_recoil_range.clone());
 
     recoil.target_offset.x += horizontal_kick;
     recoil.target_offset.y += vertical_kick;
@@ -51,8 +53,8 @@ fn process_recoil_system(
 
     camera_transform.rotation = Quat::from_euler(
         EulerRot::YXZ,
-        0.0,
-        recoil.current_offset.y.to_radians(),
         recoil.current_offset.x.to_radians(),
+        recoil.current_offset.y.to_radians(),
+        0.0,
     );
 }

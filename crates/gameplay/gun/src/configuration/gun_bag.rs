@@ -45,7 +45,13 @@ impl FromWorld for GunsBag {
                             GunFireAuto::new(10f32, auto_bullet_system),
                         ),
                         ActiveGun,
-                        GunRecoil::default(),
+                        GunRecoil::new(GunRecoilOptions {
+                            vertical_recoil_range: 2.0..5.0,
+                            horizontal_recoil_range: -5f32..5f32,
+                            tension: 5.,
+                            friction: 6.,
+                            recovery_timer: Timer::from_seconds(0.1, TimerMode::Once),
+                        }),
                         GunAiming {
                             aiming_time: 100,
                             zoom_level: 60.0,
@@ -60,22 +66,35 @@ impl FromWorld for GunsBag {
             "canon".into(),
             (
                 world
-                    .spawn(GunSemiAutoBundle::new(
-                        Gun {
-                            id: "canon".to_string(),
-                            name: "Canon".to_string(),
-                            damage: 100.0,
-                            range: 100.0,
-                            damage_falloff_per_hit: 10. / 100.,
+                    .spawn((
+                        GunSemiAutoBundle::new(
+                            Gun {
+                                id: "canon".to_string(),
+                                name: "Canon".to_string(),
+                                damage: 100.0,
+                                range: 100.0,
+                                damage_falloff_per_hit: 10. / 100.,
+                            },
+                            GunAmmo {
+                                max_clip_size: 5,
+                                max_stock_size: 25,
+                                current_on_clip: 5,
+                                current_on_stock: 25,
+                            },
+                            GunReload { reload_time: 1. },
+                            GunFireSemiAuto::new(1.2f32, semi_auto_bullet_system),
+                        ),
+                        GunAiming {
+                            aiming_time: 300,
+                            zoom_level: 30.0,
                         },
-                        GunAmmo {
-                            max_clip_size: 5,
-                            max_stock_size: 25,
-                            current_on_clip: 5,
-                            current_on_stock: 25,
-                        },
-                        GunReload { reload_time: 1. },
-                        GunFireSemiAuto::new(1.2f32, semi_auto_bullet_system),
+                        GunRecoil::new(GunRecoilOptions {
+                            vertical_recoil_range: 20.0..50.0,
+                            horizontal_recoil_range: -5f32..5f32,
+                            tension: 5.,
+                            friction: 6.,
+                            recovery_timer: Timer::from_seconds(0.1, TimerMode::Once),
+                        }),
                     ))
                     .id(),
                 semi_auto_bullet_system,
