@@ -11,6 +11,7 @@ pub mod inputs;
 pub mod models;
 pub mod reload;
 pub mod switch_guns;
+pub mod recoil;
 
 pub(crate) mod sound;
 pub(crate) mod ui;
@@ -28,6 +29,7 @@ pub fn plugin(app: &mut App) {
         models::plugin,
         sound::plugin,
         aims::plugin,
+        recoil::plugin,
     ));
 
     app.init_state::<GunState>();

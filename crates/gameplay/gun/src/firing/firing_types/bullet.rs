@@ -11,7 +11,7 @@ use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
 use states::{
     hittable::{Hit, Hittable},
-    player::{Player, PlayerCamera},
+    player::Player,
 };
 use third_party::avian3d::CollisionLayer;
 use utils::calculations::random_circle::get_non_uniform_random_point_on_circle;
@@ -66,7 +66,7 @@ pub(crate) fn shoot_auto_bullets(
 
 pub fn on_shoot_bullets(
     on: On<BulletGunFired>,
-    player: Single<(&GlobalTransform, Entity), With<PlayerCamera>>,
+    player: Single<(&GlobalTransform, Entity), With<Camera3d>>,
     player_collider: Single<Entity, With<Player>>,
     hittable_query: Query<&Hittable>,
     spatial_query: SpatialQuery,

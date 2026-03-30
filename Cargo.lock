@@ -4233,6 +4233,7 @@ dependencies = [
  "bevy_seedling",
  "bevy_trenchbroom",
  "bevy_trenchbroom_avian",
+ "rand",
  "states",
  "third_party",
  "utils",
