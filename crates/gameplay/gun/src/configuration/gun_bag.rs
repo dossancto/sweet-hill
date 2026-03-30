@@ -45,6 +45,10 @@ impl FromWorld for GunsBag {
                             GunFireAuto::new(10f32, auto_bullet_system),
                         ),
                         ActiveGun,
+                        GunAiming {
+                            aiming_time: 100,
+                            zoom_level: 60.0,
+                        },
                     ))
                     .id(),
                 auto_bullet_system,
