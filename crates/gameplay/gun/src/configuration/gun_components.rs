@@ -136,9 +136,9 @@ impl GunAutoBundle {
 #[derive(Component)]
 pub struct GunRecoil {
     /// The current recoil offset applied to the gun (e.g., for visual kickback).
-    pub current_offset: Vec2,
+    pub current_offset: Vec3,
     /// The target recoil offset the gun is moving towards (e.g., after firing).
-    pub target_offset: Vec2,
+    pub target_offset: Vec3,
     /// The spring tension that pulls the gun back to its neutral position. Higher values make the gun return faster.
     pub tension: f32,
     /// The damping factor that slows down the recoil movement. Higher values make the recoil settle more quickly.
@@ -151,9 +151,9 @@ pub struct GunRecoil {
 impl Default for GunRecoil {
     fn default() -> Self {
         Self {
-            current_offset: Vec2::ZERO,
-            target_offset: Vec2::ZERO,
-            tension: 20.0,
+            current_offset: Vec3::ZERO,
+            target_offset: Vec3::ZERO,
+            tension: 5.0,
             friction: 6.0,
             recovery_timer: Timer::from_seconds(0.1, TimerMode::Once),
             fov_kick: 2.0,

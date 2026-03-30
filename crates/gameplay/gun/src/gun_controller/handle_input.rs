@@ -1,5 +1,6 @@
 use crate::{
     configuration::gun_components::{ActiveGun, Gun, GunFireAuto, GunFireSemiAuto},
+    firing::firing_types::bullet::{shoot_auto_bullets, shoot_semi_auto_bullets},
     inputs::GunFireTrigger,
     states::GunState,
 };
@@ -20,7 +21,7 @@ pub(crate) fn handle_tap_fire(
         return;
     }
 
-    commands.run_system(gun_fire_semi_auto.system_id);
+    commands.run_system_cached(shoot_semi_auto_bullets);
 }
 
 pub(crate) fn handle_hold_fire(
@@ -37,5 +38,5 @@ pub(crate) fn handle_hold_fire(
         return;
     }
 
-    commands.run_system(gun_fire_semi_auto.action);
+    commands.run_system_cached(shoot_auto_bullets);
 }
