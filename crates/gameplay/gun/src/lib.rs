@@ -15,6 +15,7 @@ pub mod switch_guns;
 pub(crate) mod sound;
 pub(crate) mod ui;
 pub(crate) mod aims;
+pub(crate) mod assets;
 
 pub fn plugin(app: &mut App) {
     app.add_plugins((

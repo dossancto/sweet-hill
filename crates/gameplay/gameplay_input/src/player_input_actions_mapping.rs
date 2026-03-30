@@ -108,7 +108,7 @@ impl PlayerInputContext {
 
                     Bindings::spawn((
                         Spawn((Binding::mouse_motion(), Scale::splat(0.07))),
-                        Axial::right_stick().with((Scale::splat(4.0),  DeadZone::default())),
+                        Axial::right_stick(),
                     ))
                 ),
                 (
@@ -119,26 +119,26 @@ impl PlayerInputContext {
                 (
                     Action::<ToggleFlashlight>::new(),
                     Press::new(1f32),
-                    bindings![KeyCode::KeyF, GamepadButton::North]
+                    bindings![KeyCode::KeyF, GamepadButton::West]
                 ),
                 (
                     Action::<GunFireTrigger>::new(),
                     Hold::new(10f32).one_shot(false),
-                    bindings![MouseButton::Left, GamepadButton::North]
+                    bindings![MouseButton::Left, GamepadButton::RightTrigger2]
                 ),
                 (
                     Action::<GunAimTrigger>::new(),
                     ActionSettings { consume_input: true, ..default() },
                     Hold::new(10f32).one_shot(false),
-                    bindings![MouseButton::Right],
+                    bindings![MouseButton::Right, GamepadButton::LeftTrigger2],
                 ),
                 (
                     Action::<GunReloadTrigger>::new(),
-                    bindings![KeyCode::KeyR, GamepadButton::West]
+                    bindings![KeyCode::KeyR, GamepadButton::East]
                 ),
                 (
                     Action::<ToogleActiveGun>::new(),
-                    bindings![Binding::mouse_wheel(), GamepadButton::West]
+                    bindings![Binding::mouse_wheel(), GamepadButton::North]
                 ),
             ]));
     }
