@@ -9,7 +9,7 @@ use bevy::prelude::*;
 use bevy_ahoy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
-use ::states::player::Player;
+use ::states::{player::Player, player_states::constants::PLAYER_BASE_SPEED};
 use bevy_trenchbroom::prelude::*;
 use navmesh_position::LastValidPlayerNavmeshPosition;
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath};
@@ -69,7 +69,10 @@ fn setup_player(
             // engine.
             Collider::cylinder(PLAYER_RADIUS, PLAYER_HEIGHT),
             // This is Tnua's interface component.
-            CharacterController::default(),
+            CharacterController {
+                speed: PLAYER_BASE_SPEED,
+                ..default()
+            },
             ColliderDensity(1_000.0),
             CollisionLayers::new(CollisionLayer::Character, LayerMask::ALL),
             AnimationState::<PlayerAnimationState>::default(),

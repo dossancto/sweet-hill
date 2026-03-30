@@ -9,7 +9,8 @@ use bevy_seedling::prelude::*;
 
 use audio::{DEFAULT_MAIN_VOLUME, perceptual::PerceptualVolumeConverter};
 
-use core_gameplay::player::camera::{CameraSensitivity, WorldModelFov};
+use core_gameplay::player::camera::CameraSensitivity;
+use states::player_states::settings::WorldModelFov;
 
 use crate::{
     Pause,

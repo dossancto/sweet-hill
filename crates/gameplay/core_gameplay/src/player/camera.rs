@@ -24,7 +24,7 @@ use bevy::{
     scene::SceneInstanceReady,
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
-use states::{player::PlayerCamera, screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
+use states::{player::PlayerCamera, player_states::settings::WorldModelFov, screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
 use utils::{post_process::PostProcessSettings, world::RenderLayer};
 
@@ -238,16 +238,6 @@ fn add_render_layers_to_directional_light(add: On<Add, DirectionalLight>, mut co
     commands.entity(entity).insert(RenderLayers::from(
         RenderLayer::DEFAULT | RenderLayer::VIEW_MODEL,
     ));
-}
-
-#[derive(Resource, Reflect, Debug, Deref, DerefMut)]
-#[reflect(Resource)]
-pub struct WorldModelFov(pub f32);
-
-impl Default for WorldModelFov {
-    fn default() -> Self {
-        Self(75.0)
-    }
 }
 
 fn update_world_model_fov(
