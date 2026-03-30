@@ -3,29 +3,22 @@
 //! The code is adapted from <https://bevyengine.org/examples/camera/first-person-view-model/>.
 //! See that example for more information.
 
-use std::iter;
-
 use avian_pickup::prelude::*;
 use avian3d::prelude::*;
-#[cfg(feature = "native")]
-use bevy::pbr::ScreenSpaceAmbientOcclusion;
 use bevy::{
-    anti_alias::{fxaa::Fxaa, taa::TemporalAntiAliasing},
+    anti_alias::taa::TemporalAntiAliasing,
     camera::{Exposure, visibility::RenderLayers},
-    core_pipeline::{
-        Skybox,
-        prepass::{DeferredPrepass, DepthPrepass},
-        tonemapping::Tonemapping,
-    },
-    light::{NotShadowCaster, ShadowFilteringMethod},
+    core_pipeline::{Skybox, prepass::DeferredPrepass, tonemapping::Tonemapping},
+    light::ShadowFilteringMethod,
     post_process::bloom::Bloom,
     prelude::*,
-    render::view::Hdr,
-    scene::SceneInstanceReady,
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
-use states::{player::PlayerCamera, player_states::settings::WorldModelFov, screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
-use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
+use states::{
+    player::PlayerCamera, player_states::settings::WorldModelFov, screens::LoadingScreen,
+    utils::CameraOrder, world::PostPhysicsAppSystems,
+};
+use third_party::avian3d::CollisionLayer;
 use utils::{post_process::PostProcessSettings, world::RenderLayer};
 
 use crate::{
@@ -59,7 +52,6 @@ struct WorldModelCamera;
 fn spawn_view_model(
     add: On<Add, Player>,
     mut commands: Commands,
-    assets: Res<AssetServer>,
     level_assets: Res<LevelAssets>,
     fov: Res<WorldModelFov>,
 ) {
@@ -198,26 +190,26 @@ fn move_anim_players_relationship_to_player(
     }
 }
 
-fn configure_player_view_model(
-    ready: On<SceneInstanceReady>,
-    mut commands: Commands,
-    q_children: Query<&Children>,
-    q_mesh: Query<(), With<Mesh3d>>,
-) {
-    let view_model = ready.entity;
-
-    for child in iter::once(view_model)
-        .chain(q_children.iter_descendants(view_model))
-        .filter(|e| q_mesh.contains(*e))
-    {
-        commands.entity(child).insert((
-            // Ensure the arm is only rendered by the view model camera.
-            RenderLayers::from(RenderLayer::VIEW_MODEL),
-            // The arm is free-floating, so shadows would look weird.
-            NotShadowCaster,
-        ));
-    }
-}
+// fn configure_player_view_model(
+//     ready: On<SceneInstanceReady>,
+//     mut commands: Commands,
+//     q_children: Query<&Children>,
+//     q_mesh: Query<(), With<Mesh3d>>,
+// ) {
+//     let view_model = ready.entity;
+//
+//     for child in iter::once(view_model)
+//         .chain(q_children.iter_descendants(view_model))
+//         .filter(|e| q_mesh.contains(*e))
+//     {
+//         commands.entity(child).insert((
+//             // Ensure the arm is only rendered by the view model camera.
+//             RenderLayers::from(RenderLayer::VIEW_MODEL),
+//             // The arm is free-floating, so shadows would look weird.
+//             NotShadowCaster,
+//         ));
+//     }
+// }
 
 fn add_render_layers_to_point_light(add: On<Add, PointLight>, mut commands: Commands) {
     let entity = add.entity;

@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+#[allow(dead_code)]
 #[derive(Event)]
 pub(crate) struct EnemyHit {
     pub target: Entity,

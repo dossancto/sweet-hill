@@ -1,6 +1,5 @@
 //! Development tools for the game. This plugin is only enabled in dev builds.
 
-use avian3d::prelude::PhysicsDebugPlugin;
 use bevy::{dev_tools::{picking_debug::DebugPickingPlugin, states::log_transitions}, prelude::*};
 use states::screens::LoadingScreen;
 

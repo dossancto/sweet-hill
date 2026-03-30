@@ -14,7 +14,7 @@ pub(crate) fn handle_tap_fire(
 ) {
     let gun_state = gun_state.get();
 
-    let (gun, gun_fire_semi_auto) = gun.into_inner();
+    let (_gun, gun_fire_semi_auto) = gun.into_inner();
 
     if gun_state != &GunState::ReadyToFire {
         return;
@@ -31,7 +31,7 @@ pub(crate) fn handle_hold_fire(
 ) {
     let gun_state = gun_state.get();
 
-    let (gun, gun_fire_semi_auto) = gun.into_inner();
+    let (_gun, gun_fire_semi_auto) = gun.into_inner();
 
     if gun_state != &GunState::ReadyToFire {
         return;

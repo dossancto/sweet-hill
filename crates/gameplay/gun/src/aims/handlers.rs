@@ -2,7 +2,7 @@ use std::f32::consts::PI;
 
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::{Cancel, Ongoing, Start};
-use states::{player::PlayerCamera, player_states::settings::WorldModelFov};
+use states::player_states::settings::WorldModelFov;
 
 use crate::{inputs::GunAimTrigger, states::GunAimState};
 

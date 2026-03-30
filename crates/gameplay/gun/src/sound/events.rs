@@ -27,9 +27,9 @@ fn on_fire_hit(
 fn on_shoot_bullets(
     _on: On<BulletGunFired>,
 
-    assets: Res<AssetServer>,
-    player_transform: Single<&Transform, With<PlayerCamera>>,
-    mut commands: Commands,
+    _assets: Res<AssetServer>,
+    _player_transform: Single<&Transform, With<PlayerCamera>>,
+    mut _commands: Commands,
 ) {
     // let sound = assets.load("audio/sound_effects/fire/fire01.wav");
     //

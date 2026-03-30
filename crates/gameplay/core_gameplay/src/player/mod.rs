@@ -10,7 +10,6 @@ use bevy_ahoy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
 use ::states::{player::Player, player_states::constants::PLAYER_BASE_SPEED};
-use bevy_trenchbroom::prelude::*;
 use navmesh_position::LastValidPlayerNavmeshPosition;
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath};
 use utils::{animation::AnimationState, asset_tracking::LoadResource};
@@ -28,7 +27,7 @@ pub mod states;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
-        // animation::plugin,
+        animation::plugin,
         assets::plugin,
         camera::plugin,
         dialogue::plugin,

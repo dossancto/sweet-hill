@@ -8,12 +8,9 @@ use enemies::states::Enemy;
 use states::hittable::Hittable;
 use utils::asset_tracking::LoadResource;
 
-use crate::{
-    props::setup::setup_prop,
-    third_party::{
-        avian3d::CollisionLayer,
-        bevy_trenchbroom::{GetTrenchbroomModelPath as _, LoadTrenchbroomModel as _},
-    },
+use crate::third_party::{
+    avian3d::CollisionLayer,
+    bevy_trenchbroom::{GetTrenchbroomModelPath as _, LoadTrenchbroomModel as _},
 };
 
 pub(super) fn plugin(app: &mut App) {
