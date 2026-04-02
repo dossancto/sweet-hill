@@ -4,4 +4,4 @@ pub mod world;
 pub mod hittable;
 pub mod player;
 pub mod player_states;
-
+pub mod guns;
