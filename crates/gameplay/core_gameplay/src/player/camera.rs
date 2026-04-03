@@ -15,8 +15,12 @@ use bevy::{
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
 use states::{
-    player::PlayerCamera, player_states::settings::WorldModelFov, screens::LoadingScreen,
-    utils::CameraOrder, world::PostPhysicsAppSystems,
+    guns::marks::GunHolderMark,
+    player::PlayerCamera,
+    player_states::{camera::WorldModelCamera, settings::WorldModelFov},
+    screens::LoadingScreen,
+    utils::CameraOrder,
+    world::PostPhysicsAppSystems,
 };
 use third_party::avian3d::CollisionLayer;
 use utils::{post_process::PostProcessSettings, world::RenderLayer};
@@ -43,11 +47,6 @@ pub(super) fn plugin(app: &mut App) {
             .in_set(PostPhysicsAppSystems::Update),
     );
 }
-
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-#[require(Transform, Visibility)]
-struct WorldModelCamera;
 
 fn spawn_view_model(
     add: On<Add, Player>,
@@ -101,6 +100,7 @@ fn spawn_view_model(
                 Name::new("World Model Camera"),
                 WorldModelCamera,
                 Camera3d::default(),
+                // GunHolderMark,
                 PostProcessSettings {
                     intensity: 1.,
                     ..default()
