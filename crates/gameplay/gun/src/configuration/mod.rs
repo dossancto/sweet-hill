@@ -6,5 +6,8 @@ pub mod gun_bag;
 pub mod gun_components;
 
 pub(super) fn plugin(app: &mut App) {
-    app.init_resource::<GunsBag>();
+    app.insert_resource::<GunsBag>(GunsBag {
+        guns: default(),
+        max_guns: 2,
+    });
 }

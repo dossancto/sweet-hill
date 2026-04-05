@@ -5,9 +5,8 @@ use bevy_enhanced_input::prelude::{Cancel, Ongoing};
 use states::player_states::settings::WorldModelFov;
 
 use crate::{
-    configuration::gun_components::{ActiveGun, GunAiming},
-    inputs::GunAimTrigger,
-    states::GunAimState,
+    aims::aim_configurations::components::GunAiming, configuration::gun_components::ActiveGun,
+    inputs::GunAimTrigger, states::GunAimState,
 };
 
 pub(super) fn plugin(app: &mut App) {

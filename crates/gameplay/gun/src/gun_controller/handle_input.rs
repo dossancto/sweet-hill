@@ -1,5 +1,6 @@
 use crate::{
-    configuration::gun_components::{ActiveGun, Gun, GunFireAuto, GunFireSemiAuto},
+    configuration::gun_components::{ActiveGun, Gun},
+    firing::configurations::components::{GunFireAuto, GunFireSemiAuto},
     inputs::GunFireTrigger,
     states::GunState,
 };

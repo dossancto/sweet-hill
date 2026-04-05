@@ -1,5 +1,5 @@
 use crate::{
-    configuration::gun_components::{GunFireAuto, GunFireSemiAuto},
+    firing::configurations::components::{GunFireAuto, GunFireSemiAuto},
     reload::domain::GunAmmo,
 };
 

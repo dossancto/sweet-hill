@@ -2,8 +2,8 @@ use bevy::prelude::*;
 use rand::Rng;
 
 use crate::{
-    configuration::gun_components::{ActiveGun, GunRecoil},
-    firing::events::BulletGunFired,
+    configuration::gun_components::ActiveGun, firing::events::BulletGunFired,
+    recoil::configurations::components::GunRecoil,
 };
 
 pub(super) fn plugin(app: &mut App) {

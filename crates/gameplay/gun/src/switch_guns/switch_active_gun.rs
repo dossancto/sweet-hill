@@ -1,9 +1,12 @@
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::Start;
 
-use crate::configuration::{
-    gun_bag::GunsBag,
-    gun_components::{ActiveGun, Gun, GunReloading},
+use crate::{
+    configuration::{
+        gun_bag::GunsBag,
+        gun_components::{ActiveGun, Gun},
+    },
+    reload::configurations::components::GunReloading,
 };
 
 use crate::inputs::ToogleActiveGun;

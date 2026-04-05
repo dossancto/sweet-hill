@@ -3,7 +3,7 @@ use bevy_seedling::prelude::*;
 
 use states::player::PlayerCamera;
 
-use crate::configuration::gun_components::GunReloading;
+use crate::reload::configurations::components::GunReloading;
 
 pub(super) fn handle_gun_reload_start_sound(
     _on: On<Add, GunReloading>,

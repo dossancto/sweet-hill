@@ -1,10 +1,11 @@
 use crate::{
-    configuration::gun_components::{ActiveGun, Gun, GunFireAuto, GunFireSemiAuto, GunReloading},
+    configuration::gun_components::{ActiveGun, Gun},
     firing::{
+        configurations::components::{GunFireAuto, GunFireSemiAuto},
         events::BulletGunFired,
         gun_can_shoot::{can_auto_can_shoot, can_semi_auto_can_shoot},
     },
-    reload::domain::GunAmmo,
+    reload::{configurations::components::GunReloading, domain::GunAmmo},
     states::GunAimState,
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};

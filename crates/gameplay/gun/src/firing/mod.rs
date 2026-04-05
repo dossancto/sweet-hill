@@ -2,6 +2,7 @@ use bevy::prelude::*;
 
 pub mod events;
 pub mod gun_can_shoot;
+pub mod configurations;
 
 pub(crate) mod firing_types;
 
