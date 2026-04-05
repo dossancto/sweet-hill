@@ -24,7 +24,7 @@ pub fn spawn_level(mut commands: Commands, level_assets: Res<LevelAssets>) {
         Level,
         children![(
             Name::new("Level Music"),
-            SamplePlayer::new(level_assets.music.clone()).looping(),
+            // SamplePlayer::new(level_assets.music.clone()).looping(),
             MusicPool
         )],
     ));

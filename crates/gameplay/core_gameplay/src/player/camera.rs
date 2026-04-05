@@ -15,7 +15,6 @@ use bevy::{
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
 use states::{
-    guns::marks::GunHolderMark,
     player::PlayerCamera,
     player_states::{camera::WorldModelCamera, settings::WorldModelFov},
     screens::LoadingScreen,
