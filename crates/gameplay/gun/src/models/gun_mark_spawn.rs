@@ -1,8 +1,8 @@
 use bevy::prelude::*;
-use states::{guns::marks::GunHolderMark, player_states::camera::WorldModelCamera};
+use states::{guns::marks::GunHolderMark, player::PlayerCamera, player_states::camera::WorldModelCamera};
 
 pub(super) fn spawn_gun_holder(
-    on: On<Add, WorldModelCamera>,
+    on: On<Add, PlayerCamera>,
     q_player: Query<(&GlobalTransform, Entity), With<WorldModelCamera>>,
     mut commands: Commands,
 ) {
@@ -14,10 +14,19 @@ pub(super) fn spawn_gun_holder(
             parent.spawn((
                 GunHolderMark,
                 Name::new("Gun Holder Mark"),
-                Transform::from_translation(gun_offset)
-                    // .with_scale(Vec3::splat(1.5f32))
-                    // .with_rotation(Quat::from_rotation_y(7.5f32.to_radians())),
+                Transform::from_translation(gun_offset), // .with_scale(Vec3::splat(1.5f32))
+                                                         // .with_rotation(Quat::from_rotation_y(7.5f32.to_radians())),
             ));
         });
+    }
+}
+
+pub(super) fn ensures_single_gun_holder(
+    _on: On<Insert, GunHolderMark>,
+    q_gun_holder: Query<Entity, With<GunHolderMark>>,
+    mut commands: Commands,
+) {
+    for entity in q_gun_holder.iter().skip(1) {
+        commands.entity(entity).despawn();
     }
 }

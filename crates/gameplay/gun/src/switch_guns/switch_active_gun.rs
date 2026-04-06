@@ -3,7 +3,7 @@ use bevy_enhanced_input::prelude::Start;
 
 use crate::{
     configuration::{
-        gun_bag::GunsBag,
+        gun_bag::GunBag,
         gun_components::{ActiveGun, Gun},
     },
     reload::configurations::components::GunReloading,
@@ -13,7 +13,7 @@ use crate::inputs::ToogleActiveGun;
 
 pub(crate) fn switch_to_next_gun(
     on: On<Start<ToogleActiveGun>>,
-    guns_bag: Res<GunsBag>,
+    guns_bag: Res<GunBag>,
     active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
     mut commands: Commands,
 ) {
@@ -38,14 +38,14 @@ pub(crate) fn switch_to_next_gun(
         return;
     };
 
-    let (prev_gun_entity, _) = prev_gun_entity;
+    let (prev_gun_entity) = prev_gun_entity;
 
     commands.entity(active_gun_entity).remove::<ActiveGun>();
 
     commands.entity(prev_gun_entity).insert(ActiveGun);
 }
 
-fn get_new_indice(guns_bag: &GunsBag, current_gun_id: &str, foward: bool) -> usize {
+fn get_new_indice(guns_bag: &GunBag, current_gun_id: &str, foward: bool) -> usize {
     let current_gun_index = guns_bag
         .guns
         .iter()

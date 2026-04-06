@@ -166,3 +166,8 @@
 "property 1" ""
 "angles" "0 180 0"
 }
+// entity 8
+{
+"classname" "gun_model_m4a1"
+"origin" "552 152 8"
+}

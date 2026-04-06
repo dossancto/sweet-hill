@@ -7,5 +7,5 @@ pub(super) fn plugin(app: &mut App) {
 }
 
 pub fn spawn_gun(_on: On<Insert, Gun>) {
-    panic!("Not implemented yet");
+    // panic!("Not implemented yet");
 }
