@@ -46,7 +46,7 @@ impl M4A1GunConfigurationBundle {
                 recovery_timer: Timer::from_seconds(0.2, TimerMode::Once),
             }),
             aim: GunAiming {
-                aiming_time: 100,
+                aiming_time: 50,
                 zoom_level: 60.0,
             },
             model: GunM4A1,
