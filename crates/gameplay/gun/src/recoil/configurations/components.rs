@@ -75,7 +75,9 @@ impl GunRecoil {
 }
 
 pub struct GunRecoilOptions {
+    /// The spring tension that pulls the gun back to its neutral position. Higher values make the gun return faster.
     pub tension: f32,
+    /// The damping factor that slows down the recoil movement. Higher values make the recoil settle more quickly.
     pub friction: f32,
     pub vertical_recoil_range: Range<f32>,
     pub horizontal_recoil_range: Range<f32>,

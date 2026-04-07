@@ -41,9 +41,9 @@ impl M4A1GunConfigurationBundle {
             recoil: GunRecoil::new(GunRecoilOptions {
                 vertical_recoil_range: 4.0..5.0,
                 horizontal_recoil_range: -5f32..5f32,
-                tension: 5.,
-                friction: 6.,
-                recovery_timer: Timer::from_seconds(0.1, TimerMode::Once),
+                tension: 1.,
+                friction: 5.,
+                recovery_timer: Timer::from_seconds(0.2, TimerMode::Once),
             }),
             aim: GunAiming {
                 aiming_time: 100,

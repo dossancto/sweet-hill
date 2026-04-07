@@ -5,8 +5,10 @@ use bevy_enhanced_input::prelude::{Cancel, Ongoing};
 use states::player_states::settings::WorldModelFov;
 
 use crate::{
-    aims::aim_configurations::components::GunAiming, configuration::gun_components::ActiveGun,
-    inputs::GunAimTrigger, states::GunAimState,
+    aims::{aim_configurations::components::GunAiming, utils::calculate_delta_value},
+    configuration::gun_components::ActiveGun,
+    inputs::GunAimTrigger,
+    states::GunAimState,
 };
 
 pub(super) fn plugin(app: &mut App) {
@@ -54,7 +56,7 @@ fn on_aiming_ongoing(
                 return;
             }
 
-            let delta_zoom = calculate_delta_zoom(
+            let delta_zoom = calculate_delta_value(
                 default_fov.0.to_radians(),
                 target_fov,
                 aim_duration_ms,
@@ -74,24 +76,4 @@ fn on_aiming_ongoing(
         }
         _ => (),
     }
-}
-
-/// Calculates the required delta_zoom per frame to reach the target_fov in the given duration (in milliseconds).
-///
-/// # Arguments
-/// * `default_fov` - The starting field of view (in radians)
-/// * `target_fov` - The desired field of view to reach (in radians)
-/// * `duration_ms` - The duration over which to reach the target_fov (in milliseconds)
-/// * `frame_time_ms` - The time per frame (in milliseconds)
-///
-/// # Returns
-/// The delta_zoom value to apply per frame.
-fn calculate_delta_zoom(
-    default_fov: f32,
-    target_fov: f32,
-    duration_ms: u32,
-    frame_time_ms: f32,
-) -> f32 {
-    let total_frames = (duration_ms as f32 / frame_time_ms).max(1.0);
-    (target_fov - default_fov) / total_frames
 }
