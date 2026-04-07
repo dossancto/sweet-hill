@@ -4,6 +4,7 @@ use crate::{
     aims::aim_configurations::components::GunAiming,
     configuration::gun_components::Gun,
     firing::configurations::components::GunFireAuto,
+    models::gun_models::gun_m4a1::definition::GunM4A1,
     recoil::configurations::components::{GunRecoil, GunRecoilOptions},
     reload::{configurations::components::GunReload, domain::GunAmmo},
 };
@@ -16,6 +17,7 @@ pub struct M4A1GunConfigurationBundle {
     pub fire_mode: GunFireAuto,
     pub recoil: GunRecoil,
     pub aim: GunAiming,
+    pub model: GunM4A1,
 }
 
 impl M4A1GunConfigurationBundle {
@@ -47,6 +49,7 @@ impl M4A1GunConfigurationBundle {
                 aiming_time: 100,
                 zoom_level: 60.0,
             },
+            model: GunM4A1,
         }
     }
 }
