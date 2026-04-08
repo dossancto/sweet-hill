@@ -1,4 +1,4 @@
-use bevy::{ecs::system::SystemId, prelude::*};
+use bevy::prelude::*;
 
 use crate::configuration::gun_components::GunType;
 

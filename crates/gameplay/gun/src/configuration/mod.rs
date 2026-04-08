@@ -1,17 +1,11 @@
 use bevy::prelude::*;
 
-use crate::configuration::{gun_bag::GunBag, gun_components::ActiveGun};
+use crate::configuration::gun_components::ActiveGun;
 
-pub mod gun_bag;
 pub mod gun_components;
 pub mod guns_definitions;
 
 pub(super) fn plugin(app: &mut App) {
-    app.insert_resource::<GunBag>(GunBag {
-        guns: default(),
-        max_guns: 2,
-    });
-
     app.add_plugins(guns_definitions::plugin);
 
     app.add_observer(assert_unique_active_gun);
