@@ -49,4 +49,8 @@ fn add_default_gun(_add: On<Add, GunHolderMark>, mut commands: Commands) {
     commands.trigger(TakeGunEvent {
         gun_to_spawn: GunType::M4A1,
     });
+
+    commands.trigger(TakeGunEvent {
+        gun_to_spawn: GunType::M1,
+    });
 }

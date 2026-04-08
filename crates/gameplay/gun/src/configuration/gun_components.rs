@@ -1,6 +1,9 @@
 use bevy::prelude::*;
 
-use crate::configuration::guns_definitions::assalt_rifles::m4a1_gun_configuration::M4A1GunConfigurationBundle;
+use crate::configuration::guns_definitions::assalt_rifles::{
+    m1_gun_configuration::M1GunConfigurationBundle,
+    m4a1_gun_configuration::M4A1GunConfigurationBundle,
+};
 
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
@@ -33,8 +36,17 @@ pub enum GunType {
 impl GunType {
     pub fn spawn(&self, commands: &mut Commands) -> Entity {
         match self {
-            GunType::M4A1 => commands.spawn(M4A1GunConfigurationBundle::new()).id(),
-            GunType::M1 => commands.spawn(M4A1GunConfigurationBundle::new()).id(),
+            GunType::M4A1 => commands.spawn(M4A1GunConfigurationBundle::default()).id(),
+            GunType::M1 => commands.spawn(M1GunConfigurationBundle::default()).id(),
+        }
+    }
+}
+
+impl ToString for GunType {
+    fn to_string(&self) -> String {
+        match self {
+            GunType::M4A1 => "M4A1".to_string(),
+            GunType::M1 => "M1".to_string(),
         }
     }
 }

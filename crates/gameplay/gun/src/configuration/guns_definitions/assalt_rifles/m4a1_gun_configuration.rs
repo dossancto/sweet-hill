@@ -1,4 +1,4 @@
-use bevy::{ecs::system::SystemId, prelude::*};
+use bevy::prelude::*;
 
 use crate::{
     aims::aim_configurations::components::GunAiming,
@@ -21,8 +21,8 @@ pub struct M4A1GunConfigurationBundle {
     pub fire_type: FireTypeBullet,
 }
 
-impl M4A1GunConfigurationBundle {
-    pub fn new() -> Self {
+impl Default for M4A1GunConfigurationBundle {
+    fn default() -> Self {
         Self {
             gun: Gun {
                 id: "m4a1".to_string(),

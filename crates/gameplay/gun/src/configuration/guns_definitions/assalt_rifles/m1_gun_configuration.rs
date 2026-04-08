@@ -1,9 +1,10 @@
-use bevy::{ecs::system::SystemId, prelude::*};
+use bevy::prelude::*;
 
 use crate::{
     aims::aim_configurations::components::GunAiming,
     configuration::gun_components::Gun,
-    firing::configurations::components::GunFireRate,
+    firing::{configurations::components::GunFireRate, firing_types::domain::FireTypeBullet},
+    models::gun_models::gun_m4a1::definition::GunM4A1,
     recoil::configurations::components::{GunRecoil, GunRecoilOptions},
     reload::{configurations::components::GunReload, domain::GunAmmo},
 };
@@ -16,11 +17,12 @@ pub struct M1GunConfigurationBundle {
     pub fire_mode: GunFireRate,
     pub recoil: GunRecoil,
     pub aim: GunAiming,
-    // pub model: GunM4A1,
+    pub model: GunM4A1,
+    pub fire_type: FireTypeBullet,
 }
 
-impl M1GunConfigurationBundle {
-    pub fn new() -> Self {
+impl Default for M1GunConfigurationBundle {
+    fn default() -> Self {
         Self {
             gun: Gun {
                 id: "M1".to_string(),
@@ -43,7 +45,8 @@ impl M1GunConfigurationBundle {
                 aiming_time: 50,
                 zoom_level: 60.0,
             },
-            // model: GunM4A1,
+            model: GunM4A1,
+            fire_type: FireTypeBullet,
         }
     }
 }
