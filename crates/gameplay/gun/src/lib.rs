@@ -1,9 +1,11 @@
 use ::states::guns::marks::GunHolderMark;
-use ::states::player::Player;
 use bevy::prelude::*;
 use bevy::{app::App, state::app::AppExtStates};
 
-use crate::replace_guns::system::grep_gun;
+use crate::configuration::gun_components::GunType;
+use crate::configuration::guns_definitions::assalt_rifles::m4a1_gun_configuration::M4A1GunConfigurationBundle;
+use crate::firing::firing_types::bullet::shoot_auto_bullets;
+use crate::replace_guns::events::TakeGunEvent;
 use crate::states::{GunAimState, GunState};
 
 pub mod states;
@@ -46,5 +48,7 @@ pub fn plugin(app: &mut App) {
 
 // TODO: Remove from here
 fn add_default_gun(_add: On<Add, GunHolderMark>, mut commands: Commands) {
-    commands.run_system_cached(grep_gun);
+    commands.trigger(TakeGunEvent {
+        gun_to_spawn: GunType::M4A1,
+    });
 }

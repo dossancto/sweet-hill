@@ -11,6 +11,7 @@ pub(super) fn spawn_m4a1_model(
     mut commands: Commands,
     assets: Res<AssetServer>,
 ) {
+    // panic!("Spawning M4A1 model");
     let gun_holder = gun_holder_q.into_inner();
 
     commands.entity(gun_holder).insert((

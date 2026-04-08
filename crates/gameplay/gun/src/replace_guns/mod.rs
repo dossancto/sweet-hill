@@ -1,5 +1,7 @@
 use bevy::prelude::*;
 
+pub mod events;
+pub mod handlers;
 pub mod system;
 
 /// A plugin that handles gun replacement logic in the game. This plugin is responsible for
@@ -10,5 +12,5 @@ pub mod system;
 ///
 /// * `app` - A mutable reference to the Bevy `App` to which the plugin will be added.
 pub(super) fn plugin(app: &mut App) {
-    app.add_plugins(system::plugin);
+    app.add_plugins((system::plugin, handlers::plugin));
 }
