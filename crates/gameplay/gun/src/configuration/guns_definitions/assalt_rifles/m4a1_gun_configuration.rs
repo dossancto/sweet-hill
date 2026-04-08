@@ -3,7 +3,7 @@ use bevy::{ecs::system::SystemId, prelude::*};
 use crate::{
     aims::aim_configurations::components::GunAiming,
     configuration::gun_components::Gun,
-    firing::configurations::components::GunFireAuto,
+    firing::{configurations::components::GunFireRate, firing_types::domain::FireTypeBullet},
     models::gun_models::gun_m4a1::definition::GunM4A1,
     recoil::configurations::components::{GunRecoil, GunRecoilOptions},
     reload::{configurations::components::GunReload, domain::GunAmmo},
@@ -14,14 +14,15 @@ pub struct M4A1GunConfigurationBundle {
     pub gun: Gun,
     pub ammo: GunAmmo,
     pub reload: GunReload,
-    pub fire_mode: GunFireAuto,
+    pub fire_mode: GunFireRate,
     pub recoil: GunRecoil,
     pub aim: GunAiming,
     pub model: GunM4A1,
+    pub fire_type: FireTypeBullet,
 }
 
 impl M4A1GunConfigurationBundle {
-    pub fn new(system_id: SystemId) -> Self {
+    pub fn new() -> Self {
         Self {
             gun: Gun {
                 id: "m4a1".to_string(),
@@ -37,7 +38,7 @@ impl M4A1GunConfigurationBundle {
                 current_on_stock: 90 * 10,
             },
             reload: GunReload { reload_time: 1f32 },
-            fire_mode: GunFireAuto::new(10f32, system_id),
+            fire_mode: GunFireRate::fire_mode_auto(10f32),
             recoil: GunRecoil::new(GunRecoilOptions {
                 vertical_recoil_range: 4.0..5.0,
                 horizontal_recoil_range: -5f32..5f32,
@@ -50,6 +51,7 @@ impl M4A1GunConfigurationBundle {
                 zoom_level: 60.0,
             },
             model: GunM4A1,
+            fire_type: FireTypeBullet,
         }
     }
 }

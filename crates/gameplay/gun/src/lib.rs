@@ -3,8 +3,6 @@ use bevy::prelude::*;
 use bevy::{app::App, state::app::AppExtStates};
 
 use crate::configuration::gun_components::GunType;
-use crate::configuration::guns_definitions::assalt_rifles::m4a1_gun_configuration::M4A1GunConfigurationBundle;
-use crate::firing::firing_types::bullet::shoot_auto_bullets;
 use crate::replace_guns::events::TakeGunEvent;
 use crate::states::{GunAimState, GunState};
 

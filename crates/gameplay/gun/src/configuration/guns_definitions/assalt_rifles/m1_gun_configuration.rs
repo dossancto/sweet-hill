@@ -3,7 +3,7 @@ use bevy::{ecs::system::SystemId, prelude::*};
 use crate::{
     aims::aim_configurations::components::GunAiming,
     configuration::gun_components::Gun,
-    firing::configurations::components::GunFireAuto,
+    firing::configurations::components::GunFireRate,
     recoil::configurations::components::{GunRecoil, GunRecoilOptions},
     reload::{configurations::components::GunReload, domain::GunAmmo},
 };
@@ -13,14 +13,14 @@ pub struct M1GunConfigurationBundle {
     pub gun: Gun,
     pub ammo: GunAmmo,
     pub reload: GunReload,
-    pub fire_mode: GunFireAuto,
+    pub fire_mode: GunFireRate,
     pub recoil: GunRecoil,
     pub aim: GunAiming,
     // pub model: GunM4A1,
 }
 
 impl M1GunConfigurationBundle {
-    pub fn new(system_id: SystemId) -> Self {
+    pub fn new() -> Self {
         Self {
             gun: Gun {
                 id: "M1".to_string(),
@@ -31,7 +31,7 @@ impl M1GunConfigurationBundle {
             },
             ammo: GunAmmo::new(10, 4),
             reload: GunReload { reload_time: 1f32 },
-            fire_mode: GunFireAuto::new(10f32, system_id),
+            fire_mode: GunFireRate::fire_mode_semi_auto(1f32),
             recoil: GunRecoil::new(GunRecoilOptions {
                 vertical_recoil_range: 4.0..5.0,
                 horizontal_recoil_range: -5f32..5f32,

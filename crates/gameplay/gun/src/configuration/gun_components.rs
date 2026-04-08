@@ -1,9 +1,6 @@
 use bevy::prelude::*;
 
-use crate::{
-    configuration::guns_definitions::assalt_rifles::m4a1_gun_configuration::M4A1GunConfigurationBundle,
-    firing::firing_types::bullet::shoot_auto_bullets,
-};
+use crate::configuration::guns_definitions::assalt_rifles::m4a1_gun_configuration::M4A1GunConfigurationBundle;
 
 #[derive(Component, Debug, Reflect)]
 #[reflect(Component)]
@@ -35,15 +32,9 @@ pub enum GunType {
 
 impl GunType {
     pub fn spawn(&self, commands: &mut Commands) -> Entity {
-        let auto_bullet_system = commands.register_system(shoot_auto_bullets);
-
         match self {
-            GunType::M4A1 => commands
-                .spawn(M4A1GunConfigurationBundle::new(auto_bullet_system))
-                .id(),
-            GunType::M1 => commands
-                .spawn(M4A1GunConfigurationBundle::new(auto_bullet_system))
-                .id(),
+            GunType::M4A1 => commands.spawn(M4A1GunConfigurationBundle::new()).id(),
+            GunType::M1 => commands.spawn(M4A1GunConfigurationBundle::new()).id(),
         }
     }
 }

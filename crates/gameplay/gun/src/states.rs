@@ -15,3 +15,6 @@ pub enum GunAimState {
     Idle,
     Aiming,
 }
+
+#[derive(Event)]
+pub struct ProcessGunFire;

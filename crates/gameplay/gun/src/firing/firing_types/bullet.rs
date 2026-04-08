@@ -1,12 +1,11 @@
 use crate::{
     configuration::gun_components::{ActiveGun, Gun},
     firing::{
-        configurations::components::{GunFireAuto, GunFireSemiAuto},
-        events::BulletGunFired,
-        gun_can_shoot::{can_auto_can_shoot, can_semi_auto_can_shoot},
+        configurations::components::GunFireRate, events::BulletGunFired,
+        firing_types::domain::FireTypeBullet, gun_can_shoot::can_semi_auto_can_shoot,
     },
     reload::{configurations::components::GunReloading, domain::GunAmmo},
-    states::GunAimState,
+    states::{GunAimState, ProcessGunFire},
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
@@ -17,10 +16,16 @@ use states::{
 use third_party::avian3d::CollisionLayer;
 use utils::calculations::random_circle::get_non_uniform_random_point_on_circle;
 
-pub(crate) fn shoot_semi_auto_bullets(
+pub(super) fn plugin(app: &mut App) {
+    app.add_observer(shoot_semi_auto_bullets);
+    app.add_observer(on_shoot_bullets);
+}
+
+fn shoot_semi_auto_bullets(
+    _on: On<ProcessGunFire>,
     gun: Single<
-        (Entity, &Gun, &mut GunAmmo, &mut GunFireSemiAuto),
-        (With<ActiveGun>, Without<GunReloading>),
+        (Entity, &Gun, &mut GunAmmo, &mut GunFireRate),
+        (With<ActiveGun>, Without<GunReloading>, With<FireTypeBullet>),
     >,
     time: Res<Time>,
     mut commands: Commands,
@@ -45,27 +50,7 @@ pub(crate) fn shoot_semi_auto_bullets(
     }
 }
 
-pub(crate) fn shoot_auto_bullets(
-    gun: Single<(&Gun, &mut GunAmmo, &mut GunFireAuto), (With<ActiveGun>, Without<GunReloading>)>,
-    time: Res<Time>,
-    mut commands: Commands,
-) {
-    let (gun, mut ammo, mut auto) = gun.into_inner();
-
-    let elapsed_time = time.elapsed_secs_wrapped();
-
-    if can_auto_can_shoot(&ammo, &auto, elapsed_time) == false {
-        return;
-    }
-
-    commands.trigger(BulletGunFired { gun: gun.clone() });
-
-    ammo.decrease_ammo();
-
-    auto.last_shot_time = elapsed_time;
-}
-
-pub fn on_shoot_bullets(
+fn on_shoot_bullets(
     on: On<BulletGunFired>,
     player: Single<(&GlobalTransform, Entity), With<Camera3d>>,
     player_collider: Single<Entity, With<Player>>,
