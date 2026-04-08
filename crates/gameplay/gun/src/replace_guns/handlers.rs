@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use states::guns::marks::GunHolderMark;
 
 use crate::{
     configuration::gun_components::{ActiveGun, Gun},
@@ -12,6 +13,7 @@ pub(super) fn plugin(app: &mut App) {
 pub fn handle_gun_replacement(
     on: On<TakeGunEvent>,
     mut commands: Commands,
+    gun_holder_q: Single<Entity, With<GunHolderMark>>,
     active_guns_query: Query<Entity, With<ActiveGun>>,
     guns_q: Query<Entity, With<Gun>>,
 ) {
@@ -26,7 +28,9 @@ pub fn handle_gun_replacement(
         commands.entity(active_gun).remove::<ActiveGun>();
     }
 
-    let spawned_gun = on.gun_to_spawn.spawn(&mut commands);
+    let gun_holder = gun_holder_q.into_inner();
+
+    let spawned_gun = on.gun_to_spawn.spawn(&mut commands, gun_holder);
 
     commands.entity(spawned_gun).insert(ActiveGun);
 }

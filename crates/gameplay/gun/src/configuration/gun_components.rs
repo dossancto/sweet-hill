@@ -34,10 +34,22 @@ pub enum GunType {
 }
 
 impl GunType {
-    pub fn spawn(&self, commands: &mut Commands) -> Entity {
+    pub fn spawn(&self, commands: &mut Commands, gun_holder: Entity) -> Entity {
         match self {
-            GunType::M4A1 => commands.spawn(M4A1GunConfigurationBundle::default()).id(),
-            GunType::M1 => commands.spawn(M1GunConfigurationBundle::default()).id(),
+            GunType::M4A1 => {
+                let gun = commands.spawn(M4A1GunConfigurationBundle::default()).id();
+
+                commands.entity(gun_holder).add_child(gun);
+
+                gun
+            }
+            GunType::M1 => {
+                let gun = commands.spawn(M1GunConfigurationBundle::default()).id();
+
+                commands.entity(gun_holder).add_child(gun);
+
+                gun
+            }
         }
     }
 }

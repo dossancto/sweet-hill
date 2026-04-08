@@ -17,7 +17,7 @@ pub struct M1GunConfigurationBundle {
     pub fire_mode: GunFireRate,
     pub recoil: GunRecoil,
     pub aim: GunAiming,
-    pub model: GunM4A1,
+    // pub model: GunM4A1,
     pub fire_type: FireTypeBullet,
 }
 
@@ -45,7 +45,7 @@ impl Default for M1GunConfigurationBundle {
                 aiming_time: 50,
                 zoom_level: 60.0,
             },
-            model: GunM4A1,
+            // model: GunM4A1,
             fire_type: FireTypeBullet,
         }
     }

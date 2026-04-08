@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use utils::effects::camera_sway::SwayItem;
 
 use crate::{
     aims::aim_configurations::components::GunAiming,
@@ -12,6 +13,7 @@ use crate::{
 #[derive(Bundle)]
 pub struct M4A1GunConfigurationBundle {
     pub gun: Gun,
+    pub name: Name,
     pub ammo: GunAmmo,
     pub reload: GunReload,
     pub fire_mode: GunFireRate,
@@ -19,6 +21,7 @@ pub struct M4A1GunConfigurationBundle {
     pub aim: GunAiming,
     pub model: GunM4A1,
     pub fire_type: FireTypeBullet,
+    pub sway_item: SwayItem,
 }
 
 impl Default for M4A1GunConfigurationBundle {
@@ -31,6 +34,7 @@ impl Default for M4A1GunConfigurationBundle {
                 range: 100.0,
                 damage_falloff_per_hit: 5f32,
             },
+            name: Name::new("M4A1"),
             ammo: GunAmmo {
                 max_clip_size: 30,
                 max_stock_size: 90 * 10,
@@ -52,6 +56,11 @@ impl Default for M4A1GunConfigurationBundle {
             },
             model: GunM4A1,
             fire_type: FireTypeBullet,
+            sway_item: SwayItem {
+                sensitivity: 0.002,
+                smoothness: 10.0,
+                max_sway: 0.1,
+            },
         }
     }
 }

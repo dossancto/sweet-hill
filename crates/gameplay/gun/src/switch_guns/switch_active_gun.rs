@@ -8,7 +8,13 @@ use crate::{
 
 use crate::inputs::ToogleActiveGun;
 
-pub(crate) fn switch_to_next_gun(
+pub(super) fn plugin(app: &mut App) {
+    app.add_observer(switch_to_next_gun);
+    app.add_observer(hide_gun);
+    app.add_observer(show_gun);
+}
+
+fn switch_to_next_gun(
     _on: On<Start<ToogleActiveGun>>,
     guns_q: Query<(Entity, &Gun), (With<Gun>, Without<ActiveGun>)>,
     active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
@@ -22,4 +28,11 @@ pub(crate) fn switch_to_next_gun(
         commands.entity(active_gun_entity).remove::<ActiveGun>();
         commands.entity(next_gun_entity).insert(ActiveGun);
     }
+}
+
+fn hide_gun(on: On<Remove, ActiveGun>, mut commands: Commands) {
+    info!("Gun is now inactive, hiding it.");
+}
+fn show_gun(on: On<Add, ActiveGun>, mut commands: Commands) {
+    info!("Gun is now active, showing it.");
 }
