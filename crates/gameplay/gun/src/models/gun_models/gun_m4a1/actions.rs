@@ -17,5 +17,5 @@ pub(super) fn spawn_m4a1_model(
         Transform::from_scale(Vec3::splat(1.5f32)),
     );
 
-    commands.entity(gun_holder).with_child(my_gun_component);
+    commands.entity(_on.entity).insert(my_gun_component);
 }

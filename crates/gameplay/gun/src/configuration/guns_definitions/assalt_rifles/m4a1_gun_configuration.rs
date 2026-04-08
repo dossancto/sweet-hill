@@ -22,6 +22,7 @@ pub struct M4A1GunConfigurationBundle {
     pub model: GunM4A1,
     pub fire_type: FireTypeBullet,
     pub sway_item: SwayItem,
+    pub visibility: Visibility,
 }
 
 impl Default for M4A1GunConfigurationBundle {
@@ -61,6 +62,7 @@ impl Default for M4A1GunConfigurationBundle {
                 smoothness: 10.0,
                 max_sway: 0.1,
             },
+            visibility: Visibility::Hidden,
         }
     }
 }

@@ -16,6 +16,7 @@ pub(super) fn spawn_gun_holder(
             .spawn((
                 Name::new("Gun Holder Mark"),
                 Transform::from_translation(gun_offset),
+                Visibility::Visible,
             ))
             .insert(GunHolderMark);
     });

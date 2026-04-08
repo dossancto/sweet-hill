@@ -30,9 +30,44 @@ fn switch_to_next_gun(
     }
 }
 
-fn hide_gun(on: On<Remove, ActiveGun>, mut commands: Commands) {
+fn hide_gun(
+    on: On<Remove, ActiveGun>,
+    mut commands: Commands,
+    mut visibility_q: Query<&mut Visibility>,
+) {
     info!("Gun is now inactive, hiding it.");
+
+    let Ok(mut visibility) = visibility_q.get_mut(on.entity) else {
+        commands.entity(on.entity).insert(Visibility::Hidden);
+        return;
+    };
+
+    if *visibility == Visibility::Hidden {
+        return;
+    }
+
+    *visibility = Visibility::Hidden;
+
+    return;
 }
-fn show_gun(on: On<Add, ActiveGun>, mut commands: Commands) {
-    info!("Gun is now active, showing it.");
+
+fn show_gun(
+    on: On<Add, ActiveGun>,
+    mut commands: Commands,
+    mut visibility_q: Query<&mut Visibility>,
+) {
+    info!("Gun is now actieve, showing it.");
+
+    let Ok(mut visibility) = visibility_q.get_mut(on.entity) else {
+        commands.entity(on.entity).insert(Visibility::Visible);
+        return;
+    };
+
+    if *visibility == Visibility::Visible {
+        return;
+    }
+
+    *visibility = Visibility::Visible;
+
+    return;
 }
