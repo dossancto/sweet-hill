@@ -20,6 +20,17 @@ pub struct GunAmmo {
 }
 
 impl GunAmmo {
+    pub fn new(max_clip_size: u16, stock_items_count: u16) -> Self {
+        let max_stock_size = stock_items_count * max_clip_size;
+
+        Self {
+            max_clip_size,
+            max_stock_size,
+            current_on_clip: max_clip_size,
+            current_on_stock: max_stock_size, // Start with full stock
+        }
+    }
+
     /// Returns `true` if the clip is fully loaded (i.e., `current_on_clip` equals `max_clip_size`).
     pub fn full_clip(&self) -> bool {
         self.current_on_clip == self.max_clip_size
