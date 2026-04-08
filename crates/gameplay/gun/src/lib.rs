@@ -1,3 +1,4 @@
+use ::states::guns::marks::GunHolderMark;
 use ::states::player::Player;
 use bevy::prelude::*;
 use bevy::{app::App, state::app::AppExtStates};
@@ -44,6 +45,6 @@ pub fn plugin(app: &mut App) {
 }
 
 // TODO: Remove from here
-fn add_default_gun(_add: On<Add, Player>, mut commands: Commands) {
+fn add_default_gun(_add: On<Add, GunHolderMark>, mut commands: Commands) {
     commands.run_system_cached(grep_gun);
 }

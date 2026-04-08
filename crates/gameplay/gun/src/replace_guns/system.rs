@@ -10,8 +10,16 @@ use crate::{
 
 pub(super) fn plugin(_app: &mut App) {}
 
-pub fn grep_gun(mut gun_bag: ResMut<GunBag>, mut commands: Commands) {
+pub fn grep_gun(
+    mut gun_bag: ResMut<GunBag>,
+    mut commands: Commands,
+    active_guns_q: Query<Entity, With<ActiveGun>>,
+) {
     let auto_bullet_system = commands.register_system(shoot_auto_bullets);
+
+    for gun in active_guns_q {
+        commands.entity(gun).remove::<ActiveGun>();
+    }
 
     if gun_bag.guns_slot_available() {
         let a = commands
@@ -20,6 +28,8 @@ pub fn grep_gun(mut gun_bag: ResMut<GunBag>, mut commands: Commands) {
             .id();
 
         gun_bag.add_gun("m4a1".into(), a);
+
+        warn!("Added a new gun to Gun Bag");
 
         // TODO: Append a new gun to Gun Bag
         // panic!("No available slot for adding a new gun");

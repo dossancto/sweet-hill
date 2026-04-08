@@ -102,7 +102,7 @@ fn smooth_return_system(
     let aim_duration_ms = gun_q.into_inner().aiming_time * 2;
 
     let player_forward = transform.forward();
-    let target_translation = player_forward * 1.5 + Vec3::new(0.4, -0.5, 0.0);
+    let target_translation = player_forward * 1. + Vec3::new(0.4, -0.5, 0.0);
     let target_rotation = Quat::from_rotation_y(7.5f32.to_radians());
 
     let frame_time_ms = time.delta_secs() * 1000.0;
