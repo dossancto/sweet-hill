@@ -5,7 +5,6 @@ use crate::{
     aims::aim_configurations::components::GunAiming,
     configuration::gun_components::Gun,
     firing::{configurations::components::GunFireRate, firing_types::domain::FireTypeBullet},
-    models::gun_models::gun_m4a1::definition::GunM4A1,
     recoil::configurations::components::{GunRecoil, GunRecoilOptions},
     reload::{configurations::components::GunReload, domain::GunAmmo},
 };

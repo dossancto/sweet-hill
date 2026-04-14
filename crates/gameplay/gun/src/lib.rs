@@ -16,7 +16,6 @@ pub mod models;
 pub mod recoil;
 pub mod reload;
 pub mod replace_guns;
-pub mod switch_guns;
 
 pub(crate) mod aims;
 pub(crate) mod assets;
@@ -28,7 +27,6 @@ pub fn plugin(app: &mut App) {
         gun_controller::plugin,
         ui::plugin,
         configuration::plugin,
-        switch_guns::plugin,
         reload::plugin,
         firing::plugin,
         models::plugin,
