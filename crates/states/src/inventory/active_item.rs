@@ -13,12 +13,32 @@ pub struct ActiveItem {
 }
 
 impl ActiveItem {
+    /// Determines if the item is currently eligible to be switched.
+    ///
+    /// # Returns
+    /// `true` if the item can be switched; `false` if switching is not permitted.
+    ///
+    /// # Example
+    /// ```rust
+    /// let item = ActiveItem { can_be_swiched: false };
+    /// assert!(!item.can_switch());
+    /// ```
     pub fn can_switch(&self) -> bool {
         self.can_be_swiched
     }
 }
 
 impl Default for ActiveItem {
+    /// Creates a new `ActiveItem` with switching enabled by default.
+    ///
+    /// # Returns
+    /// An `ActiveItem` instance with `can_be_swiched` set to `true`.
+    ///
+    /// # Example
+    /// ```rust
+    /// let item = ActiveItem::default();
+    /// assert!(item.can_switch());
+    /// ```
     fn default() -> Self {
         Self {
             can_be_swiched: true,
