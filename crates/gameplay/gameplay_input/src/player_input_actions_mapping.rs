@@ -11,8 +11,10 @@ use core_gameplay::{
     flashlight::states::ToggleFlashlight,
     player::states::{BlocksInput, Interact},
 };
-use gun::inputs::{GunAimTrigger, GunFireTrigger, GunReloadTrigger, ToogleActiveGun};
+use gun::inputs::{GunAimTrigger, GunFireTrigger, GunReloadTrigger};
 use states::player::Player;
+
+use crate::inputs::ToogleActiveItem;
 
 #[derive(Debug, Component, Default)]
 #[component(on_add = PlayerInputContext::on_add)]
@@ -137,7 +139,7 @@ impl PlayerInputContext {
                     bindings![KeyCode::KeyR, GamepadButton::East]
                 ),
                 (
-                    Action::<ToogleActiveGun>::new(),
+                    Action::<ToogleActiveItem>::new(),
                     bindings![Binding::mouse_wheel(), GamepadButton::North]
                 ),
             ]));

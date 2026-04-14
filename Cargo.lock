@@ -1569,7 +1569,7 @@ dependencies = [
  "foldhash 0.2.0",
  "glam 0.30.10",
  "indexmap",
- "inventory",
+ "inventory 0.3.21",
  "petgraph",
  "serde",
  "smallvec",
@@ -3849,6 +3849,7 @@ dependencies = [
  "gameplay_input",
  "getrandom",
  "gun",
+ "inventory 0.1.0",
  "landmass_rerecast",
  "rand",
  "regex",
@@ -4631,6 +4632,17 @@ dependencies = [
  "js-sys",
  "wasm-bindgen",
  "web-sys",
+]
+
+[[package]]
+name = "inventory"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_enhanced_input",
+ "gameplay_input",
+ "states",
+ "utils",
 ]
 
 [[package]]

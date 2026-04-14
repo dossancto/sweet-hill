@@ -1,37 +1,50 @@
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::Start;
-
-use crate::{
-    configuration::gun_components::{ActiveGun, Gun},
-    reload::configurations::components::GunReloading,
-};
-
-use crate::inputs::ToogleActiveGun;
+use gameplay_input::inputs::ToogleActiveItem;
+use states::inventory::{active_item::ActiveItem, items::PickableItem};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_observer(switch_to_next_gun);
     app.add_observer(hide_gun);
     app.add_observer(show_gun);
+    app.add_systems(Update, log_active_gun);
+}
+
+fn log_active_gun(active_item: Single<Entity, With<ActiveItem>>) {
+    let active_item_entity = active_item.into_inner();
+
+    info!("Active gun entity: {:?}", active_item_entity);
 }
 
 fn switch_to_next_gun(
-    _on: On<Start<ToogleActiveGun>>,
-    guns_q: Query<(Entity, &Gun), (With<Gun>, Without<ActiveGun>)>,
-    active_gun_query: Single<(Entity, &Gun), (With<ActiveGun>, Without<GunReloading>)>,
+    _on: On<Start<ToogleActiveItem>>,
+    guns_q: Query<Entity, (Without<ActiveItem>, With<PickableItem>)>,
+    active_gun_query: Single<(Entity, &ActiveItem)>,
     mut commands: Commands,
 ) {
-    let (active_gun_entity, _gun) = active_gun_query.into_inner();
+    let (active_gun_entity, active_item) = active_gun_query.into_inner();
 
-    let next_gun_entity = guns_q.iter().next().map(|(entity, _)| entity);
+    if active_item.can_switch() == false {
+        info!("Cannot switch active gun right now.");
+        return;
+    }
+
+    let next_gun_entity = guns_q.iter().next().map(|entity| entity);
 
     if let Some(next_gun_entity) = next_gun_entity {
-        commands.entity(active_gun_entity).remove::<ActiveGun>();
-        commands.entity(next_gun_entity).insert(ActiveGun);
+        info!(
+            "Switching active gun from {:?} to {:?}.",
+            active_gun_entity, next_gun_entity
+        );
+        commands.entity(active_gun_entity).remove::<ActiveItem>();
+        commands
+            .entity(next_gun_entity)
+            .insert(ActiveItem::default());
     }
 }
 
 fn hide_gun(
-    on: On<Remove, ActiveGun>,
+    on: On<Remove, ActiveItem>,
     mut commands: Commands,
     mut visibility_q: Query<&mut Visibility>,
 ) {
@@ -52,7 +65,7 @@ fn hide_gun(
 }
 
 fn show_gun(
-    on: On<Add, ActiveGun>,
+    on: On<Add, ActiveItem>,
     mut commands: Commands,
     mut visibility_q: Query<&mut Visibility>,
 ) {

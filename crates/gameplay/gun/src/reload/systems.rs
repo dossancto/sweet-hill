@@ -1,5 +1,4 @@
 use crate::{
-    configuration::gun_components::ActiveGun,
     inputs::GunReloadTrigger,
     reload::{
         configurations::components::{GunReload, GunReloading},
@@ -8,10 +7,11 @@ use crate::{
 };
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
+use states::inventory::active_item::ActiveItem;
 
 pub(crate) fn handle_gun_reload(
     _on: On<Start<GunReloadTrigger>>,
-    gun_entity: Single<(Entity, &GunAmmo, &GunReload), (With<ActiveGun>, Without<GunReloading>)>,
+    gun_entity: Single<(Entity, &GunAmmo, &GunReload), (With<ActiveItem>, Without<GunReloading>)>,
     mut commands: Commands,
 ) {
     let (entity, gun_ammo, gun_reload) = gun_entity.into_inner();
@@ -28,7 +28,7 @@ pub(crate) fn handle_gun_reload(
 pub(crate) fn process_reloading_guns(
     mut gun: Query<
         (Entity, &mut GunReloading, &mut GunAmmo),
-        (With<ActiveGun>, With<GunReloading>),
+        (With<ActiveItem>, With<GunReloading>),
     >,
     time: Res<Time>,
     mut commands: Commands,

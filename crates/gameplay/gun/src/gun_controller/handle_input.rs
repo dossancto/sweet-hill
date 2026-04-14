@@ -1,15 +1,16 @@
 use crate::{
-    configuration::gun_components::{ActiveGun, Gun},
+    configuration::gun_components::Gun,
     firing::configurations::components::GunFireRate,
     inputs::GunFireTrigger,
     states::{GunState, ProcessGunFire},
 };
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
+use states::inventory::active_item::ActiveItem;
 
 pub(crate) fn handle_tap_fire(
     _on: On<Start<GunFireTrigger>>,
-    gun: Single<(&Gun, &GunFireRate), With<ActiveGun>>,
+    gun: Single<(&Gun, &GunFireRate), With<ActiveItem>>,
     gun_state: Res<State<GunState>>,
     mut commands: Commands,
 ) {
@@ -26,7 +27,7 @@ pub(crate) fn handle_tap_fire(
 
 pub(crate) fn handle_hold_fire(
     _on: On<Ongoing<GunFireTrigger>>,
-    gun: Single<(&Gun, &GunFireRate), With<ActiveGun>>,
+    gun: Single<(&Gun, &GunFireRate), With<ActiveItem>>,
     gun_state: Res<State<GunState>>,
     mut commands: Commands,
 ) {

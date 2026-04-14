@@ -1,11 +1,10 @@
 use bevy::prelude::*;
 
 use bevy_enhanced_input::prelude::{Cancel, Ongoing};
-use states::guns::marks::GunHolderMark;
+use states::{guns::marks::GunHolderMark, inventory::active_item::ActiveItem};
 
 use crate::{
     aims::{aim_configurations::components::GunAiming, utils::calculate_delta_value},
-    configuration::gun_components::ActiveGun,
     inputs::GunAimTrigger,
 };
 
@@ -21,7 +20,7 @@ struct ReturningToIdle;
 fn center_gun_on_screen(
     _on: On<Ongoing<GunAimTrigger>>,
     gun_holder: Single<(&mut Transform, Entity, Option<&ReturningToIdle>), With<GunHolderMark>>,
-    gun: Single<&GunAiming, With<ActiveGun>>,
+    gun: Single<&GunAiming, With<ActiveItem>>,
     time: Res<Time>,
     mut comands: Commands,
 ) {
@@ -95,7 +94,7 @@ fn return_gun_to_default_position(
 fn smooth_return_system(
     mut commands: Commands,
     holders: Single<(Entity, &mut Transform), (With<GunHolderMark>, With<ReturningToIdle>)>,
-    gun_q: Single<&GunAiming, With<ActiveGun>>,
+    gun_q: Single<&GunAiming, With<ActiveItem>>,
     time: Res<Time>,
 ) {
     let (holder_entity, mut transform) = holders.into_inner();

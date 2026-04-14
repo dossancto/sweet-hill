@@ -1,5 +1,5 @@
 use crate::{
-    configuration::gun_components::{ActiveGun, Gun},
+    configuration::gun_components::Gun,
     firing::{
         configurations::components::GunFireRate, events::BulletGunFired,
         firing_types::domain::FireTypeBullet, gun_can_shoot::can_semi_auto_can_shoot,
@@ -11,6 +11,7 @@ use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
 use states::{
     hittable::{Hit, Hittable},
+    inventory::active_item::ActiveItem,
     player::Player,
 };
 use third_party::avian3d::CollisionLayer;
@@ -25,7 +26,11 @@ fn shoot_semi_auto_bullets(
     _on: On<ProcessGunFire>,
     gun: Single<
         (Entity, &Gun, &mut GunAmmo, &mut GunFireRate),
-        (With<ActiveGun>, Without<GunReloading>, With<FireTypeBullet>),
+        (
+            With<ActiveItem>,
+            Without<GunReloading>,
+            With<FireTypeBullet>,
+        ),
     >,
     time: Res<Time>,
     mut commands: Commands,

@@ -1,10 +1,8 @@
 use bevy::prelude::*;
 use rand::Rng;
+use states::inventory::active_item::ActiveItem;
 
-use crate::{
-    configuration::gun_components::ActiveGun, firing::events::BulletGunFired,
-    recoil::configurations::components::GunRecoil,
-};
+use crate::{firing::events::BulletGunFired, recoil::configurations::components::GunRecoil};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_systems(
@@ -17,7 +15,7 @@ pub(super) fn plugin(app: &mut App) {
 
 pub fn apply_gun_recoil(
     _on: On<BulletGunFired>,
-    mut recoil: Single<&mut GunRecoil, With<ActiveGun>>,
+    mut recoil: Single<&mut GunRecoil, With<ActiveItem>>,
 ) {
     let mut rng = rand::rng();
 
@@ -32,7 +30,7 @@ pub fn apply_gun_recoil(
 
 fn process_recoil_system(
     time: Res<Time>,
-    mut recoil: Single<&mut GunRecoil, With<ActiveGun>>,
+    mut recoil: Single<&mut GunRecoil, With<ActiveItem>>,
     mut camera_transform: Single<&mut Transform, With<Camera3d>>,
 ) {
     let dt = time.delta_secs();

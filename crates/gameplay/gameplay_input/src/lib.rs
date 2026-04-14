@@ -8,6 +8,7 @@ use crate::{
 };
 mod configure;
 mod player_input_actions_mapping;
+pub mod inputs;
 
 pub fn plugin(app: &mut App) {
     app.add_input_context::<PlayerInputContext>();

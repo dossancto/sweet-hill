@@ -1,10 +1,7 @@
 use bevy::prelude::*;
-use states::guns::marks::GunHolderMark;
+use states::{guns::marks::GunHolderMark, inventory::active_item::ActiveItem};
 
-use crate::{
-    configuration::gun_components::{ActiveGun, Gun},
-    replace_guns::events::TakeGunEvent,
-};
+use crate::{configuration::gun_components::Gun, replace_guns::events::TakeGunEvent};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_observer(handle_gun_replacement);
@@ -14,7 +11,7 @@ pub fn handle_gun_replacement(
     on: On<TakeGunEvent>,
     mut commands: Commands,
     gun_holder_q: Single<Entity, With<GunHolderMark>>,
-    active_guns_query: Query<Entity, With<ActiveGun>>,
+    active_guns_query: Query<Entity, With<ActiveItem>>,
     guns_q: Query<Entity, With<Gun>>,
 ) {
     let len = guns_q.iter().len();
@@ -25,12 +22,12 @@ pub fn handle_gun_replacement(
     }
 
     for active_gun in active_guns_query.iter() {
-        commands.entity(active_gun).remove::<ActiveGun>();
+        commands.entity(active_gun).remove::<ActiveItem>();
     }
 
     let gun_holder = gun_holder_q.into_inner();
 
     let spawned_gun = on.gun_to_spawn.spawn(&mut commands, gun_holder);
 
-    commands.entity(spawned_gun).insert(ActiveGun);
+    commands.entity(spawned_gun).insert(ActiveItem::default());
 }

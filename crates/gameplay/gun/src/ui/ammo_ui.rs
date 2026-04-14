@@ -1,13 +1,11 @@
-use bevy::{prelude::*};
+use bevy::prelude::*;
+use states::inventory::active_item::ActiveItem;
 
-use crate::{
-    configuration::gun_components::{ActiveGun, GunAmmoText},
-    reload::domain::GunAmmo,
-};
+use crate::{configuration::gun_components::GunAmmoText, reload::domain::GunAmmo};
 
 pub(super) fn draw_ammo_on_screen(
     text: Single<&mut Text, With<GunAmmoText>>,
-    gun: Single<&GunAmmo, With<ActiveGun>>,
+    gun: Single<&GunAmmo, With<ActiveItem>>,
 ) {
     let mut text = text.into_inner();
     let ammo = gun.into_inner();

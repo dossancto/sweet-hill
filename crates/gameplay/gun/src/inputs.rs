@@ -10,8 +10,4 @@ pub struct GunReloadTrigger;
 
 #[derive(Debug, InputAction)]
 #[action_output(bool)]
-pub struct ToogleActiveGun;
-
-#[derive(Debug, InputAction)]
-#[action_output(bool)]
 pub struct GunAimTrigger;

@@ -9,15 +9,6 @@ use crate::configuration::guns_definitions::assalt_rifles::{
 #[reflect(Component)]
 pub struct GunAmmoText;
 
-/// Marker component indicating that an entity currently has an active gun.
-///
-/// This component can be used to identify which entity is currently wielding or using a gun.
-/// It does not contain any data, and is typically used in systems to filter or query entities
-/// with an active gun state.
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-pub struct ActiveGun;
-
 #[derive(Component, Debug, Reflect, Clone)]
 #[reflect(Component)]
 pub struct Gun {

@@ -2,11 +2,10 @@ use std::f32::consts::PI;
 
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::{Cancel, Ongoing};
-use states::player_states::settings::WorldModelFov;
+use states::{inventory::active_item::ActiveItem, player_states::settings::WorldModelFov};
 
 use crate::{
     aims::{aim_configurations::components::GunAiming, utils::calculate_delta_value},
-    configuration::gun_components::ActiveGun,
     inputs::GunAimTrigger,
     states::GunAimState,
 };
@@ -38,7 +37,7 @@ fn on_aiming_ongoing(
     _on: On<Ongoing<GunAimTrigger>>,
     default_fov: Res<WorldModelFov>,
     camera: Single<&mut Projection, (With<Camera>, With<ChildOf>)>,
-    gun: Single<&GunAiming, With<ActiveGun>>,
+    gun: Single<&GunAiming, With<ActiveItem>>,
     time: Res<Time>,
     mut next_state: ResMut<NextState<GunAimState>>,
 ) {
