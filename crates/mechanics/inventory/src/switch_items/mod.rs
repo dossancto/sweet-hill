@@ -108,12 +108,6 @@ fn hide_gun(
 /// # Edge Cases & Errors
 /// - If `on.entity` is invalid or has been despawned, the function will attempt to insert a `Visibility` component, which may have no effect or cause a warning depending on the ECS implementation.
 /// - No error is returned or propagated; the function silently returns if the entity cannot be found in the query.
-///
-/// # Example
-/// ```rust
-/// // Called when a gun is equipped
-/// show_gun(on_event, commands, visibility_query);
-/// ```
 fn show_gun(
     on: On<Add, ActiveItem>,
     mut commands: Commands,

@@ -15,18 +15,6 @@ use bevy::prelude::*;
 /// - `tension`: The spring tension that pulls the gun back to its neutral position. Higher values make the gun return faster.
 /// - `friction`: The damping factor that slows down the recoil movement. Higher values make the recoil settle more quickly.
 ///
-/// Example usage:
-///
-/// ```rust
-/// let gun_recoil = GunRecoil::new(GunRecoilOptions {
-///     vertical_recoil_range: 2.0..5.0,,
-///     horizontal_recoil_range: -5f32..5f32,,
-///     tension: 5.,
-///     friction: 6.,
-///     recovery_timer: Timer::from_seconds(0.1, TimerMode::Once),
-/// });
-/// ```
-///
 /// Typically, a system will update `current_offset` each frame to approach `target_offset`,
 /// using the `tension` and `friction` values to control the spring-like behavior.
 #[derive(Component)]
