@@ -1,40 +1,24 @@
 //! Input handling for the player.
 
-use std::any::TypeId;
-
 use bevy::{
     ecs::{lifecycle::HookContext, world::DeferredWorld},
-    platform::collections::HashSet,
     prelude::*,
 };
 use bevy_ahoy::prelude::*;
 use bevy_enhanced_input::prelude::{Press, *};
 
-use crate::flashlight::states::ToggleFlashlight;
+use core_gameplay::{
+    flashlight::states::ToggleFlashlight,
+    player::states::{BlocksInput, Interact},
+};
+use gun::inputs::{GunAimTrigger, GunFireTrigger, GunReloadTrigger};
+use states::player::Player;
 
-use super::Player;
-
-pub(super) fn plugin(app: &mut App) {
-    app.add_input_context::<PlayerInputContext>();
-
-    app.init_resource::<BlocksInput>();
-    app.add_systems(
-        PreUpdate,
-        update_player_input_binding.run_if(resource_changed::<BlocksInput>),
-    );
-}
-
-#[derive(Debug, InputAction)]
-#[action_output(bool)]
-pub(crate) struct Interact;
+use crate::inputs::ToogleActiveItem;
 
 #[derive(Debug, Component, Default)]
 #[component(on_add = PlayerInputContext::on_add)]
 pub(crate) struct PlayerInputContext;
-
-#[derive(Resource, Default, Reflect, Deref, DerefMut)]
-#[reflect(Resource)]
-pub struct BlocksInput(HashSet<TypeId>);
 
 impl PlayerInputContext {
     fn on_add(mut world: DeferredWorld, ctx: HookContext) {
@@ -126,22 +110,43 @@ impl PlayerInputContext {
 
                     Bindings::spawn((
                         Spawn((Binding::mouse_motion(), Scale::splat(0.07))),
-                        Axial::right_stick().with((Scale::splat(4.0),  DeadZone::default())),
+                        Axial::right_stick(),
                     ))
                 ),
                 (
                     Action::<Interact>::new(),
+                    Hold::new(1f32),
                     bindings![KeyCode::KeyE, GamepadButton::South]
                 ),
                 (
                     Action::<ToggleFlashlight>::new(),
-                    bindings![KeyCode::KeyF, GamepadButton::North]
+                    Press::new(1f32),
+                    bindings![KeyCode::KeyF, GamepadButton::West]
+                ),
+                (
+                    Action::<GunFireTrigger>::new(),
+                    Hold::new(10f32).one_shot(false),
+                    bindings![MouseButton::Left, GamepadButton::RightTrigger2]
+                ),
+                (
+                    Action::<GunAimTrigger>::new(),
+                    ActionSettings { consume_input: true, ..default() },
+                    Hold::new(10f32).one_shot(false),
+                    bindings![MouseButton::Right, GamepadButton::LeftTrigger2],
+                ),
+                (
+                    Action::<GunReloadTrigger>::new(),
+                    bindings![KeyCode::KeyR, GamepadButton::East]
+                ),
+                (
+                    Action::<ToogleActiveItem>::new(),
+                    bindings![Binding::mouse_wheel(), GamepadButton::North]
                 ),
             ]));
     }
 }
 
-fn update_player_input_binding(
+pub(super) fn update_player_input_binding(
     player: Single<Entity, With<Player>>,
     blocks_input: Res<BlocksInput>,
     mut commands: Commands,

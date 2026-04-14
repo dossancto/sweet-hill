@@ -8,7 +8,6 @@ mod props;
 mod screens;
 mod theme;
 
-use asset_processing::default_image_sampler_descriptor;
 use bevy::app::HierarchyPropagatePlugin;
 use bevy::ecs::error::error;
 use bevy::gltf::GltfPlugin;
@@ -18,17 +17,17 @@ use bevy::log::LogPlugin;
 use bevy::log::tracing_subscriber::field::MakeExt;
 use bevy::pbr::DefaultOpaqueRendererMethod;
 use bevy_seedling::SeedlingPlugin;
+use enemies;
+use gameplay_input;
 use states::world::PausableSystems;
 use states::world::Pause;
 use states::world::PostPhysicsAppSystems;
 use third_party;
-use utils::asset_processing;
-use utils::hdr;
-use utils::post_process;
-use utils::shader_compilation;
-use utils::ui_camera;
 
 use bevy::{asset::AssetMetaCheck, prelude::*};
+use utils::asset_processing::default_image_sampler_descriptor;
+use utils::post_process;
+use utils::shader_compilation;
 
 #[cfg(all(feature = "native", feature = "web"))]
 compile_error!(
@@ -147,18 +146,18 @@ fn main() -> AppExit {
 
     // Add other plugins.
     app.add_plugins((
-        utils::light_utils::plugin,
-        asset_processing::plugin,
-        utils::asset_tracking::plugin,
         #[cfg(feature = "dev")]
         dev_tools::plugin,
+        utils::plugin,
         screens::plugin,
         menus::plugin,
         props::plugin,
         theme::plugin,
-        ui_camera::plugin,
-        hdr::plugin,
         audio::plugin,
+        inventory::plugin,
+        gun::plugin,
+        gameplay_input::plugin,
+        enemies::plugin,
     ));
 
     // Add plugins that proload levels. These have to come later than the other plugins

@@ -25,7 +25,7 @@ pub(super) fn plugin(app: &mut App) {
     app.init_resource::<InspectorActive>();
     app.add_plugins(FpsOverlayPlugin {
         config: FpsOverlayConfig {
-            enabled: false,
+            enabled: true,
             frame_time_graph_config: FrameTimeGraphConfig {
                 enabled: false,
                 ..default()

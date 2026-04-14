@@ -9,8 +9,7 @@ use bevy::prelude::*;
 use bevy_ahoy::prelude::*;
 use bevy_landmass::{Character, prelude::*};
 
-use bevy_trenchbroom::prelude::*;
-use input::PlayerInputContext;
+use ::states::{player::Player, player_states::constants::PLAYER_BASE_SPEED};
 use navmesh_position::LastValidPlayerNavmeshPosition;
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::GetTrenchbroomModelPath};
 use utils::{animation::AnimationState, asset_tracking::LoadResource};
@@ -21,17 +20,16 @@ mod animation;
 pub mod assets;
 pub mod camera;
 pub mod dialogue;
-pub mod input;
 pub mod movement_sound;
 pub mod navmesh_position;
 pub mod pickup;
+pub mod states;
 
 pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
-        // animation::plugin,
+        animation::plugin,
         assets::plugin,
         camera::plugin,
-        input::plugin,
         dialogue::plugin,
         movement_sound::plugin,
         pickup::plugin,
@@ -41,12 +39,6 @@ pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(Player::model_path());
     app.add_systems(PreUpdate, assert_only_one_player);
 }
-
-#[point_class(
-    base(Transform, Visibility),
-    model("models/view_model/view_model.gltf")
-)]
-pub struct Player;
 
 /// The radius of the player character's capsule.
 pub const PLAYER_RADIUS: f32 = 0.5;
@@ -72,12 +64,14 @@ fn setup_player(
         .entity(add.entity)
         .insert((
             RigidBody::Kinematic,
-            PlayerInputContext,
             // The player character needs to be configured as a dynamic rigid body of the physics
             // engine.
             Collider::cylinder(PLAYER_RADIUS, PLAYER_HEIGHT),
             // This is Tnua's interface component.
-            CharacterController::default(),
+            CharacterController {
+                speed: PLAYER_BASE_SPEED,
+                ..default()
+            },
             ColliderDensity(1_000.0),
             CollisionLayers::new(CollisionLayer::Character, LayerMask::ALL),
             AnimationState::<PlayerAnimationState>::default(),

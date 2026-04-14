@@ -1569,7 +1569,7 @@ dependencies = [
  "foldhash 0.2.0",
  "glam 0.30.10",
  "indexmap",
- "inventory",
+ "inventory 0.3.21",
  "petgraph",
  "serde",
  "smallvec",
@@ -3317,6 +3317,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "enemies"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "states",
+]
+
+[[package]]
 name = "enumflags2"
 version = "0.7.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3837,7 +3845,11 @@ dependencies = [
  "bincode",
  "bitflags 2.10.0",
  "core_gameplay",
+ "enemies",
+ "gameplay_input",
  "getrandom",
+ "gun",
+ "inventory 0.1.0",
  "landmass_rerecast",
  "rand",
  "regex",
@@ -3929,6 +3941,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "54614a3312934d066701a80f20f15fa3b56d67ac7722b39eea5b4c9dd1d66c94"
 dependencies = [
  "thread_local",
+]
+
+[[package]]
+name = "gameplay_input"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_ahoy",
+ "bevy_enhanced_input",
+ "core_gameplay",
+ "gun",
+ "states",
+ "utils",
 ]
 
 [[package]]
@@ -4197,6 +4222,22 @@ checksum = "b62d5865c036cb1393e23c50693df631d3f5d7bcca4c04fe4cc0fd592e74a782"
 dependencies = [
  "euclid",
  "svg_fmt",
+]
+
+[[package]]
+name = "gun"
+version = "0.1.0"
+dependencies = [
+ "avian3d",
+ "bevy",
+ "bevy_enhanced_input",
+ "bevy_seedling",
+ "bevy_trenchbroom",
+ "bevy_trenchbroom_avian",
+ "rand",
+ "states",
+ "third_party",
+ "utils",
 ]
 
 [[package]]
@@ -4591,6 +4632,17 @@ dependencies = [
  "js-sys",
  "wasm-bindgen",
  "web-sys",
+]
+
+[[package]]
+name = "inventory"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_enhanced_input",
+ "gameplay_input",
+ "states",
+ "utils",
 ]
 
 [[package]]
@@ -6809,6 +6861,7 @@ name = "states"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy_trenchbroom",
 ]
 
 [[package]]
@@ -7554,7 +7607,9 @@ name = "utils"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "bevy_enhanced_input",
  "bitflags 2.10.0",
+ "rand",
  "states",
 ]
 

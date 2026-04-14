@@ -1,4 +1,8 @@
 pub mod screens;
 pub mod utils;
 pub mod world;
-
+pub mod hittable;
+pub mod player;
+pub mod player_states;
+pub mod guns;
+pub mod inventory;

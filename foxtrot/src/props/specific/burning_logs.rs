@@ -15,7 +15,6 @@ use bevy_trenchbroom::prelude::*;
 use utils::light_utils::Flicker;
 use utils::world::RenderLayer;
 
-use crate::PostPhysicsAppSystems;
 use crate::props::setup::quake_bundle;
 use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
 use bevy::prelude::*;

@@ -6,6 +6,7 @@ use bevy::prelude::*;
 
 use bevy_ahoy::CharacterController;
 use bevy_trenchbroom::prelude::*;
+use states::hittable::Hittable;
 use third_party::{
     avian3d::CollisionLayer,
     bevy_trenchbroom::{GetTrenchbroomModelPath, LoadTrenchbroomModel},
@@ -51,6 +52,7 @@ fn on_add(add: On<Add, Npc>, mut commands: Commands, assets: Res<AssetServer>) {
             CollisionLayers::new(CollisionLayer::Character, LayerMask::ALL),
             // The Yarn Node is what we use to trigger dialogue.
             YarnNode::new("Npc"),
+            Hittable
         ))
         .with_child((
             Name::new("Npc Model"),

@@ -3,29 +3,25 @@
 //! The code is adapted from <https://bevyengine.org/examples/camera/first-person-view-model/>.
 //! See that example for more information.
 
-use std::iter;
-
 use avian_pickup::prelude::*;
 use avian3d::prelude::*;
-#[cfg(feature = "native")]
-use bevy::pbr::ScreenSpaceAmbientOcclusion;
 use bevy::{
-    anti_alias::{fxaa::Fxaa, taa::TemporalAntiAliasing},
+    anti_alias::taa::TemporalAntiAliasing,
     camera::{Exposure, visibility::RenderLayers},
-    core_pipeline::{
-        Skybox,
-        prepass::{DeferredPrepass, DepthPrepass},
-        tonemapping::Tonemapping,
-    },
-    light::{NotShadowCaster, ShadowFilteringMethod},
+    core_pipeline::{Skybox, prepass::DeferredPrepass, tonemapping::Tonemapping},
+    light::ShadowFilteringMethod,
     post_process::bloom::Bloom,
     prelude::*,
-    render::view::Hdr,
-    scene::SceneInstanceReady,
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
-use states::{screens::LoadingScreen, utils::CameraOrder, world::PostPhysicsAppSystems};
-use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
+use states::{
+    player::PlayerCamera,
+    player_states::{camera::WorldModelCamera, settings::WorldModelFov},
+    screens::LoadingScreen,
+    utils::CameraOrder,
+    world::PostPhysicsAppSystems,
+};
+use third_party::avian3d::CollisionLayer;
 use utils::{post_process::PostProcessSettings, world::RenderLayer};
 
 use crate::{
@@ -51,21 +47,9 @@ pub(super) fn plugin(app: &mut App) {
     );
 }
 
-/// The parent entity of the player's cameras.
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-#[require(Transform, Visibility)]
-pub(crate) struct PlayerCamera;
-
-#[derive(Component, Debug, Reflect)]
-#[reflect(Component)]
-#[require(Transform, Visibility)]
-struct WorldModelCamera;
-
 fn spawn_view_model(
     add: On<Add, Player>,
     mut commands: Commands,
-    assets: Res<AssetServer>,
     level_assets: Res<LevelAssets>,
     fov: Res<WorldModelFov>,
 ) {
@@ -115,6 +99,7 @@ fn spawn_view_model(
                 Name::new("World Model Camera"),
                 WorldModelCamera,
                 Camera3d::default(),
+                // GunHolderMark,
                 PostProcessSettings {
                     intensity: 1.,
                     ..default()
@@ -153,29 +138,29 @@ fn spawn_view_model(
             ));
 
             // Spawn view model camera.
-            parent.spawn((
-                Name::new("View Model Camera"),
-                Camera3d::default(),
-                Camera {
-                    // Bump the order to render on top of the world model.
-                    order: CameraOrder::ViewModel.into(),
-                    ..default()
-                },
-                Hdr,
-                Projection::from(PerspectiveProjection {
-                    // We use whatever FOV we set in the animation software, e.g. Blender.
-                    // Tip: if you want to set a camera in Blender to the same defaults as Bevy,
-                    // see [this issue](https://github.com/kaosat-dev/Blenvy/issues/223)
-                    fov: 62.0_f32.to_radians(),
-                    ..default()
-                }),
-                // Only render objects belonging to the view model.
-                RenderLayers::from(RenderLayer::VIEW_MODEL),
-                exposure,
-                Tonemapping::TonyMcMapface,
-                (DepthPrepass, Msaa::Off, DeferredPrepass, Fxaa::default()),
-                env_map,
-            ));
+            // parent.spawn((
+            //     Name::new("View Model Camera"),
+            //     Camera3d::default(),
+            //     Camera {
+            //         // Bump the order to render on top of the world model.
+            //         order: CameraOrder::ViewModel.into(),
+            //         ..default()
+            //     },
+            //     Hdr,
+            //     Projection::from(PerspectiveProjection {
+            //         // We use whatever FOV we set in the animation software, e.g. Blender.
+            //         // Tip: if you want to set a camera in Blender to the same defaults as Bevy,
+            //         // see [this issue](https://github.com/kaosat-dev/Blenvy/issues/223)
+            //         fov: 62.0_f32.to_radians(),
+            //         ..default()
+            //     }),
+            //     // Only render objects belonging to the view model.
+            //     RenderLayers::from(RenderLayer::VIEW_MODEL),
+            //     exposure,
+            //     Tonemapping::TonyMcMapface,
+            //     (DepthPrepass, Msaa::Off, DeferredPrepass, Fxaa::default()),
+            //     env_map,
+            // ));
 
             // Spawn the player's view model
             // parent
@@ -204,26 +189,26 @@ fn move_anim_players_relationship_to_player(
     }
 }
 
-fn configure_player_view_model(
-    ready: On<SceneInstanceReady>,
-    mut commands: Commands,
-    q_children: Query<&Children>,
-    q_mesh: Query<(), With<Mesh3d>>,
-) {
-    let view_model = ready.entity;
-
-    for child in iter::once(view_model)
-        .chain(q_children.iter_descendants(view_model))
-        .filter(|e| q_mesh.contains(*e))
-    {
-        commands.entity(child).insert((
-            // Ensure the arm is only rendered by the view model camera.
-            RenderLayers::from(RenderLayer::VIEW_MODEL),
-            // The arm is free-floating, so shadows would look weird.
-            NotShadowCaster,
-        ));
-    }
-}
+// fn configure_player_view_model(
+//     ready: On<SceneInstanceReady>,
+//     mut commands: Commands,
+//     q_children: Query<&Children>,
+//     q_mesh: Query<(), With<Mesh3d>>,
+// ) {
+//     let view_model = ready.entity;
+//
+//     for child in iter::once(view_model)
+//         .chain(q_children.iter_descendants(view_model))
+//         .filter(|e| q_mesh.contains(*e))
+//     {
+//         commands.entity(child).insert((
+//             // Ensure the arm is only rendered by the view model camera.
+//             RenderLayers::from(RenderLayer::VIEW_MODEL),
+//             // The arm is free-floating, so shadows would look weird.
+//             NotShadowCaster,
+//         ));
+//     }
+// }
 
 fn add_render_layers_to_point_light(add: On<Add, PointLight>, mut commands: Commands) {
     let entity = add.entity;
@@ -244,16 +229,6 @@ fn add_render_layers_to_directional_light(add: On<Add, DirectionalLight>, mut co
     commands.entity(entity).insert(RenderLayers::from(
         RenderLayer::DEFAULT | RenderLayer::VIEW_MODEL,
     ));
-}
-
-#[derive(Resource, Reflect, Debug, Deref, DerefMut)]
-#[reflect(Resource)]
-pub struct WorldModelFov(pub f32);
-
-impl Default for WorldModelFov {
-    fn default() -> Self {
-        Self(75.0)
-    }
 }
 
 fn update_world_model_fov(

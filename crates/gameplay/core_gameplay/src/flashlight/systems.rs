@@ -1,8 +1,7 @@
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
+use states::player::PlayerCamera;
 use utils::light_utils::Flicker;
-
-use crate::player::camera::PlayerCamera;
 
 use super::states::{FlashlightLight, PlayerFlashlightState, ToggleFlashlight};
 

@@ -6,22 +6,20 @@ use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::*;
 use bevy_yarnspinner::{events::DialogueCompleted, prelude::DialogueRunner};
-use states::{screens::Screen, world::PostPhysicsAppSystems};
+use states::{player::PlayerCamera, screens::Screen, world::PostPhysicsAppSystems};
 use third_party::{
     avian3d::CollisionLayer,
     bevy_yarnspinner::{YarnNode, is_dialogue_running},
 };
 
-use crate::crosshair::CrosshairState;
+use crate::{
+    crosshair::CrosshairState,
+    player::states::{BlocksInput, Interact},
+};
 
 mod ui;
 
-use super::{
-    Player,
-    camera::PlayerCamera,
-    input::{BlocksInput, Interact},
-    pickup::state::is_holding_prop,
-};
+use super::{Player, pickup::state::is_holding_prop};
 
 pub(super) fn plugin(app: &mut App) {
     app.configure_sets(

@@ -1,6 +1,6 @@
 //! Development tools for the game. This plugin is only enabled in dev builds.
 
-use bevy::{dev_tools::states::log_transitions, prelude::*};
+use bevy::{dev_tools::{picking_debug::DebugPickingPlugin, states::log_transitions}, prelude::*};
 use states::screens::LoadingScreen;
 
 mod debug_ui;
@@ -20,6 +20,7 @@ pub(super) fn plugin(app: &mut App) {
     app.add_plugins((
         debug_ui::plugin,
         input::plugin,
+        DebugPickingPlugin::default(),
         validate_preloading::plugin,
         log_components::plugin,
     ));
