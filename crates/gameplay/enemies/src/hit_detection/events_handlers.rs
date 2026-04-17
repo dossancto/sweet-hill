@@ -9,30 +9,24 @@ use crate::{
 pub fn process_enemy_damage(on: On<Hit>, mut query: Query<&mut Enemy>, mut commands: Commands) {
     let enemy = query.get_mut(on.target);
 
-    if enemy.is_err() {
+    let Ok(mut enemy) = enemy else {
+        return;
+    };
+
+    if enemy.is_dead() {
         return;
     }
 
-    let mut enemy = enemy.unwrap();
+    commands.trigger(EnemyHit {
+        target: on.target.clone(),
+        damage: on.damage,
+    });
 
-    if enemy.health <= 0. {
-        info!("Enemy already dead, ignoring hit.");
-        return;
-    }
+    enemy.apply_damage(on.damage);
 
-    let new_health = enemy.health - on.damage;
-
-    if new_health <= 0. {
-        enemy.health = 0.;
+    if enemy.is_dead() {
         commands.trigger(EnemyDead {
             target: on.target.clone(),
         });
-    } else {
-        enemy.health = new_health;
-        commands.trigger(EnemyHit {
-            target: on.target.clone(),
-            damage: on.damage,
-        });
-        info!("Enemy hit! Remaining health: {}", new_health);
     }
 }

@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use states::inventory::items::PickableItem;
+use states::inventory::items::Item;
 use utils::effects::camera_sway::SwayItem;
 
 use crate::{
@@ -24,7 +24,7 @@ pub struct M4A1GunConfigurationBundle {
     pub fire_type: FireTypeBullet,
     pub sway_item: SwayItem,
     pub visibility: Visibility,
-    pub pickable_item: PickableItem,
+    pub pickable_item: Item,
 }
 
 impl Default for M4A1GunConfigurationBundle {
@@ -65,7 +65,7 @@ impl Default for M4A1GunConfigurationBundle {
                 max_sway: 0.1,
             },
             visibility: Visibility::Hidden,
-            pickable_item: PickableItem,
+            pickable_item: Item,
         }
     }
 }

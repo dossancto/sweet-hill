@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 use bevy_enhanced_input::prelude::Start;
 use gameplay_input::inputs::ToogleActiveItem;
-use states::inventory::{active_item::ActiveItem, items::PickableItem};
+use states::inventory::{active_item::ActiveItem, items::Item};
 
 /// Registers gun-related event observers with the provided application instance.
 ///
@@ -10,11 +10,10 @@ use states::inventory::{active_item::ActiveItem, items::PickableItem};
 /// - `hide_gun`: Responds to events that require the gun to be hidden from view.
 /// - `show_gun`: Responds to events that require the gun to be displayed.
 pub(super) fn plugin(app: &mut App) {
-    app.add_observer(switch_to_next_gun);
+    app.add_observer(switch_to_next_item);
     app.add_observer(hide_gun);
     app.add_observer(show_gun);
 }
-
 
 /// Switches the currently active gun to the next available pickable gun entity.
 ///
@@ -29,9 +28,9 @@ pub(super) fn plugin(app: &mut App) {
 /// - If no pickable gun is available, the function does nothing and no error is raised.
 /// - If the `ActiveItem` component's `can_switch()` method returns `false`, switching is prevented and a log message is generated.
 /// - If `active_gun_query` does not return exactly one entity, this will panic at runtime due to the use of `into_inner()`.
-fn switch_to_next_gun(
+fn switch_to_next_item(
     _on: On<Start<ToogleActiveItem>>,
-    guns_q: Query<Entity, (Without<ActiveItem>, With<PickableItem>)>,
+    guns_q: Query<Entity, (Without<ActiveItem>, With<Item>)>,
     active_gun_query: Single<(Entity, &ActiveItem)>,
     mut commands: Commands,
 ) {
@@ -44,16 +43,20 @@ fn switch_to_next_gun(
 
     let next_gun_entity = guns_q.iter().next().map(|entity| entity);
 
-    if let Some(next_gun_entity) = next_gun_entity {
-        info!(
-            "Switching active gun from {:?} to {:?}.",
-            active_gun_entity, next_gun_entity
-        );
-        commands.entity(active_gun_entity).remove::<ActiveItem>();
-        commands
-            .entity(next_gun_entity)
-            .insert(ActiveItem::default());
-    }
+    let Some(next_gun_entity) = next_gun_entity else {
+        return;
+    };
+
+    info!(
+        "Switching active gun from {:?} to {:?}.",
+        active_gun_entity, next_gun_entity
+    );
+
+    commands.entity(active_gun_entity).remove::<ActiveItem>();
+
+    commands
+        .entity(next_gun_entity)
+        .insert(ActiveItem::default());
 }
 
 /// Hides the gun entity by setting its visibility to hidden when it becomes inactive.

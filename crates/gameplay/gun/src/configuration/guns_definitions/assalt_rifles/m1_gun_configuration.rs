@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use states::inventory::items::PickableItem;
+use states::inventory::items::Item;
 
 use crate::{
     aims::aim_configurations::components::GunAiming,
@@ -19,7 +19,7 @@ pub struct M1GunConfigurationBundle {
     pub aim: GunAiming,
     // pub model: GunM4A1,
     pub fire_type: FireTypeBullet,
-    pub pickable_item: PickableItem,
+    pub pickable_item: Item,
 }
 
 impl Default for M1GunConfigurationBundle {
@@ -48,7 +48,7 @@ impl Default for M1GunConfigurationBundle {
             },
             // model: GunM4A1,
             fire_type: FireTypeBullet,
-            pickable_item: PickableItem,
+            pickable_item: Item,
         }
     }
 }
