@@ -9,8 +9,7 @@ use crate::{
 };
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
-use states::{
-    hittable::{Hit, Hittable},
+use states::{ hittable::{Hit, Hittable},
     inventory::active_item::ActiveItem,
     player::Player,
 };
@@ -73,7 +72,6 @@ fn on_shoot_bullets(
     let spread_factor = 0.1;
 
     let (spread_x, spread_y) = get_non_uniform_random_point_on_circle(spread_factor);
-
     let forward = camera_transform.forward();
 
     let forward_with_spread = forward

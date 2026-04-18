@@ -4,14 +4,14 @@ use states::{
     inventory::{active_item::ActiveItem, items::Item},
 };
 
-use crate::{bag::components::InventoryBagConfiguration, take::components::TakeItem};
+use crate::{bag::components::InventoryBagConfiguration, take::components::ItemTaken};
 
 pub(super) fn plugin(app: &mut App) {
     app.add_observer(handle_gun_replacement);
 }
 
 pub fn handle_gun_replacement(
-    on: On<TakeItem>,
+    on: On<ItemTaken>,
     mut commands: Commands,
 
     gun_holder_q: Single<Entity, With<GunHolderMark>>,

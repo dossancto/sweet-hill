@@ -4638,10 +4638,12 @@ dependencies = [
 name = "inventory"
 version = "0.1.0"
 dependencies = [
+ "avian3d",
  "bevy",
  "bevy_enhanced_input",
  "gameplay_input",
  "states",
+ "third_party",
  "utils",
 ]
 

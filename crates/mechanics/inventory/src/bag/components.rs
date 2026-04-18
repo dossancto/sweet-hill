@@ -11,4 +11,7 @@ impl InventoryBagConfiguration {
     }
 }
 
-
+#[derive(Component)]
+pub struct InteractionConfiguration {
+    pub interaction_distance: f32,
+}

@@ -47,3 +47,5 @@ gameplay_input = { version = "0.1.0", path = "../../gameplay/gameplay_input" }
 states = { version = "0.1.0", path = "../../states" }
 utils = { version = "0.1.0", path = "../../utils" }
 bevy_enhanced_input = { workspace = true }
+third_party = { version = "0.1.0", path = "../../third_party" }
+avian3d = { workspace = true }
