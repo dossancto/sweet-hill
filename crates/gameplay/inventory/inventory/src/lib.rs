@@ -8,14 +8,8 @@ mod tests {
     #[collect_event(MoneyCollected)]
     pub struct Money;
 
-    #[derive(Debug)]
+    #[derive(Debug, Default)]
     pub struct MoneyCollected {}
-
-    impl Default for MoneyCollected {
-        fn default() -> Self {
-            MoneyCollected {}
-        }
-    }
 
     #[test]
     fn test_get_event_returns_money_collected() {
