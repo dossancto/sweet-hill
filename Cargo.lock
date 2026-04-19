@@ -4638,8 +4638,6 @@ name = "inventory"
 version = "0.1.0"
 dependencies = [
  "bevy",
- "inventory_core",
- "inventory_macros",
 ]
 
 [[package]]
@@ -4649,23 +4647,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bc61209c082fbeb19919bee74b176221b27223e27b65d781eb91af24eb1fb46e"
 dependencies = [
  "rustversion",
-]
-
-[[package]]
-name = "inventory_core"
-version = "0.1.0"
-dependencies = [
- "bevy",
-]
-
-[[package]]
-name = "inventory_macros"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "inventory_core",
- "quote",
- "syn",
 ]
 
 [[package]]

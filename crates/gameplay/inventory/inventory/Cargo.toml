@@ -4,6 +4,4 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-inventory_core = { version = "0.1.0", path = "../inventory_core" }
-inventory_macros = { version = "0.1.0", path = "../inventory_macros" }
 bevy = { workspace = true,  default-features = false }
