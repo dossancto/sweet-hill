@@ -72,4 +72,3 @@ mod tests {
         assert_eq!(wallet.0, 10.0);
     }
 }
-

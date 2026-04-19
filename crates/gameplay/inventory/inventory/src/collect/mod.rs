@@ -1,9 +1,12 @@
 use bevy::prelude::*;
 
-use crate::{
+use crate::collect::{
     collect_action::Collect,
     collectable::{CanBeCollect, Collectable},
 };
+
+pub mod collect_action;
+pub mod collectable;
 
 /// Event signaling that a collect action should be triggered for a specific entity.
 ///
@@ -49,7 +52,6 @@ pub(crate) fn collect_item<T: CanBeCollect>(
 
     commands.trigger(event_to_trigger);
 }
-
 
 /// Provides the ability to register a type as a collectable item within an application.
 ///
