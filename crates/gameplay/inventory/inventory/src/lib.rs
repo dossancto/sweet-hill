@@ -16,16 +16,9 @@ mod tests {
         let mut app = App::new();
         app.init_resource::<PlayerWallet>();
 
-        app.add_observer(
-            |on: On<Collect<Money>>,
-             mut wallet: ResMut<PlayerWallet>,
-             money_q: Query<&Money>| {
-                let Ok(money) = money_q.get(on.entity) else {
-                    panic!("Money entity not found");
-                };
-                wallet.0 = wallet.0 + money.amount;
-            },
-        );
+        app.add_observer(|on: On<Collect<Money>>, mut wallet: ResMut<PlayerWallet>| {
+            wallet.0 = wallet.0 + on.value.amount;
+        });
 
         let money = Money { amount: 10.0 };
 
