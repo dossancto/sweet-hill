@@ -1569,7 +1569,7 @@ dependencies = [
  "foldhash 0.2.0",
  "glam 0.30.10",
  "indexmap",
- "inventory 0.3.21",
+ "inventory",
  "petgraph",
  "serde",
  "smallvec",
@@ -3849,6 +3849,7 @@ dependencies = [
  "gameplay_input",
  "getrandom",
  "gun",
+ "interaction",
  "landmass_rerecast",
  "rand",
  "regex",
@@ -4635,15 +4636,6 @@ dependencies = [
 
 [[package]]
 name = "interaction"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "gameplay_input",
- "states",
-]
-
-[[package]]
-name = "inventory"
 version = "0.1.0"
 dependencies = [
  "bevy",

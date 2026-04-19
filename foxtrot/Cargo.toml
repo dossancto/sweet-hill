@@ -112,6 +112,7 @@ core_gameplay = { version = "0.1.0", path = "../crates/gameplay/core_gameplay" }
 gun = { version = "0.1.0", path = "../crates/gameplay/gun" }
 gameplay_input = { version = "0.1.0", path = "../crates/gameplay/gameplay_input" }
 enemies = { version = "0.1.0", path = "../crates/gameplay/enemies" }
+interaction = { version = "0.1.0", path = "../crates/mechanics/interaction/interaction" }
 
 [features]
 default = [
