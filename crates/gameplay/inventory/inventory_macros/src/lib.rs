@@ -35,7 +35,7 @@ pub fn collect_action_derive(item: TokenStream) -> TokenStream {
         {
             type Output = #output_ty;
 
-            fn get_event(&self) -> Self::Output {
+            fn get_collect_event(&self) -> Self::Output {
                 <#output_ty as Default>::default()
             }
         }

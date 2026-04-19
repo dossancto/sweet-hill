@@ -6,7 +6,7 @@ mod tests {
 
     #[derive(Collect, Component)]
     #[collect_event(MoneyCollected)]
-    pub struct A;
+    pub struct Money;
 
     #[derive(Debug)]
     pub struct MoneyCollected {}
@@ -19,12 +19,12 @@ mod tests {
 
     #[test]
     fn test_get_event_returns_money_collected() {
-        let a = A;
-        let event = a.get_event();
-        // Assuming get_event returns a type that can be compared to MoneyCollected
-        // If get_event returns a reference or a trait object, adjust accordingly
+        let money = Money;
+
+        let event = money.get_collect_event();
+
         let expected = MoneyCollected::default();
-        // If PartialEq is not implemented, you may need to implement it or use pattern matching
+
         assert_eq!(format!("{:?}", event), format!("{:?}", expected));
     }
 }
