@@ -3,6 +3,8 @@ use bevy::prelude::*;
 #[derive(Component)]
 pub struct Collectable;
 
+pub trait CanBeCollect: Component + Clone {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -13,6 +15,11 @@ mod tests {
         pub amount: f64,
     }
 
+    #[derive(Component, Clone)]
+    struct Gun {
+        pub name: String,
+    }
+
     #[derive(Resource, Default)]
     struct PlayerWallet(f64);
 
@@ -20,6 +27,9 @@ mod tests {
     struct TriggerCollect {
         pub entity: Entity,
     }
+
+    impl CanBeCollect for Money {}
+    impl CanBeCollect for Gun {}
 
     #[test]
     fn test_get_event_returns_money_collected() {
@@ -30,25 +40,24 @@ mod tests {
             wallet.0 = wallet.0 + on.value.amount;
         });
 
-        fn collect_item(
+        fn collect_item<T: CanBeCollect>(
             on: On<TriggerCollect>,
             mut commands: Commands,
-            query: Query<&Collectable>,
+            query: Query<&T, With<Collectable>>,
         ) {
             let entity = on.entity;
 
             let Ok(collectable) = query.get(entity) else {
-                panic!("Entity does not have a Collectable<Money> component");
+                return;
             };
 
-            let value = "123";
-
-            let event_to_trigger = Collect::new(value, entity.clone());
+            let event_to_trigger = Collect::new(collectable.clone(), entity);
 
             commands.trigger(event_to_trigger);
         }
 
-        app.add_observer(collect_item);
+        app.add_observer(collect_item::<Money>);
+        app.add_observer(collect_item::<Gun>);
 
         let spawned_money = {
             let money = Money { amount: 10.0 };
