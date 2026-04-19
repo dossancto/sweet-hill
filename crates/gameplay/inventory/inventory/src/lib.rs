@@ -6,7 +6,9 @@ mod tests {
 
     #[derive(CollectTrigger, Component, Clone)]
     #[collect_event(MoneyCollected)]
-    pub struct Money;
+    pub struct Money {
+        pub amount: f64,
+    }
 
     #[derive(Debug, Default)]
     pub struct MoneyCollected;
@@ -20,12 +22,17 @@ mod tests {
         app.init_resource::<PlayerWallet>();
 
         app.add_observer(
-            |event: On<Collect<MoneyCollected>>, mut wallet: ResMut<PlayerWallet>| {
-                wallet.0 = wallet.0 + 100.0;
+            |on: On<Collect<MoneyCollected>>,
+             mut wallet: ResMut<PlayerWallet>,
+             money_q: Query<&Money>| {
+                let Ok(money) = money_q.get(on.entity) else {
+                    panic!("Money entity not found");
+                };
+                wallet.0 = wallet.0 + money.amount;
             },
         );
 
-        let money = Money;
+        let money = Money { amount: 10.0 };
 
         let spawned_money = app.world_mut().spawn(money.clone()).id();
 
@@ -40,6 +47,6 @@ mod tests {
 
         let wallet = app.world().resource::<PlayerWallet>();
 
-        assert_eq!(wallet.0, 100.0);
+        assert_eq!(wallet.0, 10.0);
     }
 }
