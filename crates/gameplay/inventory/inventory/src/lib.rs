@@ -4,7 +4,7 @@ mod tests {
     use inventory_core::{Collect, CollectItemAction};
     use inventory_macros::CollectTrigger;
 
-    #[derive(CollectTrigger, Component)]
+    #[derive(CollectTrigger, Component, Clone)]
     #[collect_event(MoneyCollected)]
     pub struct Money;
 
@@ -27,9 +27,12 @@ mod tests {
 
         let money = Money;
 
+        let spawned_money = app.world_mut().spawn(money.clone()).id();
+
+        // Money may be get from Query<>
         let event = money.get_collect_event();
 
-        let event_to_trigger = Collect::from(event);
+        let event_to_trigger = Collect::new(event, spawned_money.clone());
 
         app.world_mut().trigger(event_to_trigger);
 

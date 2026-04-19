@@ -6,15 +6,14 @@ pub trait CollectItemAction {
     fn get_collect_event(&self) -> Self::Output;
 }
 
-#[derive(Event, Debug)]
-pub struct Collect<E>
-{
+#[derive(EntityEvent, Debug)]
+pub struct Collect<E> {
+    pub entity: Entity,
     pub event: E,
 }
 
-impl<E> From<E> for Collect<E>
-{
-    fn from(event: E) -> Self {
-        Collect { event }
+impl<E> Collect<E> {
+    pub fn new(event: E, entity: Entity) -> Self {
+        Collect { event, entity }
     }
 }
