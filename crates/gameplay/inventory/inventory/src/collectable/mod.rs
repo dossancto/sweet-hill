@@ -8,7 +8,10 @@ pub trait CanBeCollect: Component + Clone {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::collect_action::Collect;
+    use crate::{
+        collect::{AddCollectable, TriggerCollect},
+        collect_action::Collect,
+    };
 
     #[derive(Component, Clone)]
     struct Money {
@@ -17,17 +20,11 @@ mod tests {
 
     #[derive(Component, Clone)]
     struct Gun {
-        pub name: String,
+        pub _name: String,
     }
 
     #[derive(Resource, Default)]
     struct PlayerWallet(f64);
-
-    #[derive(Event)]
-    struct TriggerCollect {
-        pub entity: Entity,
-    }
-
     impl CanBeCollect for Money {}
     impl CanBeCollect for Gun {}
 
@@ -40,24 +37,8 @@ mod tests {
             wallet.0 = wallet.0 + on.value.amount;
         });
 
-        fn collect_item<T: CanBeCollect>(
-            on: On<TriggerCollect>,
-            mut commands: Commands,
-            query: Query<&T, With<Collectable>>,
-        ) {
-            let entity = on.entity;
-
-            let Ok(collectable) = query.get(entity) else {
-                return;
-            };
-
-            let event_to_trigger = Collect::new(collectable.clone(), entity);
-
-            commands.trigger(event_to_trigger);
-        }
-
-        app.add_observer(collect_item::<Money>);
-        app.add_observer(collect_item::<Gun>);
+        app.add_collectable::<Money>();
+        app.add_collectable::<Gun>();
 
         let spawned_money = {
             let money = Money { amount: 10.0 };
