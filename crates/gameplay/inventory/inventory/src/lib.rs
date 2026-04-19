@@ -9,19 +9,19 @@ mod tests {
     pub struct Money;
 
     #[derive(Debug, Default)]
-    pub struct MoneyCollected {}
+    pub struct MoneyCollected;
 
     #[derive(Resource, Default)]
-    struct ObserverRan(bool);
+    struct PlayerWallet(f64);
 
     #[test]
     fn test_get_event_returns_money_collected() {
         let mut app = App::new();
-        app.init_resource::<ObserverRan>();
+        app.init_resource::<PlayerWallet>();
 
         app.add_observer(
-            |event: On<Collect<MoneyCollected>>, mut ran: ResMut<ObserverRan>| {
-                ran.0 = true;
+            |event: On<Collect<MoneyCollected>>, mut wallet: ResMut<PlayerWallet>| {
+                wallet.0 = wallet.0 + 100.0;
             },
         );
 
@@ -35,11 +35,8 @@ mod tests {
 
         app.update();
 
-        let ran = app.world().resource::<ObserverRan>();
+        let wallet = app.world().resource::<PlayerWallet>();
 
-        assert!(
-            ran.0,
-            "Observer did not run, expected to receive MoneyCollected event"
-        );
+        assert_eq!(wallet.0, 100.0);
     }
 }
