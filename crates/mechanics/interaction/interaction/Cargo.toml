@@ -1,0 +1,9 @@
+[package]
+name = "interaction"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = { workspace = true }
+gameplay_input = { version = "0.1.0", path = "../../../gameplay/gameplay_input/" }
+states = { version = "0.1.0", path = "../../../states/" }

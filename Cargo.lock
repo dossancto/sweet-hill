@@ -4634,6 +4634,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "interaction"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "gameplay_input",
+ "states",
+]
+
+[[package]]
 name = "inventory"
 version = "0.1.0"
 dependencies = [
