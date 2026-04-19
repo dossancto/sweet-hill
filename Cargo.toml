@@ -74,6 +74,9 @@ bevy_seedling = "0.7.0"
 # Keep this in sync with Bevy
 rand = "0.9"
 
+syn = "2.0.114"
+quote = "1.0.44"
+
 # Compile low-severity logs out of web builds for performance.
 tracing = { version = "0.1", features = [
     "max_level_debug",

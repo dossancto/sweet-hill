@@ -154,7 +154,6 @@ fn main() -> AppExit {
         props::plugin,
         theme::plugin,
         audio::plugin,
-        inventory::plugin,
         gun::plugin,
         gameplay_input::plugin,
         enemies::plugin,
