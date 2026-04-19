@@ -1,24 +1,45 @@
 #[cfg(test)]
 mod tests {
     use bevy::prelude::*;
-    use inventory_core::CollectItemAction;
-    use inventory_macros::Collect;
+    use inventory_core::{Collect, CollectItemAction};
+    use inventory_macros::CollectTrigger;
 
-    #[derive(Collect, Component)]
+    #[derive(CollectTrigger, Component)]
     #[collect_event(MoneyCollected)]
     pub struct Money;
 
-    #[derive(Debug, Default)]
+    #[derive(Debug, Default, Event)]
     pub struct MoneyCollected {}
+
+    #[derive(Resource, Default)]
+    struct ObserverRan(bool);
 
     #[test]
     fn test_get_event_returns_money_collected() {
+        let mut app = App::new();
+        app.init_resource::<ObserverRan>();
+
+        app.add_observer(
+            |event: On<Collect<MoneyCollected>>, mut ran: ResMut<ObserverRan>| {
+                ran.0 = true;
+            },
+        );
+
         let money = Money;
 
         let event = money.get_collect_event();
 
-        let expected = MoneyCollected::default();
+        let event_to_trigger = Collect::from(event);
 
-        assert_eq!(format!("{:?}", event), format!("{:?}", expected));
+        app.world_mut().trigger(event_to_trigger);
+
+        app.update();
+
+        let ran = app.world().resource::<ObserverRan>();
+
+        assert!(
+            ran.0,
+            "Observer did not run, expected to receive MoneyCollected event"
+        );
     }
 }

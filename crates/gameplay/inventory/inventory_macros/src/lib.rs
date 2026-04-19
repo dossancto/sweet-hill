@@ -3,7 +3,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{DeriveInput, Error, Path, parse_macro_input};
 
-#[proc_macro_derive(Collect, attributes(collect_event))]
+#[proc_macro_derive(CollectTrigger, attributes(collect_event))]
 pub fn collect_action_derive(item: TokenStream) -> TokenStream {
     let input = parse_macro_input!(item as DeriveInput);
 
