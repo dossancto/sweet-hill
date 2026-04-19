@@ -30,21 +30,25 @@ mod tests {
             wallet.0 = wallet.0 + on.value.amount;
         });
 
-        app.add_observer(
-            |on: On<TriggerCollect>, mut commands: Commands, query: Query<&Collectable>| {
-                let entity = on.entity;
+        fn collect_item(
+            on: On<TriggerCollect>,
+            mut commands: Commands,
+            query: Query<&Collectable>,
+        ) {
+            let entity = on.entity;
 
-                let Ok(collectable) = query.get(entity) else {
-                    panic!("Entity does not have a Collectable<Money> component");
-                };
+            let Ok(collectable) = query.get(entity) else {
+                panic!("Entity does not have a Collectable<Money> component");
+            };
 
-                let value = "123";
+            let value = "123";
 
-                let event_to_trigger = Collect::new(value, entity.clone());
+            let event_to_trigger = Collect::new(value, entity.clone());
 
-                commands.trigger(event_to_trigger);
-            },
-        );
+            commands.trigger(event_to_trigger);
+        }
+
+        app.add_observer(collect_item);
 
         let spawned_money = {
             let money = Money { amount: 10.0 };
