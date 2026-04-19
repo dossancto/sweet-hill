@@ -2,16 +2,11 @@
 mod tests {
     use bevy::prelude::*;
     use inventory_core::{Collect, CollectItemAction};
-    use inventory_macros::CollectTrigger;
 
-    #[derive(CollectTrigger, Component, Clone)]
-    #[collect_event(MoneyCollected)]
+    #[derive(Component, Clone)]
     pub struct Money {
         pub amount: f64,
     }
-
-    #[derive(Debug, Default)]
-    pub struct MoneyCollected;
 
     #[derive(Resource, Default)]
     struct PlayerWallet(f64);
@@ -22,7 +17,7 @@ mod tests {
         app.init_resource::<PlayerWallet>();
 
         app.add_observer(
-            |on: On<Collect<MoneyCollected>>,
+            |on: On<Collect<Money>>,
              mut wallet: ResMut<PlayerWallet>,
              money_q: Query<&Money>| {
                 let Ok(money) = money_q.get(on.entity) else {
@@ -36,10 +31,7 @@ mod tests {
 
         let spawned_money = app.world_mut().spawn(money.clone()).id();
 
-        // Money may be get from Query<>
-        let event = money.get_collect_event();
-
-        let event_to_trigger = Collect::new(event, spawned_money.clone());
+        let event_to_trigger = Collect::new(money, spawned_money.clone());
 
         app.world_mut().trigger(event_to_trigger);
 
