@@ -8,7 +8,7 @@ mod tests {
     #[collect_event(MoneyCollected)]
     pub struct Money;
 
-    #[derive(Debug, Default, Event)]
+    #[derive(Debug, Default)]
     pub struct MoneyCollected {}
 
     #[derive(Resource, Default)]

@@ -8,15 +8,11 @@ pub trait CollectItemAction {
 
 #[derive(Event, Debug)]
 pub struct Collect<E>
-where
-    E: Event,
 {
     pub event: E,
 }
 
 impl<E> From<E> for Collect<E>
-where
-    E: Event,
 {
     fn from(event: E) -> Self {
         Collect { event }
