@@ -4,6 +4,7 @@ pub mod app;
 pub mod collect_action;
 pub mod collect_trigger;
 pub mod collectable;
+pub mod collected;
 
 #[cfg(test)]
 mod tests;

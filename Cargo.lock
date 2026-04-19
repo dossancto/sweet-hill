@@ -4638,6 +4638,8 @@ name = "inventory"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "gameplay_input",
+ "states",
 ]
 
 [[package]]
