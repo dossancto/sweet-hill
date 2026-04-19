@@ -8,7 +8,9 @@ pub trait CanBeCollect: Component + Clone {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::collect::{AddCollectable, TriggerCollect, collect_action::Collect};
+    use crate::collect::{
+        app::AddCollectable, collect_action::Collect, collect_trigger::TriggerCollect,
+    };
 
     #[derive(Component, Clone)]
     struct Money {

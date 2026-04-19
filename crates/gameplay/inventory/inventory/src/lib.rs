@@ -2,4 +2,6 @@ use bevy::prelude::*;
 
 pub mod collect;
 
-pub fn plugin(_app: &mut App) {}
+pub fn plugin(app: &mut App) {
+    app.add_plugins((collect::plugin,));
+}
