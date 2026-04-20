@@ -155,6 +155,7 @@ fn main() -> AppExit {
         theme::plugin,
         audio::plugin,
         gun::plugin,
+        interaction_gateway::plugin,
         gameplay_input::plugin,
         enemies::plugin,
     ));

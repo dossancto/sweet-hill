@@ -15,6 +15,7 @@ pub enum CollisionLayer {
     Prop,
     Character,
     Hittable,
+    Interactable,
 }
 
 fn enable_interpolation(

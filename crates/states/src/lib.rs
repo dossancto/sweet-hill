@@ -6,3 +6,4 @@ pub mod player;
 pub mod player_states;
 pub mod guns;
 pub mod inventory;
+pub mod interaction;

@@ -5,6 +5,9 @@ use bevy_landmass::{Character, prelude::*};
 
 use bevy_trenchbroom::prelude::*;
 use enemies::states::Enemy;
+use interaction::{
+    interaction::components::Interactable, inventory::collect::collectable::Collectable,
+};
 use states::hittable::Hittable;
 use utils::asset_tracking::LoadResource;
 
@@ -76,7 +79,7 @@ fn setup_crate_small(
     let model = asset_server.load_trenchbroom_model::<CrateSmall>();
     commands.entity(add.entity).insert((
         Hittable,
-        CollisionLayers::new(CollisionLayer::Hittable, LayerMask::ALL),
+        CollisionLayers::new([CollisionLayer::Interactable, CollisionLayer::Hittable], LayerMask::ALL),
         ColliderDensity(1_000.0),
         Collider::cuboid(1f32, 1f32, 1f32),
         // This makes the raycast colides with other things, resulting in the player not being able
@@ -87,6 +90,8 @@ fn setup_crate_small(
         //         LayerMask::ALL,
         //     ))
         //     .with_default_density(1_000.0),
+        Collectable,
+        Interactable,
         Enemy {
             name: "Crate Small".to_string(),
             health: 500.0,

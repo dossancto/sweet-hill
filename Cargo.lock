@@ -3850,6 +3850,7 @@ dependencies = [
  "getrandom",
  "gun",
  "interaction",
+ "interaction_gateway",
  "landmass_rerecast",
  "rand",
  "regex",
@@ -4641,6 +4642,18 @@ dependencies = [
  "bevy",
  "gameplay_input",
  "states",
+]
+
+[[package]]
+name = "interaction_gateway"
+version = "0.1.0"
+dependencies = [
+ "avian3d",
+ "bevy",
+ "gameplay_input",
+ "interaction",
+ "states",
+ "third_party",
 ]
 
 [[package]]

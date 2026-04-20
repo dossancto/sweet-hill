@@ -1,0 +1,12 @@
+[package]
+name = "interaction_gateway"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+interaction = { version = "0.1.0", path = "../../mechanics/interaction/interaction" }
+bevy = { workspace = true }
+gameplay_input = { version = "0.1.0", path = "../../gameplay/gameplay_input" }
+states = { version = "0.1.0", path = "../../states" }
+avian3d = { workspace = true }
+third_party = { version = "0.1.0", path = "../../third_party" }
