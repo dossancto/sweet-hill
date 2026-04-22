@@ -50,6 +50,11 @@ fn can_interact(
     );
 
     for entity in can_interact_q.iter() {
+        if let Some(hit) = hit {
+            if hit.entity == entity {
+                continue;
+            }
+        }
         commands.entity(entity).remove::<CanInteract>();
     }
 
@@ -57,9 +62,9 @@ fn can_interact(
         return;
     };
 
-    // let Ok(_is_hitteable) = interactables_q.get(hit.entity) else {
-    //     return;
-    // };
+    let Ok(_is_hitteable) = interactables_q.get(hit.entity) else {
+        return;
+    };
 
-    commands.entity(hit.entity).insert(CanInteract);
+    commands.entity(hit.entity).insert_if_new(CanInteract);
 }
