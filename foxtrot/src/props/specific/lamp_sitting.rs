@@ -9,6 +9,7 @@ use bevy::{
 };
 
 use bevy_trenchbroom::prelude::*;
+use interaction::interaction::components::Interactable;
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
 use utils::asset_tracking::LoadResource;
 
@@ -39,14 +40,14 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
         let model = asset_server.load_trenchbroom_model::<LampSitting>();
 
         let bundle = (
-            ColliderConstructorHierarchy::new(ColliderConstructor::ConvexDecompositionFromMesh)
-                .with_default_layers(CollisionLayers::new(
-                    [CollisionLayer::Interactable],
-                    LayerMask::ALL,
-                ))
-                // About the density of oak wood (600-800 kg/m^3)
-                .with_default_density(800.0),
+            ColliderDensity(1_000.0),
+            Collider::cuboid(0.34, 0.35, 0.65),
+            CollisionLayers::new(
+                [CollisionLayer::Interactable, CollisionLayer::Hittable],
+                LayerMask::ALL,
+            ),
             RigidBody::Dynamic,
+            Interactable::default(),
             SceneRoot(model),
         );
 
@@ -61,7 +62,7 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
             ))
             // The lamp's origin is at the bottom of the lamp, so we need to offset the light a bit.
             .with_child((
-                Transform::from_xyz(0.0, 0.2, 0.0),
+                Transform::from_xyz(0.0, 0.0, 0.0),
                 PointLight {
                     color: Color::srgb(1.0, 0.7, 0.4),
                     intensity: 40_000.0,

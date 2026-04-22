@@ -79,9 +79,13 @@ fn setup_crate_small(
     let model = asset_server.load_trenchbroom_model::<CrateSmall>();
     commands.entity(add.entity).insert((
         Hittable,
-        CollisionLayers::new([CollisionLayer::Interactable, CollisionLayer::Hittable], LayerMask::ALL),
+        CollisionLayers::new(
+            [CollisionLayer::Interactable, CollisionLayer::Hittable],
+            LayerMask::ALL,
+        ),
         ColliderDensity(1_000.0),
         Collider::cuboid(1f32, 1f32, 1f32),
+
         // This makes the raycast colides with other things, resulting in the player not being able
         // to pick up the crate.
         // ColliderConstructorHierarchy::new(ColliderConstructor::ConvexHullFromMesh)
@@ -91,7 +95,7 @@ fn setup_crate_small(
         //     ))
         //     .with_default_density(1_000.0),
         Collectable,
-        Interactable,
+        Interactable::default(),
         Enemy {
             name: "Crate Small".to_string(),
             health: 500.0,

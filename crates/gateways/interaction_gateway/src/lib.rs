@@ -24,7 +24,7 @@ fn on_remove_can_interact(on: On<Remove, CanInteract>) {
 }
 
 fn can_interact(
-    interactables_q: Query<Entity, With<Interactable>>,
+    interactables_q: Query<&Interactable>,
     can_interact_q: Query<Entity, With<CanInteract>>,
     interation_configuration: Single<&InterationConfiguration>,
     player: Single<(&GlobalTransform, Entity), With<InteractionSourceCamera>>,
