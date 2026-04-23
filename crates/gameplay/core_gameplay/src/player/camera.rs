@@ -74,7 +74,7 @@ fn spawn_view_model(
             Name::new("Player Camera Parent"),
             PlayerCamera,
             InterationConfiguration {
-                interaction_distance: 5.0,
+                interaction_distance: 2.0,
             },
             DespawnOnExit(states::screens::Screen::Gameplay),
             DespawnOnExit(LoadingScreen::Shaders),

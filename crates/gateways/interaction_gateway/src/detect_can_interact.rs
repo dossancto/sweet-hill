@@ -52,9 +52,13 @@ fn can_interact(
         return;
     };
 
-    let Ok(_is_hitteable) = interactables_q.get(hit.entity) else {
+    let Ok(interactable_item) = interactables_q.get(hit.entity) else {
         return;
     };
+
+    if interactable_item.blocked {
+        return;
+    }
 
     commands.entity(hit.entity).insert_if_new(CanInteract);
 }
