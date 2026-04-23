@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use avian_pickup::prop::PreferredPickupRotation;
 use avian3d::prelude::*;
 use bevy::{
@@ -72,7 +74,8 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
             ),
             RigidBody::Dynamic,
             Interactable {
-                time_to_interact: 1f32,
+                time_to_interact: Duration::from_mins(1),
+                should_reset_interaction_timer_on_cancel: false,
                 ..Default::default()
             },
             SceneRoot(model),

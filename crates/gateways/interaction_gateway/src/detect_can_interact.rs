@@ -46,7 +46,6 @@ fn can_interact(
             }
         }
         commands.entity(entity).remove::<CanInteract>();
-        commands.entity(entity).remove::<Interacting>();
     }
 
     let Some(hit) = hit else {
