@@ -55,3 +55,4 @@ fn hide_can_interact_text(
         *visibility = Visibility::Hidden;
     }
 }
+

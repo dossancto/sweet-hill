@@ -13,7 +13,7 @@ use states::{
 use third_party::avian3d::CollisionLayer;
 
 #[derive(Debug, Component, Default)]
-struct InteractionLocked;
+pub(crate) struct InteractionLocked;
 
 /// Registers interaction-related observers and systems with the application.
 ///
@@ -119,11 +119,11 @@ fn active_interaction(
         return;
     };
 
+    commands.entity(hit.entity).remove::<InteractionLocked>();
+
     let Ok((_is_hitteable, interacting, interactable)) = interactables_q.get(hit.entity) else {
         return;
     };
-
-    commands.entity(hit.entity).remove::<InteractionLocked>();
 
     if let Some(interacting) = interacting {
         if interacting.time_to_interact.is_finished() == false {
@@ -169,9 +169,5 @@ fn load_interacting_items(
             continue;
         }
         interacting.time_to_interact.tick(time.delta());
-        info!(
-            "tick interactable timer: {:?}",
-            interacting.time_to_interact.remaining_secs()
-        );
     }
 }

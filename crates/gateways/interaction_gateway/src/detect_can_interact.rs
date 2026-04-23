@@ -61,13 +61,4 @@ fn can_interact(
     }
 
     commands.entity(hit.entity).insert_if_new(CanInteract);
-    // if let Some(interacting) = interacting {
-    //     if interacting.time_to_interact.is_finished() == false {
-    //         return;
-    //     }
-    // } else {
-    //     commands
-    //         .entity(hit.entity)
-    //         .insert_if_new(Interacting::new(interactable_item.time_to_interact));
-    // }
 }
