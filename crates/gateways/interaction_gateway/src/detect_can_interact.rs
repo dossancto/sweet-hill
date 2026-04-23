@@ -10,7 +10,7 @@ use third_party::avian3d::CollisionLayer;
 pub(super) fn plugin(app: &mut App) {
     // TODO: Add some flag to only run this system if the level is running.
     // It also should be possible to disable this system.
-    app.add_systems(Update, can_interact);
+    app.add_systems(FixedUpdate, can_interact);
 }
 
 fn can_interact(

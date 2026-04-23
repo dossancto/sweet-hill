@@ -10,7 +10,7 @@ use bevy::{
 
 use bevy_trenchbroom::prelude::*;
 use interaction::{
-    interaction::components::Interactable,
+    interaction::components::{CanInteract, Interactable},
     inventory::collect::{
         app::AddCollectable,
         collect_action::Collect,
@@ -26,8 +26,9 @@ use crate::{
 
 pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(LampSitting::model_path());
-    app.add_observer(on_collect_lamp_sitting);
-    app.add_collectable::<LampSitting>();
+
+    app.add_observer(on_collect_lamp_sitting)
+        .add_collectable::<LampSitting>();
 }
 
 #[point_class(
@@ -42,11 +43,10 @@ pub(crate) struct LampSitting;
 
 impl CanBeCollect for LampSitting {}
 
-fn on_collect_lamp_sitting(
-    on: On<Collect<LampSitting>>,
-    mut commands: Commands,
-) {
-    commands.entity(on.entity).despawn();
+fn on_collect_lamp_sitting(on: On<Collect<LampSitting>>, mut commands: Commands) {
+    commands.entity(on.entity).remove::<Interactable>();
+    commands.entity(on.entity).remove::<CanInteract>();
+    commands.entity(on.entity).remove::<Collectable>();
 }
 
 fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
