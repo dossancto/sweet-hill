@@ -9,7 +9,14 @@ use bevy::{
 };
 
 use bevy_trenchbroom::prelude::*;
-use interaction::interaction::components::Interactable;
+use interaction::{
+    interaction::components::Interactable,
+    inventory::collect::{
+        app::AddCollectable,
+        collect_action::Collect,
+        collectable::{CanBeCollect, Collectable},
+    },
+};
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
 use utils::asset_tracking::LoadResource;
 
@@ -19,6 +26,8 @@ use crate::{
 
 pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(LampSitting::model_path());
+    app.add_observer(on_collect_lamp_sitting);
+    app.add_collectable::<LampSitting>();
 }
 
 #[point_class(
@@ -27,8 +36,18 @@ pub(super) fn plugin(app: &mut App) {
         "models/darkmod/lights/non-extinguishable/round_lantern_sitting/round_lantern_sitting.gltf"
     )
 )]
+#[derive(Clone)]
 #[component(on_add = setup_lamp_sitting)]
 pub(crate) struct LampSitting;
+
+impl CanBeCollect for LampSitting {}
+
+fn on_collect_lamp_sitting(
+    on: On<Collect<LampSitting>>,
+    mut commands: Commands,
+) {
+    commands.entity(on.entity).despawn();
+}
 
 fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
     if world.is_scene_world() {
@@ -41,6 +60,7 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
 
         let bundle = (
             ColliderDensity(1_000.0),
+            Collectable::default(),
             Collider::cuboid(0.34, 0.35, 0.65),
             CollisionLayers::new(
                 [CollisionLayer::Interactable, CollisionLayer::Hittable],

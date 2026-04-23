@@ -14,7 +14,7 @@ use core_gameplay::{
 use gun::inputs::{GunAimTrigger, GunFireTrigger, GunReloadTrigger};
 use states::player::Player;
 
-use crate::inputs::ToogleActiveItem;
+use crate::inputs::{InteractAction, ToogleActiveItem};
 
 #[derive(Debug, Component, Default)]
 #[component(on_add = PlayerInputContext::on_add)]
@@ -141,6 +141,11 @@ impl PlayerInputContext {
                 (
                     Action::<ToogleActiveItem>::new(),
                     bindings![Binding::mouse_wheel(), GamepadButton::North]
+                ),
+                (
+                    Action::<InteractAction>::new(),
+                    Press::new(1f32),
+                    bindings![KeyCode::KeyE, GamepadButton::West]
                 ),
             ]));
     }
