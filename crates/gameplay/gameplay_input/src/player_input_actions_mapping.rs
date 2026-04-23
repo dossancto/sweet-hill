@@ -144,7 +144,7 @@ impl PlayerInputContext {
                 ),
                 (
                     Action::<InteractAction>::new(),
-                    Press::new(1f32),
+                    Hold::new(999f32).one_shot(false),
                     bindings![KeyCode::KeyE, GamepadButton::West]
                 ),
             ]));

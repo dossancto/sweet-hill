@@ -44,9 +44,13 @@ pub(crate) struct LampSitting;
 impl CanBeCollect for LampSitting {}
 
 fn on_collect_lamp_sitting(on: On<Collect<LampSitting>>, mut commands: Commands) {
-    commands.entity(on.entity).remove::<Interactable>();
-    commands.entity(on.entity).remove::<CanInteract>();
-    commands.entity(on.entity).remove::<Collectable>();
+    // TODO: Can apply any logic here, such as giving the player a lamp item that they can use to
+    // place the lamp somewhere else.
+    commands.entity(on.entity).despawn();
+
+    // commands.entity(on.entity).remove::<Interactable>();
+    // commands.entity(on.entity).remove::<CanInteract>();
+    // commands.entity(on.entity).remove::<Collectable>();
 }
 
 fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
@@ -67,7 +71,10 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
                 LayerMask::ALL,
             ),
             RigidBody::Dynamic,
-            Interactable::default(),
+            Interactable {
+                time_to_interact: 1f32,
+                ..Default::default()
+            },
             SceneRoot(model),
         );
 

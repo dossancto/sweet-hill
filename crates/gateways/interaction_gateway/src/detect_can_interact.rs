@@ -1,6 +1,6 @@
 use avian3d::prelude::{SpatialQuery, SpatialQueryFilter};
 use bevy::prelude::*;
-use interaction::interaction::components::{CanInteract, Interactable};
+use interaction::interaction::components::{CanInteract, Interactable, Interacting};
 use states::{
     interaction::{InteractionSourceCamera, InterationConfiguration},
     player::Player,
@@ -14,8 +14,8 @@ pub(super) fn plugin(app: &mut App) {
 }
 
 fn can_interact(
-    interactables_q: Query<&Interactable>,
-    can_interact_q: Query<Entity, With<CanInteract>>,
+    interactables_q: Query<(&Interactable, Option<&Interacting>)>,
+    mut can_interact_q: Query<Entity, With<CanInteract>>,
     interation_configuration: Single<&InterationConfiguration>,
     player: Single<(&GlobalTransform, Entity), With<InteractionSourceCamera>>,
     spatial_query: SpatialQuery,
@@ -39,20 +39,21 @@ fn can_interact(
             .with_excluded_entities([*player_collider]),
     );
 
-    for entity in can_interact_q.iter() {
+    for entity in can_interact_q.iter_mut() {
         if let Some(hit) = hit {
             if hit.entity == entity {
                 continue;
             }
         }
         commands.entity(entity).remove::<CanInteract>();
+        commands.entity(entity).remove::<Interacting>();
     }
 
     let Some(hit) = hit else {
         return;
     };
 
-    let Ok(interactable_item) = interactables_q.get(hit.entity) else {
+    let Ok((interactable_item, interacting)) = interactables_q.get(hit.entity) else {
         return;
     };
 
@@ -61,4 +62,13 @@ fn can_interact(
     }
 
     commands.entity(hit.entity).insert_if_new(CanInteract);
+    // if let Some(interacting) = interacting {
+    //     if interacting.time_to_interact.is_finished() == false {
+    //         return;
+    //     }
+    // } else {
+    //     commands
+    //         .entity(hit.entity)
+    //         .insert_if_new(Interacting::new(interactable_item.time_to_interact));
+    // }
 }
