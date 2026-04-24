@@ -69,7 +69,6 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
             RigidBody::Dynamic,
             Interactable {
                 time_to_interact: Duration::from_secs(3),
-                should_reset_interaction_timer_on_cancel: false,
                 ..Default::default()
             },
             SceneRoot(model),

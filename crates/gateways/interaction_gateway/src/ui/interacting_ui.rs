@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{color::palettes::tailwind, prelude::*};
 use bevy_enhanced_input::prelude::{Cancel, Ongoing};
 use gameplay_input::inputs::InteractAction;
 use interaction::interaction::components::{CanInteract, Interactable, Interacting};
@@ -18,18 +18,36 @@ pub(super) fn plugin(app: &mut App) {
 #[derive(Component)]
 struct PercentageText;
 
+#[derive(Component)]
+struct ProgressBar;
+
 fn setup_interacting_ui(_on: On<Add, InteractionSourceCamera>, mut commands: Commands) {
     commands.spawn((
-        Name::new("Percentage"),
-        Text::new(""),
-        Visibility::Hidden,
-        PercentageText,
         Node {
             position_type: PositionType::Absolute,
-            bottom: px(36),
-            left: px(12),
+            width: Val::Px(300.0),
+            height: Val::Px(10.0),
+            bottom: Val::Px(0.),
+            left: Val::Percent(50.0),
+            border: UiRect::all(Val::Px(2.0)),
+            justify_items: JustifyItems::Start,
+            align_items: AlignItems::Center,
+            flex_direction: FlexDirection::Row,
+            row_gap: Val::Px(2.0),
             ..default()
         },
+        PercentageText,
+        Visibility::Hidden,
+        children![(
+            Node {
+                width: Val::Percent(20.),
+                height: Val::Percent(100.0),
+                ..default()
+            },
+            BackgroundColor(Color::WHITE),
+            Visibility::Inherited,
+            ProgressBar,
+        )],
     ));
 }
 
@@ -67,7 +85,8 @@ fn load_interacting_items(
         (&Interactable, &Interacting),
         (Without<InteractionLocked>, With<CanInteract>),
     >,
-    percentage_text_q: Single<(&mut Text, &mut Visibility), With<PercentageText>>,
+    mut percentage_text_q: Query<&mut Node, With<ProgressBar>>,
+    mut root_percentage_text_q: Query<&mut Visibility, With<PercentageText>>,
 ) {
     let (interactable, interacting) = interactables_q.into_inner();
 
@@ -77,13 +96,11 @@ fn load_interacting_items(
 
     let resulting_percentage = 100.0 - (elapsed_time / total_time * 100.0);
 
-    let (mut percentage_text, mut visibility) = percentage_text_q.into_inner();
-
-    if interactable.time_to_interact.is_zero() {
-        *visibility = Visibility::Hidden;
-        return;
+    for mut visibility in root_percentage_text_q.iter_mut() {
+        *visibility = Visibility::Visible;
     }
 
-    percentage_text.0 = format!("{resulting_percentage:.0}%");
-    *visibility = Visibility::Visible;
+    for mut percentage_node in percentage_text_q.iter_mut() {
+        percentage_node.width = Val::Percent(resulting_percentage);
+    }
 }
