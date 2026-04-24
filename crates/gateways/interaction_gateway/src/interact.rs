@@ -161,7 +161,7 @@ fn active_interaction(
 /// # Usage
 /// Call this function as part of your game's update loop to ensure that interaction timers progress correctly for all relevant entities.
 fn load_interacting_items(
-    mut interactables_q: Query<(Entity, &mut Interacting), Without<InteractionLocked>>,
+    mut interactables_q: Query<(Entity, &mut Interacting), (Without<InteractionLocked>, With<CanInteract>)>,
     time: Res<Time>,
 ) {
     for (_entity, mut interacting) in interactables_q.iter_mut() {

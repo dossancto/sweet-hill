@@ -52,7 +52,7 @@ fn can_interact(
         return;
     };
 
-    let Ok((interactable_item, interacting)) = interactables_q.get(hit.entity) else {
+    let Ok((interactable_item, _interacting)) = interactables_q.get(hit.entity) else {
         return;
     };
 
