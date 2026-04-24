@@ -2,4 +2,4 @@ use bevy::prelude::*;
 
 pub mod components;
 
-pub(super) fn plugin(app: &mut App) {}
+pub(super) fn plugin(_app: &mut App) {}

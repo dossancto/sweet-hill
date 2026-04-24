@@ -1,9 +1,5 @@
-use ::states::guns::marks::GunHolderMark;
 use bevy::prelude::*;
-use bevy::{app::App, state::app::AppExtStates};
 
-use crate::configuration::gun_components::GunType;
-use crate::replace_guns::events::TakeGunEvent;
 use crate::states::{GunAimState, GunState};
 
 pub mod states;
@@ -38,17 +34,4 @@ pub fn plugin(app: &mut App) {
 
     app.init_state::<GunState>();
     app.init_state::<GunAimState>();
-
-    // app.add_observer(add_default_gun);
 }
-
-// TODO: Remove from here
-// fn add_default_gun(_add: On<Add, GunHolderMark>, mut commands: Commands) {
-//     commands.trigger(TakeGunEvent {
-//         gun_to_spawn: GunType::M4A1,
-//     });
-//
-//     commands.trigger(TakeGunEvent {
-//         gun_to_spawn: GunType::M1,
-//     });
-// }

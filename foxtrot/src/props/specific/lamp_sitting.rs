@@ -12,7 +12,7 @@ use bevy::{
 
 use bevy_trenchbroom::prelude::*;
 use interaction::{
-    interaction::components::{CanInteract, Interactable},
+    interaction::components::Interactable,
     inventory::collect::{
         app::AddCollectable,
         collect_action::Collect,
@@ -22,9 +22,7 @@ use interaction::{
 use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
 use utils::asset_tracking::LoadResource;
 
-use crate::{
-    props::setup::quake_bundle, third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _,
-};
+use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
 
 pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(LampSitting::model_path());
@@ -49,10 +47,6 @@ fn on_collect_lamp_sitting(on: On<Collect<LampSitting>>, mut commands: Commands)
     // TODO: Can apply any logic here, such as giving the player a lamp item that they can use to
     // place the lamp somewhere else.
     commands.entity(on.entity).despawn();
-
-    // commands.entity(on.entity).remove::<Interactable>();
-    // commands.entity(on.entity).remove::<CanInteract>();
-    // commands.entity(on.entity).remove::<Collectable>();
 }
 
 fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
