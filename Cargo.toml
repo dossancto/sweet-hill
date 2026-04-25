@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/audio", "crates/gameplay/core_gameplay", "crates/gameplay/enemies", "crates/gameplay/gameplay_input", "crates/gameplay/gun","crates/states","crates/third_party", "crates/utils","foxtrot"]
+members = ["crates/audio", "crates/gameplay/core_gameplay", "crates/gameplay/enemies", "crates/gameplay/gameplay_input", "crates/gameplay/gun", "crates/gateways/interaction_gateway", "crates/mechanics/interaction/interaction","crates/states","crates/third_party", "crates/utils","foxtrot"]
 
 [workspace.dependencies]
 bevy = { version = "0.18", default-features = false, features = [
@@ -73,6 +73,9 @@ bevy_seedling = "0.7.0"
 
 # Keep this in sync with Bevy
 rand = "0.9"
+
+syn = "2.0.114"
+quote = "1.0.44"
 
 # Compile low-severity logs out of web builds for performance.
 tracing = { version = "0.1", features = [

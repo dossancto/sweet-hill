@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use avian_pickup::prop::PreferredPickupRotation;
 use avian3d::prelude::*;
 use bevy::{
@@ -9,14 +11,24 @@ use bevy::{
 };
 
 use bevy_trenchbroom::prelude::*;
+use interaction::{
+    interaction::components::Interactable,
+    inventory::collect::{
+        app::AddCollectable,
+        collect_action::Collect,
+        collectable::{CanBeCollect, Collectable},
+    },
+};
+use third_party::{avian3d::CollisionLayer, bevy_trenchbroom::LoadTrenchbroomModel};
 use utils::asset_tracking::LoadResource;
 
-use crate::{
-    props::setup::quake_bundle, third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _,
-};
+use crate::third_party::bevy_trenchbroom::GetTrenchbroomModelPath as _;
 
 pub(super) fn plugin(app: &mut App) {
     app.load_asset::<Gltf>(LampSitting::model_path());
+
+    app.add_observer(on_collect_lamp_sitting)
+        .add_collectable::<LampSitting>();
 }
 
 #[point_class(
@@ -25,8 +37,17 @@ pub(super) fn plugin(app: &mut App) {
         "models/darkmod/lights/non-extinguishable/round_lantern_sitting/round_lantern_sitting.gltf"
     )
 )]
+#[derive(Clone)]
 #[component(on_add = setup_lamp_sitting)]
 pub(crate) struct LampSitting;
+
+impl CanBeCollect for LampSitting {}
+
+fn on_collect_lamp_sitting(on: On<Collect<LampSitting>>, mut commands: Commands) {
+    // TODO: Can apply any logic here, such as giving the player a lamp item that they can use to
+    // place the lamp somewhere else.
+    commands.entity(on.entity).despawn();
+}
 
 fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
     if world.is_scene_world() {
@@ -34,10 +55,23 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
     }
     world.commands().queue(move |world: &mut World| {
         let asset_server = world.get_asset_server().clone();
-        let bundle = quake_bundle::<LampSitting>(
-            asset_server,
+
+        let model = asset_server.load_trenchbroom_model::<LampSitting>();
+
+        let bundle = (
+            ColliderDensity(1_000.0),
+            Collectable::default(),
+            Collider::cuboid(0.34, 0.35, 0.65),
+            CollisionLayers::new(
+                [CollisionLayer::Interactable, CollisionLayer::Hittable],
+                LayerMask::ALL,
+            ),
             RigidBody::Dynamic,
-            ColliderConstructor::ConvexDecompositionFromMesh,
+            Interactable {
+                time_to_interact: Duration::from_secs(3),
+                ..Default::default()
+            },
+            SceneRoot(model),
         );
 
         world
@@ -51,7 +85,7 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
             ))
             // The lamp's origin is at the bottom of the lamp, so we need to offset the light a bit.
             .with_child((
-                Transform::from_xyz(0.0, 0.2, 0.0),
+                Transform::from_xyz(0.0, 0.0, 0.0),
                 PointLight {
                     color: Color::srgb(1.0, 0.7, 0.4),
                     intensity: 40_000.0,

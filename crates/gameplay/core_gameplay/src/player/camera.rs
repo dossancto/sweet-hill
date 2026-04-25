@@ -15,6 +15,7 @@ use bevy::{
 };
 use bevy_ahoy::camera::CharacterControllerCameraOf;
 use states::{
+    interaction::{InteractionSourceCamera, InterationConfiguration},
     player::PlayerCamera,
     player_states::{camera::WorldModelCamera, settings::WorldModelFov},
     screens::LoadingScreen,
@@ -72,6 +73,9 @@ fn spawn_view_model(
             CharacterControllerCameraOf::new(add.entity),
             Name::new("Player Camera Parent"),
             PlayerCamera,
+            InterationConfiguration {
+                interaction_distance: 2.0,
+            },
             DespawnOnExit(states::screens::Screen::Gameplay),
             DespawnOnExit(LoadingScreen::Shaders),
             AvianPickupActor {
@@ -99,6 +103,7 @@ fn spawn_view_model(
                 Name::new("World Model Camera"),
                 WorldModelCamera,
                 Camera3d::default(),
+                InteractionSourceCamera,
                 // GunHolderMark,
                 PostProcessSettings {
                     intensity: 1.,

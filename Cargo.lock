@@ -3849,6 +3849,8 @@ dependencies = [
  "gameplay_input",
  "getrandom",
  "gun",
+ "interaction",
+ "interaction_gateway",
  "landmass_rerecast",
  "rand",
  "regex",
@@ -4631,6 +4633,28 @@ dependencies = [
  "js-sys",
  "wasm-bindgen",
  "web-sys",
+]
+
+[[package]]
+name = "interaction"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "gameplay_input",
+ "states",
+]
+
+[[package]]
+name = "interaction_gateway"
+version = "0.1.0"
+dependencies = [
+ "avian3d",
+ "bevy",
+ "bevy_enhanced_input",
+ "gameplay_input",
+ "interaction",
+ "states",
+ "third_party",
 ]
 
 [[package]]

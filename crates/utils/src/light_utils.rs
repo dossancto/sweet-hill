@@ -28,7 +28,7 @@ pub fn plugin(app: &mut App) {
     );
 }
 
-pub fn flicker_light_pointlight(
+fn flicker_light_pointlight(
     time: Res<Time>,
     mut query: Query<(&mut PointLight, &Flicker), With<Flicker>>,
 ) {
@@ -37,7 +37,7 @@ pub fn flicker_light_pointlight(
     }
 }
 
-pub fn flicker_light_spotlight(
+fn flicker_light_spotlight(
     time: Res<Time>,
     mut query: Query<(&mut SpotLight, &Flicker), With<Flicker>>,
 ) {
