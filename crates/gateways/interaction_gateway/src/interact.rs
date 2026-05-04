@@ -9,6 +9,7 @@ use interaction::{
 use states::{
     interaction::{InteractionSourceCamera, InterationConfiguration},
     player::Player,
+    world::PostPhysicsAppSystems,
 };
 use third_party::avian3d::CollisionLayer;
 
@@ -30,7 +31,10 @@ pub(super) fn plugin(app: &mut App) {
     app.add_observer(active_interaction);
     app.add_observer(cancel_interaction);
 
-    app.add_systems(FixedUpdate, load_interacting_items);
+    app.add_systems(
+        Update,
+        load_interacting_items.in_set(PostPhysicsAppSystems::TickTimers),
+    );
 }
 
 /// Handles cancellation of ongoing interactions.
@@ -161,7 +165,10 @@ fn active_interaction(
 /// # Usage
 /// Call this function as part of your game's update loop to ensure that interaction timers progress correctly for all relevant entities.
 fn load_interacting_items(
-    mut interactables_q: Query<(Entity, &mut Interacting), (Without<InteractionLocked>, With<CanInteract>)>,
+    mut interactables_q: Query<
+        (Entity, &mut Interacting),
+        (Without<InteractionLocked>, With<CanInteract>),
+    >,
     time: Res<Time>,
 ) {
     for (_entity, mut interacting) in interactables_q.iter_mut() {

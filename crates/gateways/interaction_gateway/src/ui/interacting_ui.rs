@@ -44,7 +44,7 @@ fn setup_interacting_ui(_on: On<Add, InteractionSourceCamera>, mut commands: Com
                 height: Val::Percent(100.0),
                 ..default()
             },
-            BackgroundColor(Color::WHITE),
+            BackgroundColor(tailwind::GREEN_800.into()),
             Visibility::Inherited,
             ProgressBar,
         )],
