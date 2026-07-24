@@ -39,7 +39,6 @@ bevy = { workspace = true, features = [
     "tga",
     "ktx2",
     "png",
-    "wayland",
     "zstd_rust",
     "reflect_auto_register"
 ] }
@@ -72,7 +71,6 @@ dev = [
 ]
 dev_native = [
 ]
-web = []
 release = []
 
 [package.metadata.bevy_cli]
@@ -86,15 +84,3 @@ features = ["dev_native"]
 
 [package.metadata.bevy_cli.native.release]
 features = ["release"]
-
-[package.metadata.bevy_cli.web]
-features = ["web"]
-
-[package.metadata.bevy_cli.web.dev]
-features = ["dev"]
-
-[package.metadata.bevy_cli.web.release]
-features = ["release"]
-
-[package.metadata.bevy_cli.unstable]
-web-multi-threading = true

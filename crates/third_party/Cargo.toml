@@ -39,7 +39,6 @@ bevy = { workspace = true, features = [
     "tga",
     "ktx2",
     "png",
-    "wayland",
     "zstd_rust",
     "reflect_auto_register"
 ] }
@@ -68,7 +67,6 @@ bevy_yarnspinner_example_dialogue_view = "0.7"
 
 bevy_shuffle_bag = "0.4.0"
 bevy-inspector-egui = { version = "0.36", optional = true }
-bevy_fix_cursor_unlock_web = "0.3.0"
 bevy_framepace = "0.21"
 bevy_seedling = "0.7.0"
 
@@ -80,16 +78,11 @@ tracing = { version = "0.1", features = [
     "max_level_debug",
     "release_max_level_warn",
 ] }
-getrandom = { version = "0.3", default-features = false, features = [
-    "wasm_js",
-] }
 
 bitflags = "2"
 anyhow = "1"
 regex = "1"
 bincode = "2"
-# Latest version that works with bevy_seedling
-wasm-bindgen = { version = "=0.2.108", optional = true }
 
 bevy_hanabi = { version = "0.18", default-features = false, features = [
     "3d",

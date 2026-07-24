@@ -33,9 +33,9 @@ use utils::shader_compilation;
 compile_error!(
     "Exactly one of the `native` or the `web` feature must be active at the same time. Instead, both are currently enabled."
 );
-#[cfg(not(any(feature = "native", feature = "web")))]
+#[cfg(not(feature = "native"))]
 compile_error!(
-    "Exactly one of the `native` or the `web` feature must be active at the same time. Instead, both are currently disabled."
+    "Only the `native` feature is supported for desktop games. The `web` feature has been removed."
 );
 #[cfg(all(feature = "dev", feature = "release"))]
 compile_error!(
@@ -66,8 +66,6 @@ fn main() -> AppExit {
                 primary_window: Window {
                     title: "Foxtrot".to_string(),
                     fit_canvas_to_parent: true,
-                    #[cfg(feature = "web")]
-                    prevent_default_event_handling: true,
                     ..default()
                 }
                 .into(),
@@ -108,10 +106,7 @@ fn main() -> AppExit {
                 },
                 ..default()
             }),
-        #[cfg(feature = "native")]
         SeedlingPlugin::default(),
-        #[cfg(feature = "web")]
-        SeedlingPlugin::new_web_audio(),
         HierarchyPropagatePlugin::<NotShadowCaster>::new(Update),
         post_process::PostProcessPlugin,
     ));

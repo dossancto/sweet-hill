@@ -37,6 +37,7 @@ fn setup_interacting_ui(_on: On<Add, InteractionSourceCamera>, mut commands: Com
             ..default()
         },
         PercentageText,
+        BackgroundColor(tailwind::AMBER_100.into()),
         Visibility::Hidden,
         children![(
             Node {

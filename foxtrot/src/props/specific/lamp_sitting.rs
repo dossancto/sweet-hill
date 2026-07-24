@@ -11,6 +11,7 @@ use bevy::{
 };
 
 use bevy_trenchbroom::prelude::*;
+use gun::replace_guns::events::TakeGunEvent;
 use interaction::{
     interaction::components::Interactable,
     inventory::collect::{
@@ -47,6 +48,9 @@ fn on_collect_lamp_sitting(on: On<Collect<LampSitting>>, mut commands: Commands)
     // TODO: Can apply any logic here, such as giving the player a lamp item that they can use to
     // place the lamp somewhere else.
     commands.entity(on.entity).despawn();
+    commands.trigger(TakeGunEvent {
+        gun_to_spawn: gun::configuration::gun_components::GunType::M4A1,
+    });
 }
 
 fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {

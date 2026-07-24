@@ -48,7 +48,6 @@ bevy = { workspace = true, features = [
     "tga",
     "ktx2",
     "png",
-    "wayland",
     "zstd_rust",
     "reflect_auto_register"
 ] }
@@ -77,7 +76,6 @@ bevy_yarnspinner_example_dialogue_view ={ workspace = true }
 
 bevy_shuffle_bag ={ workspace = true }
 bevy-inspector-egui = { workspace = true, optional = true }
-bevy_fix_cursor_unlock_web ={ workspace = true }
 bevy_framepace ={ workspace = true }
 bevy_seedling ={ workspace = true }
 
@@ -89,16 +87,12 @@ tracing = { workspace = true, features = [
     "max_level_debug",
     "release_max_level_warn",
 ] }
-getrandom = { workspace = true, default-features = false, features = [
-    "wasm_js",
-] }
 
 bitflags ={ workspace = true }
 anyhow ={ workspace = true }
 regex ={ workspace = true }
 bincode ={ workspace = true }
 # Latest version that works with bevy_seedling
-wasm-bindgen = { workspace = true, optional = true }
 
 bevy_hanabi = { workspace = true, default-features = false, features = [
     "3d",
@@ -143,7 +137,6 @@ dev_native = [
     "bevy/embedded_watcher",
     "bevy_rerecast/editor_integration",
 ]
-web = ["bevy/webgpu", "bevy_seedling/web_audio", "dep:wasm-bindgen"]
 release = []
 
 [package.metadata.bevy_cli]
@@ -157,18 +150,6 @@ features = ["dev_native"]
 
 [package.metadata.bevy_cli.native.release]
 features = ["release"]
-
-[package.metadata.bevy_cli.web]
-features = ["web"]
-
-[package.metadata.bevy_cli.web.dev]
-features = ["dev"]
-
-[package.metadata.bevy_cli.web.release]
-features = ["release"]
-
-[package.metadata.bevy_cli.unstable]
-web-multi-threading = true
 
 [lints.clippy]
 # Bevy supplies arguments to systems via dependency injection, so it's natural for systems to

@@ -39,7 +39,6 @@ bevy = { workspace = true, features = [
     "tga",
     "ktx2",
     "png",
-    "wayland",
     "zstd_rust",
     "reflect_auto_register"
 ] }

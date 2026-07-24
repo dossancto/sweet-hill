@@ -56,18 +56,14 @@ impl LoadedPipelineCount {
     }
 
     /// These numbers have to be tuned by hand, unfortunately.
-    /// Find them out with `bevy run` and `bevy run web`.
+    /// Find them out with `bevy run`.
     pub const TOTAL_PIPELINES: usize = {
         let count = {
             #[cfg(feature = "native")]
             {
                 55
             }
-            #[cfg(feature = "web")]
-            {
-                55
-            }
-            #[cfg(not(any(feature = "native", feature = "web")))]
+            #[cfg(not(feature = "native"))]
             {
                 55 // default value
             }
