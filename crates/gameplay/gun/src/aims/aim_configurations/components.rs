@@ -12,3 +12,23 @@ pub struct GunAiming {
     /// Current zoom level, in degrees.
     pub zoom_level: f32,
 }
+
+#[derive(Component, Debug)]
+pub struct GunAimPosition {
+    pub target_position: Vec3,
+    pub target_rotation: Quat,
+}
+
+impl Default for GunAimPosition {
+    fn default() -> Self {
+        GunAimPosition {
+            target_position: Vec3::new(-0.08f32, -0.3, 0.0),
+            target_rotation: Quat::from_euler(
+                EulerRot::XYZ,
+                -5.0f32.to_radians(),
+                0.0f32.to_radians(),
+                0.0f32.to_radians(),
+            ),
+        }
+    }
+}

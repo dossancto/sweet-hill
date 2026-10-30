@@ -4,7 +4,10 @@ use bevy_enhanced_input::prelude::{Cancel, Ongoing};
 use states::{guns::marks::GunHolderMark, inventory::active_item::ActiveItem};
 
 use crate::{
-    aims::{aim_configurations::components::GunAiming, utils::calculate_delta_value},
+    aims::{
+        aim_configurations::components::{GunAimPosition, GunAiming},
+        utils::calculate_delta_value,
+    },
     inputs::GunAimTrigger,
 };
 
@@ -20,7 +23,7 @@ struct ReturningToIdle;
 fn center_gun_on_screen(
     _on: On<Ongoing<GunAimTrigger>>,
     gun_holder: Single<(&mut Transform, Entity, Option<&ReturningToIdle>), With<GunHolderMark>>,
-    gun: Single<&GunAiming, With<ActiveItem>>,
+    gun: Single<(&GunAiming, Option<&GunAimPosition>), With<ActiveItem>>,
     time: Res<Time>,
     mut comands: Commands,
 ) {
@@ -30,19 +33,19 @@ fn center_gun_on_screen(
         comands.entity(gun_entity).remove::<ReturningToIdle>();
     }
 
-    let player_forward = gun_transform.forward().normalize();
-    let mut target_translation = player_forward * 1. + Vec3::new(0.0, -0.3, 0.0);
-    target_translation.x = -0.08f32;
+    let (aim_config, aim_position) = gun.into_inner();
 
-    let target_rotation = Quat::from_euler(
-        EulerRot::XYZ,
-        -5.0f32.to_radians(),
-        0.0f32.to_radians(),
-        0.0f32.to_radians(),
-    );
+    let fallback_vector_position = GunAimPosition::default();
+
+    let target_vec = aim_position.unwrap_or(&fallback_vector_position);
+
+    let player_forward = gun_transform.forward().normalize();
+    let target_translation = player_forward * 1. + target_vec.target_position;
+
+    let target_rotation = target_vec.target_rotation;
 
     let frame_time_ms = time.delta_secs() * 1000.0;
-    let aim_duration_ms = gun.aiming_time;
+    let aim_duration_ms = aim_config.aiming_time;
 
     let delta_x = calculate_delta_value(
         gun_transform.translation.x,

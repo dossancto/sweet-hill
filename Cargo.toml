@@ -2,6 +2,9 @@
 resolver = "3"
 members = ["crates/audio", "crates/gameplay/core_gameplay", "crates/gameplay/enemies", "crates/gameplay/gameplay_input", "crates/gameplay/gun", "crates/gateways/interaction_gateway", "crates/mechanics/interaction/interaction","crates/states","crates/third_party", "crates/utils","foxtrot"]
 
+[build]
+rustflags = ["-C", "link-arg=-fuse-ld=wild"]
+
 [workspace.dependencies]
 bevy = { version = "0.18", default-features = false, features = [
     "gltf_animation",

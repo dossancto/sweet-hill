@@ -1,8 +1,14 @@
 use bevy::prelude::*;
 
-use crate::configuration::guns_definitions::assalt_rifles::{
-    m1_gun_configuration::M1GunConfigurationBundle,
-    m4a1_gun_configuration::M4A1GunConfigurationBundle,
+use crate::{
+    configuration::guns_definitions::{
+        assalt_rifles::{
+            m1_gun_configuration::M1GunConfigurationBundle,
+            m4a1_gun_configuration::M4A1GunConfigurationBundle,
+        },
+        pistols::rin_gun_configuration::RinGunConfigurationBundle,
+    },
+    models::gun_models::{gun_m4a1::definition::GunM4A1, rin::definition::GunRin},
 };
 
 #[derive(Component, Debug, Reflect)]
@@ -22,6 +28,7 @@ pub struct Gun {
 pub enum GunType {
     M4A1,
     M1,
+    Rin,
 }
 
 impl GunType {
@@ -30,7 +37,7 @@ impl GunType {
             GunType::M4A1 => {
                 let gun = commands.spawn(M4A1GunConfigurationBundle::default()).id();
 
-                commands.entity(gun_holder).add_child(gun);
+                commands.entity(gun_holder).add_child(gun).insert(GunM4A1);
 
                 gun
             }
@@ -38,6 +45,13 @@ impl GunType {
                 let gun = commands.spawn(M1GunConfigurationBundle::default()).id();
 
                 commands.entity(gun_holder).add_child(gun);
+
+                gun
+            }
+            GunType::Rin => {
+                let gun = commands.spawn(RinGunConfigurationBundle::default()).id();
+
+                commands.entity(gun_holder).add_child(gun).insert(GunRin);
 
                 gun
             }
@@ -50,6 +64,7 @@ impl ToString for GunType {
         match self {
             GunType::M4A1 => "M4A1".to_string(),
             GunType::M1 => "M1".to_string(),
+            GunType::Rin => "RIN".to_string(),
         }
     }
 }

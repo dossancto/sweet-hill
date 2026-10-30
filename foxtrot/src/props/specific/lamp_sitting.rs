@@ -49,7 +49,7 @@ fn on_collect_lamp_sitting(on: On<Collect<LampSitting>>, mut commands: Commands)
     // place the lamp somewhere else.
     commands.entity(on.entity).despawn();
     commands.trigger(TakeGunEvent {
-        gun_to_spawn: gun::configuration::gun_components::GunType::M4A1,
+        gun_to_spawn: gun::configuration::gun_components::GunType::Rin,
     });
 }
 
@@ -72,7 +72,6 @@ fn setup_lamp_sitting(mut world: DeferredWorld, ctx: HookContext) {
             ),
             RigidBody::Dynamic,
             Interactable {
-                time_to_interact: Duration::from_secs(3),
                 ..Default::default()
             },
             SceneRoot(model),
